@@ -11,9 +11,9 @@ import {CloudConfig} from "@cloudinary/url-gen";
 
 import Image from 'next/image';
 
-const closeIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/close-icon.png";
-const leaderIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/leader-icon.png";
-const friendIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/friend-icon.png";
+const closeIcon = "/dokkanIcons/icons/close-icon.png";
+const leaderIcon = "/dokkanIcons/icons/leader-icon.png";
+const friendIcon = "/dokkanIcons/icons/friend-icon.png";
 
 export default function SelectTeamToStageModal( {reloadTeams, userDecks, userData, stageData, characterDictionary, allItems, allSupportMemories, open, onClose} ) {
   const [selectedDeck, setSelectedDeck] = useState(null)

@@ -14,11 +14,11 @@ import {CloudConfig} from "@cloudinary/url-gen";
 
 import Image from 'next/image';
 
-const closeIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/close-icon.png";
-const leaderIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/leader-icon.png";
-const subLeaderIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/subleader-icon.png";
-const firstIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/1-icon.png";
-const secondIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/2-icon.png";
+const closeIcon = "/dokkanIcons/icons/close-icon.png";
+const leaderIcon = "/dokkanIcons/icons/leader-icon.png";
+const subLeaderIcon = "/dokkanIcons/icons/subleader-icon.png";
+const firstIcon = "/dokkanIcons/icons/1-icon.png";
+const secondIcon = "/dokkanIcons/icons/2-icon.png";
 
 
 export default function EditTeamForm( {team, selectedDeck, open, onClose} ) {

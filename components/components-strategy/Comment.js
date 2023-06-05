@@ -16,9 +16,9 @@ import {CloudinaryImage} from "@cloudinary/url-gen";
 import {URLConfig} from "@cloudinary/url-gen";
 import {CloudConfig} from "@cloudinary/url-gen";
 
-const replyIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/reply-icon.png";
-const trashIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/trash-icon.png";
-const cardIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/card-icon.png";
+const replyIcon = "/dokkanIcons/icons/reply-icon.png";
+const trashIcon = "/dokkanIcons/icons/trash-icon.png";
+const cardIcon = "/dokkanIcons/icons/card-icon.png";
 
 import Image from 'next/image';
 

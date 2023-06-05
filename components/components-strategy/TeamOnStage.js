@@ -14,15 +14,15 @@ import Auth from "../util/auth"
 
 import Image from 'next/image';
 
-const addIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/add-icon.png";
-const trashIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/trash-icon.png";
-const editIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/edit-icon.png";
-const analysisIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/analysis-icon.png";
-const leaderIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/leader-icon.png";
-const friendIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/friend-icon.png";
-const likeIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/like-icon.png";
-const downIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/down-icon.png";
-const ezaIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/z.png";
+const addIcon = "/dokkanIcons/icons/add-icon.png";
+const trashIcon = "/dokkanIcons/icons/trash-icon.png";
+const editIcon = "/dokkanIcons/icons/edit-icon.png";
+const analysisIcon = "/dokkanIcons/icons/analysis-icon.png";
+const leaderIcon = "/dokkanIcons/icons/leader-icon.png";
+const friendIcon = "/dokkanIcons/icons/friend-icon.png";
+const likeIcon = "/dokkanIcons/icons/like-icon.png";
+const downIcon = "/dokkanIcons/icons/down-icon.png";
+const ezaIcon = "/dokkanIcons/icons/z.png";
 
 function TeamOnStage({ team, handleSetSelectedTeam, selectedStage, selectedTeam, characterDictionary, reloadTeams }) {
   const [getTeamPostData, { loading: teamPostLoading, data: teamPostData }] = useLazyQuery(GET_ONE_TEAM_POST, {

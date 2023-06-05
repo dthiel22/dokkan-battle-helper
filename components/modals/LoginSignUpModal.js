@@ -117,7 +117,7 @@ export default function LoginSignUpModal({ open, children, onClose }) {
     });
   };
   
-  const logo = process.env.PUBLIC_URL + "/dokkanIcons/logo.png";
+  const logo = "/dokkanIcons/logo.png";
 
   if (!open) return null;
   
@@ -167,7 +167,7 @@ export default function LoginSignUpModal({ open, children, onClose }) {
                 <img 
                 onClick={() => handleShowPassword()}
                 className="w-8 lg:w-10 ml-2 lg:ml-4 cursor-pointer"
-                src= {process.env.PUBLIC_URL + '/dokkanIcons/show-password.png'}
+                src= {'/dokkanIcons/show-password.png'}
                 />
               </div>
                   {loginError && <p className="w-full pt-4 text-center text-lg text-red-500 font-bold">{loginError}</p>}
@@ -218,7 +218,7 @@ export default function LoginSignUpModal({ open, children, onClose }) {
                 <img 
                   onClick={() => handleShowPassword()}
                   className="w-8 lg:w-10 ml-2 lg:ml-4 cursor-pointer"
-                  src= {process.env.PUBLIC_URL + '/dokkanIcons/show-password.png'}
+                  src= {'/dokkanIcons/show-password.png'}
                 />
               </div>
               <input

@@ -21,7 +21,7 @@ let teamOf6 = new CloudinaryImage(`Misc/teamOf6`, cloudConfig, urlConfig);
 let teamOf7 = new CloudinaryImage(`Misc/teamOf7`, cloudConfig, urlConfig);
 
 
-const addIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/add-icon.png";
+const addIcon = "/dokkanIcons/icons/add-icon.png";
 
 function Help() {
     const [showTeamBuildHelp, setShowTeamBuildHelp] = useState(true)

@@ -3,7 +3,7 @@ import ReactDom from "react-dom";
 
 import Image from 'next/image';
 
-const closeIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/close-icon.png";
+const closeIcon = "/dokkanIcons/icons/close-icon.png";
 
 export default function NewsAndUpdatesModal( {open, onClose} ) {
    

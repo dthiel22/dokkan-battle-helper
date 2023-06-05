@@ -14,13 +14,13 @@ import { RENAME_DECK, ADD_TEAM_TO_DECK } from "../util/mutations"
 
 import Image from 'next/image';
 
-const addIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/add-icon.png";
-const trashIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/trash-icon.png";
-const editIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/edit-icon.png";
-const analysisIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/analysis-icon.png";
-const teamToWebIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/add-team-to-web.png";
-const leaderIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/leader-icon.png";
-const subLeaderIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/subleader-icon.png";
+const addIcon = "/dokkanIcons/icons/add-icon.png";
+const trashIcon = "/dokkanIcons/icons/trash-icon.png";
+const editIcon = "/dokkanIcons/icons/edit-icon.png";
+const analysisIcon = "/dokkanIcons/icons/analysis-icon.png";
+const teamToWebIcon = "/dokkanIcons/icons/add-team-to-web.png";
+const leaderIcon = "/dokkanIcons/icons/leader-icon.png";
+const subLeaderIcon = "/dokkanIcons/icons/subleader-icon.png";
 
 
 export default function DeckSelection({ characterDictionary, webOfTeam, userDeckData, selectedDeck, addToWebOfTeam, removeFromWebOfTeam }) {

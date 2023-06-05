@@ -11,11 +11,11 @@ import {CloudConfig} from "@cloudinary/url-gen";
 
 import Image from 'next/image';
 
-const closeIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/close-icon.png";
-const hiddenPotentialIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/hidden-potential.png";
-const leaderIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/leader-icon.png";
-const friendIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/friend-icon.png";
-const ezaIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/z.png";
+const closeIcon = "/dokkanIcons/icons/close-icon.png";
+const hiddenPotentialIcon = "/dokkanIcons/icons/hidden-potential.png";
+const leaderIcon = "/dokkanIcons/icons/leader-icon.png";
+const friendIcon = "/dokkanIcons/icons/friend-icon.png";
+const ezaIcon = "/dokkanIcons/icons/z.png";
 
 
 export default function NewTeamForTeamPostModal( {reloadTeams, team, userData, stageData, characterDictionary, allItems, allSupportMemories, closeSelectTeam, open, onClose} ) {

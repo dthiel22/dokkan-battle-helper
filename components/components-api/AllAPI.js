@@ -15,8 +15,8 @@ import AddCharacterEZA from "./AddCharacterEZA";
 
 import Image from 'next/image';
 
-const addIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/add-icon.png";
-const arrows = process.env.PUBLIC_URL + "/dokkanIcons/icons/right-arrow-icon.png";
+const addIcon = "/dokkanIcons/icons/add-icon.png";
+const arrows = "/dokkanIcons/icons/right-arrow-icon.png";
 
 function AllAPI() {
   const profileData = Auth.getProfile() || [];

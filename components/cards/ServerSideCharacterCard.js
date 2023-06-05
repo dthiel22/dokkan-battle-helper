@@ -5,9 +5,9 @@
 // import {URLConfig} from "@cloudinary/url-gen";
 // import {CloudConfig} from "@cloudinary/url-gen";
 
-// const leaderIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/leader-icon.png";
-// const friendIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/friend-icon.png";
-// const ezaIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/z.png";
+// const leaderIcon = "/dokkanIcons/icons/leader-icon.png";
+// const friendIcon = "/dokkanIcons/icons/friend-icon.png";
+// const ezaIcon = "/dokkanIcons/icons/z.png";
 
 // const ServerSideCharacterCard = ({ webOfTeam, individualCharacter, EZA, leaderOrSubLeader }) => {
 //     const isInWeb = useMemo(() => webOfTeam.map((char) => char.id).includes(individualCharacter.id), [webOfTeam, individualCharacter.id]);

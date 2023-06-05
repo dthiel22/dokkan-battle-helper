@@ -7,19 +7,19 @@ import {AdvancedImage, lazyload, accessibility, responsive, placeholder} from '@
 import Image from 'next/image';
 
 
-const leaderIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/leader-icon.png";
-const friendIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/friend-icon.png";
-const ezaIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/z.png";
+const leaderIcon = "/dokkanIcons/icons/leader-icon.png";
+const friendIcon = "/dokkanIcons/icons/friend-icon.png";
+const ezaIcon = "/dokkanIcons/icons/z.png";
 
 const CharacterCard = ({ individualCharacter, mobileSize, desktopSize, EZA, leaderOrSubLeader }) => {
-    const characterThumb = process.env.PUBLIC_URL + `/characterArt/${individualCharacter.id}.png`;
-    const characterRarity = process.env.PUBLIC_URL + `/dokkanIcons/rarity/${individualCharacter.rarity.toLowerCase()}.png`;
+    const characterThumb = `/characterArt/${individualCharacter.id}.png`;
+    const characterRarity = `/dokkanIcons/rarity/${individualCharacter.rarity.toLowerCase()}.png`;
     const characterTypeBackground = `/dokkanIcons/types/${individualCharacter.type.slice(1,4).toLowerCase()}-background.png`
     let characterTypeBadge = '';
     if (individualCharacter.jp_date && !individualCharacter.glb_date){
-        characterTypeBadge = process.env.PUBLIC_URL + `/dokkanIcons/types/j${individualCharacter.type.toLowerCase()}.png`;
+        characterTypeBadge = `/dokkanIcons/types/j${individualCharacter.type.toLowerCase()}.png`;
     } else {
-        characterTypeBadge = process.env.PUBLIC_URL + `/dokkanIcons/types/${individualCharacter.type.toLowerCase()}.png`;
+        characterTypeBadge = `/dokkanIcons/types/${individualCharacter.type.toLowerCase()}.png`;
     }
     return (
             <div 

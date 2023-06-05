@@ -7,7 +7,7 @@ import {CloudConfig} from "@cloudinary/url-gen";
 
 import Image from 'next/image';
 
-const trashIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/trash-icon.png";
+const trashIcon = "/dokkanIcons/icons/trash-icon.png";
 
 export default function Reply({ characterDictionary, reply, comment, profileData, handleReplyDelete }) {
   const [showDeleteReplyToolTip, setShowDeleteReplyToolTip] = useState(false)

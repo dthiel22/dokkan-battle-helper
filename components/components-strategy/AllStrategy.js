@@ -18,8 +18,8 @@ import Comment from "./Comment";
 import Image from 'next/image';
 
 
-const addIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/add-icon.png";
-const commentIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/comment-icon.png";
+const addIcon = "/dokkanIcons/icons/add-icon.png";
+const commentIcon = "/dokkanIcons/icons/comment-icon.png";
 
 function AllStrategy( { allCharactersLoading, characterDictionary, allItems, allSupportMemories} ) {
   const [selectedEvent, setSelectedEvent] = useState(null)

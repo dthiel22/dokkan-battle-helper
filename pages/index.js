@@ -28,7 +28,9 @@ import Image from 'next/image';
 
 const arrow = "/dokkanIcons/icons/right-arrow-icon.png"
 
-function AllComponents({ showMiddleDiv, setShowMiddleDiv, showCalculator, setShowCalculator, showDEFCalculator, setShowDEFCalculator, grayCharactersInSelectedDeck, setGrayCharactersInSelectedDeck, allCharacterIDsInDeck, setAllCharacterIDsInDeck }) {
+function AllComponents({  }) {
+  console.log(Auth.loggedIn())
+  const {showMiddleDiv, setShowMiddleDiv, showCalculator, setShowCalculator, showDEFCalculator, setShowDEFCalculator, grayCharactersInSelectedDeck, setGrayCharactersInSelectedDeck, allCharacterIDsInDeck, setAllCharacterIDsInDeck } = useContext(UserContext);
   const { loading: allCharactersLoading, data: allCharactersData, error: allCharactersError } = useQuery(QUERY_CHARACTERS);
   const allCharacters = allCharactersData?.characters || [];
   

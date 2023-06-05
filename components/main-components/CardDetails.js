@@ -58,7 +58,7 @@ function CardDetails({ cardDetails, hoverCharacterStats, turnOnEZAStats, setTurn
             <img 
             className="absolute max-w-[200%] h-[120%] -bottom-[10%] -right-[50%] z-0 object-contain"
             alt='extreme awakening'
-            src= {process.env.PUBLIC_URL + '/dokkanIcons/power-up.png'}
+            src= {'/dokkanIcons/power-up.png'}
             /> : ''
             }
             

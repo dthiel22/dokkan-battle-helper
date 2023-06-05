@@ -8,8 +8,6 @@ import '../styles/index.css'
 
 export const UserContext = React.createContext(null);
 
-console.log(process.env.NEXT_PUBLIC_API_KEY)
-
 const client = new ApolloClient({
   uri: process.env.NEXT_PUBLIC_API_KEY,
   cache: new InMemoryCache(),
@@ -30,35 +28,37 @@ function MyApp({ Component, pageProps }) {
   const [levelOfLinks, setLevelOfLinks] = useState(1);
   const [showSuggestedCardsByStats, setShowSuggestedCardsByStats] = useState(true);
 
-  return (
-    <ApolloProvider client={client}>
-      {/* <UserContext.Provider> */}
-        <Component
-          {...pageProps}
-          showMiddleDiv={showMiddleDiv}
-          setShowMiddleDiv={setShowMiddleDiv}
-          turnOnEZAStats={turnOnEZAStats}
-          setTurnOnEZAStats={setTurnOnEZAStats}
-          showCalculator={showCalculator}
-          setShowCalculator={setShowCalculator}
-          showDEFCalculator={showDEFCalculator}
-          setShowDEFCalculator={setShowDEFCalculator}
-          showSummationLinks={showSummationLinks}
-          setShowSummationLinks={setShowSummationLinks}
-          grayCharactersInSelectedDeck={grayCharactersInSelectedDeck}
-          setGrayCharactersInSelectedDeck={setGrayCharactersInSelectedDeck}
-          allCharacterIDsInDeck={allCharacterIDsInDeck}
-          setAllCharacterIDsInDeck={setAllCharacterIDsInDeck}
-          allNodePositions={allNodePositions}
-          setAllNodePositions={setAllNodePositions}
-          levelOfLinks={levelOfLinks}
-          setLevelOfLinks={setLevelOfLinks}
-          showSuggestedCardsByStats={showSuggestedCardsByStats}
-          setShowSuggestedCardsByStats={setShowSuggestedCardsByStats}
-        />
-      {/* </UserContext.Provider> */}
-    </ApolloProvider>
-  );
+return (
+  <ApolloProvider client={client}>
+    <UserContext.Provider
+      value={{
+        showMiddleDiv,
+        setShowMiddleDiv,
+        turnOnEZAStats,
+        setTurnOnEZAStats,
+        showCalculator,
+        setShowCalculator,
+        showDEFCalculator,
+        setShowDEFCalculator,
+        showSummationLinks,
+        setShowSummationLinks,
+        grayCharactersInSelectedDeck,
+        setGrayCharactersInSelectedDeck,
+        allCharacterIDsInDeck,
+        setAllCharacterIDsInDeck,
+        allNodePositions,
+        setAllNodePositions,
+        levelOfLinks,
+        setLevelOfLinks,
+        showSuggestedCardsByStats,
+        setShowSuggestedCardsByStats,
+      }}
+    >
+      <Component {...pageProps} />
+    </UserContext.Provider>
+  </ApolloProvider>
+);
+
 }
 
 export default MyApp;

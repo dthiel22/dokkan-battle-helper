@@ -6,7 +6,7 @@ import { REMOVE_REPLY_FROM_COMMENT } from "../../util/mutations"
 
 import Image from 'next/image';
 
-const closeIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/close-icon.png";
+const closeIcon = "/dokkanIcons/icons/close-icon.png";
 
 export default function WarningRemoveReplyModal( {open, onClose, profileId, commentToRemoveReplyFrom, replyId, reloadCommentsReplies} ) {
 

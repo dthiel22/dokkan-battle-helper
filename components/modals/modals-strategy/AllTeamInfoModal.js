@@ -8,10 +8,10 @@ import {CloudConfig} from "@cloudinary/url-gen";
 
 import Image from 'next/image';
 
-const leaderIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/leader-icon.png";
-const friendIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/friend-icon.png";
-const hiddenPotentialIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/hidden-potential.png";
-const ezaIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/z.png";
+const leaderIcon = "/dokkanIcons/icons/leader-icon.png";
+const friendIcon = "/dokkanIcons/icons/friend-icon.png";
+const hiddenPotentialIcon = "/dokkanIcons/icons/hidden-potential.png";
+const ezaIcon = "/dokkanIcons/icons/z.png";
 
 
 export default function AllTeamInfo({  team, characterDictionary, open, onClose }) {

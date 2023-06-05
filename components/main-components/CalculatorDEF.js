@@ -10,8 +10,8 @@ import { UserContext } from '../../pages/_app';
 
 import Image from 'next/image';
 
-const closeIcon = process.env.PUBLIC_URL + '/dokkanIcons/icons/x-webcard-icon.png'
-const swapIcon = process.env.PUBLIC_URL + '/dokkanIcons/icons/swap-icon.png'
+const closeIcon = '/dokkanIcons/icons/x-webcard-icon.png'
+const swapIcon = '/dokkanIcons/icons/swap-icon.png'
 
 export default function CalculatorDEF({ setShowCalculator, characterComparisonForCalculator, setCharacterComparisonForCalculator, handleCharacterComparisonSelection, setCardDetails}) {
     const { turnOnEZAStats, setTurnOnEZAStats, showDEFCalculator, setShowDEFCalculator } = useContext(UserContext)
