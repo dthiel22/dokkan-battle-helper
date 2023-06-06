@@ -45,14 +45,14 @@ class AuthService {
   login(idToken) {
     if (typeof window !== 'undefined') {
       localStorage.setItem('id_token', idToken);
-      window.location.assign(process.env.PUBLIC_URL);
+      window.location.assign('/');
     }
   }
 
   logout() {
     if (typeof window !== 'undefined') {
       localStorage.removeItem('id_token');
-      window.location.assign(process.env.PUBLIC_URL);
+      window.location.assign('/');
     }
   }
 }

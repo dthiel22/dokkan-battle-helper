@@ -4,6 +4,8 @@ import { useRouter } from 'next/router';
 
 import { QUERY_CHARACTERS, GET_ITEMS_DATA, GET_SUPPORT_MEMORY_DATA } from "./api/queries"
 
+import Auth from '../components/util/auth'
+
 import '../styles/index.css'
 
 export const UserContext = React.createContext(null);
@@ -17,7 +19,10 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const { pathname } = router;
 
+  const profileData = Auth.getProfile() || [];
+
   const [showMiddleDiv, setShowMiddleDiv] = useState(true);
+  const [showCardDetails, setShowCardDetails] = useState(true);
   const [turnOnEZAStats, setTurnOnEZAStats] = useState(false);
   const [showCalculator, setShowCalculator] = useState(false);
   const [showDEFCalculator, setShowDEFCalculator] = useState(false);
@@ -34,6 +39,8 @@ return (
       value={{
         showMiddleDiv,
         setShowMiddleDiv,
+        showCardDetails,
+        setShowCardDetails,
         turnOnEZAStats,
         setTurnOnEZAStats,
         showCalculator,
@@ -54,7 +61,7 @@ return (
         setShowSuggestedCardsByStats,
       }}
     >
-      <Component {...pageProps} />
+      <Component {...pageProps} profileData={profileData} />
     </UserContext.Provider>
   </ApolloProvider>
 );
