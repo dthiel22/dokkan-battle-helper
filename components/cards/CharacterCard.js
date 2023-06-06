@@ -8,7 +8,7 @@ const friendIcon = "/dokkanIcons/icons/friend-icon.png";
 const subIcon = "/dokkanIcons/icons/subleader-icon.png";
 const ezaIcon = "/dokkanIcons/icons/z.png";
 
-const CharacterCard = React.memo(({ individualCharacter, mobileSize, desktopSize, EZA, leaderOrSubLeader }) => {
+const CharacterCard = React.memo(({ individualCharacter, mobilesize, desktopsize, EZA, leaderOrSubLeader }) => {
     // console.log(individualCharacter?.ps_description)
 
     // Set the Cloud configuration and URL configuration
@@ -36,7 +36,7 @@ const CharacterCard = React.memo(({ individualCharacter, mobileSize, desktopSize
         <div 
         className={`flex w-fit justify-center items-center relative`}>
             <AdvancedImage
-                className={`w-[${mobileSize}] card-sm:w-[${desktopSize}] bottom-[5%] bg-no-repeat relative z-40`}
+                className={`w-[${mobilesize}] card-sm:w-[${desktopsize}] bottom-[5%] bg-no-repeat relative z-40`}
                 cldImg={characterThumb}
                 alt={individualCharacter.name}
                 // plugins={[lazyload({rootMargin: '1000px 200px 1000px 200px', threshold: 0.1})]} //top, right, bottom, left

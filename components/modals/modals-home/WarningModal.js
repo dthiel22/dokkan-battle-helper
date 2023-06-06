@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ReactDom from "react-dom";
 
 import { useMutation } from "@apollo/client";
-import { REMOVE_TEAM_FROM_DECK } from "../util/mutations"
+import { REMOVE_TEAM_FROM_DECK } from "../../util/mutations"
 
 import Image from 'next/image';
 

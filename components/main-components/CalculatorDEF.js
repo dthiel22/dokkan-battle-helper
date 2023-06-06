@@ -199,7 +199,7 @@ export default function CalculatorDEF({ setShowCalculator, characterComparisonFo
                     </>
                     }
                     {/* <div className="flex w-full h-full bg-black/[.9] border-2 border-black text-white font-bold justify-center items-center text-center absolute top-0 left-0 z-[99] hover:z-[101] opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-lg">Click for Card Details</div> */}
-                    <CharacterCard individualCharacter={characterComparisonForCalculator[0] || {id:0, rarity:null, type:null}} mobileSize={'80px'} desktopSize={'100px'} EZA={characterComparisonForCalculator[0] && characterComparisonForCalculator[0]?.id !==0  && turnOnEZAStats}/>
+                    <CharacterCard individualCharacter={characterComparisonForCalculator[0] || {id:0, rarity:null, type:null}} mobilesize={'80px'} desktopsize={'100px'} EZA={characterComparisonForCalculator[0] && characterComparisonForCalculator[0]?.id !==0  && turnOnEZAStats}/>
                 </div>
                     
                 <img 
@@ -221,7 +221,7 @@ export default function CalculatorDEF({ setShowCalculator, characterComparisonFo
                         />
                     }
                     {/* <div className="flex w-full h-full bg-black/[.9] border-2 border-black text-white font-bold justify-center items-center text-center absolute top-0 left-0 z-[99] hover:z-[101] opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-lg">Click for Card Details</div> */}
-                    <CharacterCard individualCharacter={characterComparisonForCalculator[1] || {id:0, rarity:null, type:null}} mobileSize={'80px'} desktopSize={'100px'}/>
+                    <CharacterCard individualCharacter={characterComparisonForCalculator[1] || {id:0, rarity:null, type:null}} mobilesize={'80px'} desktopsize={'100px'}/>
                 </div>
             </div>
 

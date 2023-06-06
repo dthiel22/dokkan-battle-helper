@@ -137,7 +137,7 @@ export default function CharacterSelectionModal( {characterDictionary, userData,
                 className='px-[.5%] hover:bg-amber-600'
                 key={'div'+character.id}
                 >
-                  <CharacterCard key={character.id} individualCharacter={character} mobileSize={'60px'} desktopSize={'85px'}/>
+                  <CharacterCard key={character.id} individualCharacter={character} mobilesize={'60px'} desktopsize={'85px'}/>
                 </div>
               ))
           }

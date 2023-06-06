@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import ReactDom from "react-dom";
-import Auth from "../util/auth";
+import Auth from "../../util/auth";
 
 import ErrorModal from "./ErrorModal";
-import CharacterCard from "../cards/CharacterCard";
+import CharacterCard from "../../cards/CharacterCard";
 
 import { useMutation } from "@apollo/client";
-import { EDIT_TEAM_INFO, REMOVE_TEAM_FROM_DECK } from "../util/mutations"
+import { EDIT_TEAM_INFO, REMOVE_TEAM_FROM_DECK } from "../../util/mutations"
 
 import {AdvancedImage, lazyload} from '@cloudinary/react';
 import {CloudinaryImage} from "@cloudinary/url-gen";
@@ -20,9 +20,6 @@ const leaderIcon = "/dokkanIcons/icons/leader-icon.png";
 const subLeaderIcon = "/dokkanIcons/icons/subleader-icon.png";
 const firstIcon = "/dokkanIcons/icons/1-icon.png";
 const secondIcon = "/dokkanIcons/icons/2-icon.png";
-
-
-
 
 export default function EditTeamForm( {team, selectedDeck, open, onClose} ) {
   const [editTeamInfo, { error: editTeamInfoError, data: updatedTeamInfo }] = useMutation(EDIT_TEAM_INFO)
@@ -173,25 +170,25 @@ export default function EditTeamForm( {team, selectedDeck, open, onClose} ) {
             <h1 className="font-header card-sm:text-2xl">Select A Leader</h1>
             <div className="flex flex-wrap w-full p-2 justify-around bg-orange-100 border-4 border-black rounded-lg">
             {team.characters.map((individualCharacter => (
-              <CharacterLeaderSelect key={'leaderSelect'} team={team} individualCharacter={individualCharacter} name="leaderSelect" label={individualCharacter.id}/>   
+              <CharacterLeaderSelect key={'leaderEditSelect'} team={team} individualCharacter={individualCharacter} name="leaderSelect" label={individualCharacter.id}/>   
             )))}
             </div>
             <h1 className="font-header card-sm:text-2xl">Select A Sub-Leader</h1>
             <div className="flex flex-wrap w-full p-2 justify-around bg-orange-100 border-4 border-black rounded-lg">
             {team.characters.map((individualCharacter => (
-              <CharacterSubLeaderSelect key={'subLeaderSelect'} team={team} individualCharacter={individualCharacter} name="subLeaderSelect" label={individualCharacter.id}/>   
+              <CharacterSubLeaderSelect key={'subLeaderEditSelect'} team={team} individualCharacter={individualCharacter} name="subLeaderSelect" label={individualCharacter.id}/>   
             )))}
             </div>
             <h1 className="font-header card-sm:text-2xl">Select Your First Rotation</h1>
             <div className="flex flex-wrap w-full p-2 justify-around bg-orange-100 border-4 border-black rounded-lg">
             {team.characters.map((individualCharacter => (
-              <Rotation1CharacterSelection key={'rotation1Select'} individualCharacter={individualCharacter} label={individualCharacter.id} rotation1Characters={rotation1Characters} handleRotation1Characters={handleRotation1Characters}/>   
+              <Rotation1CharacterSelection key={'rotation1EditSelect'} individualCharacter={individualCharacter} label={individualCharacter.id} rotation1Characters={rotation1Characters} handleRotation1Characters={handleRotation1Characters}/>   
             )))}
             </div>
             <h1 className="font-header card-sm:text-2xl">Select Your Second Rotation</h1>
             <div className="flex flex-wrap w-full p-2 justify-around bg-orange-100 border-4 border-black rounded-lg">
             {team.characters.map((individualCharacter => (
-              <Rotation2CharacterSelection key={'rotation2Select'} individualCharacter={individualCharacter} label={individualCharacter.id} rotation2Characters={rotation2Characters} handleRotation2Characters={handleRotation2Characters}/>   
+              <Rotation2CharacterSelection key={'rotation2EditSelect'} individualCharacter={individualCharacter} label={individualCharacter.id} rotation2Characters={rotation2Characters} handleRotation2Characters={handleRotation2Characters}/>   
             )))}
             </div>
             <h1 className="font-header card-sm:text-2xl">What is your strategy/tactic for this team?</h1>
@@ -236,7 +233,7 @@ const CharacterLeaderSelect = ({ team, individualCharacter, name, label, ...inpu
         style={{ cursor: "pointer" }}
         className="w-fit relative lg:hover:bg-slate-900/[.4] peer-checked:bg-amber-900/[.75] lg:hover:peer-checked:bg-amber-900/[.9]"
       >
-        <CharacterCard individualCharacter={individualCharacter} mobileSize={'80px'} desktopSize={'100px'}/>
+        <CharacterCard individualCharacter={individualCharacter} mobilesize={'80px'} desktopsize={'100px'}/>
       </div>
     </label>
   );
@@ -259,7 +256,7 @@ const CharacterSubLeaderSelect = ({ team, individualCharacter, name, label, ...i
         style={{ cursor: "pointer" }}
         className="w-fit relative lg:hover:bg-slate-900/[.4] peer-checked:bg-amber-900/[.75] lg:hover:peer-checked:bg-amber-900/[.9]"
       >
-        <CharacterCard individualCharacter={individualCharacter} mobileSize={'80px'} desktopSize={'100px'}/>
+        <CharacterCard individualCharacter={individualCharacter} mobilesize={'80px'} desktopsize={'100px'}/>
       </div>
     </label>
   );
@@ -275,7 +272,7 @@ const Rotation1CharacterSelection = ({ individualCharacter, label, rotation1Char
     ${isRotationCharacters ? 'bg-amber-900/[.75] hover:bg-amber-900/[.9]' : 'hover:bg-slate-900/[.4]'}`}>
       {rotation1Characters[0] === label ? <img src={firstIcon} className="w-10 z-[1000] absolute bottom-[62%] right-[62%]"/> : null}
       {rotation1Characters[1] === label ? <img src={secondIcon} className="w-10 z-[1000] absolute bottom-[62%] right-[62%]"/> : null}
-        <CharacterCard individualCharacter={individualCharacter} mobileSize={'80px'} desktopSize={'100px'}/>
+        <CharacterCard individualCharacter={individualCharacter} mobilesize={'80px'} desktopsize={'100px'}/>
       </div>
   );
 };
@@ -290,7 +287,7 @@ const Rotation2CharacterSelection = ({ individualCharacter, label, rotation2Char
     ${isRotationCharacters ? 'bg-amber-900/[.75] hover:bg-amber-900/[.9]' : 'hover:bg-slate-900/[.4]'}`}>
       {rotation2Characters[0] === label ? <img src={firstIcon} className="w-10 z-[1000] absolute bottom-[62%] right-[62%]"/> : null}
       {rotation2Characters[1] === label ? <img src={secondIcon} className="w-10 z-[1000] absolute bottom-[62%] right-[62%]"/> : null}
-        <CharacterCard individualCharacter={individualCharacter} mobileSize={'80px'} desktopSize={'100px'}/>
+        <CharacterCard individualCharacter={individualCharacter} mobilesize={'80px'} desktopsize={'100px'}/>
       </div>
   );
 };

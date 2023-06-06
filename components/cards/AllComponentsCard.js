@@ -36,8 +36,8 @@
 //       <div>
 //         <CharacterCard
 //           individualCharacter={character}
-//           mobileSize={"60px"}
-//           desktopSize={"85px"}
+//           mobilesize={"60px"}
+//           desktopsize={"85px"}
 //         />
 //       </div>
 //     </div>
@@ -61,8 +61,8 @@
 //       >
 //         <CharacterCard
 //           individualCharacter={character}
-//           mobileSize={"60px"}
-//           desktopSize={"85px"}
+//           mobilesize={"60px"}
+//           desktopsize={"85px"}
 //         />
 //       </div>
 //     </>

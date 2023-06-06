@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useMemo, useContext } from "react";
 import Navbar from "../components/main-components/Navbar"
 import CharacterCard from "../components/cards/CharacterCard";
 import AllComponentsCard from "../components/cards/AllComponentsCard";
+import CharacterSelectionBox from "@/main-components/CharacterSelectionBox";
 import SearchForm from "../components/main-components/SearchForm";
 import SuggestToWeb from "../components/main-components/SuggestToWeb";
 
@@ -14,10 +15,12 @@ import { UPDATE_SAVED_CHARACTERS, ADD_TEAM_TO_DECK } from "../components/util/mu
 import CardDetails from "../components/main-components/CardDetails";
 import DeckSelection from "../components/main-components/DeckSelection.js";
 import Auth from "../components/util/auth";
-import NewsAndUpdatesModal from "../components/modals/NewsAndUpdates";
+import NewsAndUpdatesModal from "../components/modals/modals-home/NewsAndUpdates";
 import CalculatorATK from "../components/main-components/CalculatorATK";
 import CalculatorDEF from "../components/main-components/CalculatorDEF";
-import Announcement from "../components/modals/Announcement";
+import Announcement from "../components/modals/modals-home/Announcement";
+import DeckSelectButton from "../components/main-components/DeckSelectButton";
+import SaveAndGrayCharactersButton from "../components/main-components/SaveAndGrayCharactersButton";
 
 import { useSortedCharacters } from "../components/util/sorting";
 import { findCharacterLeaderCategories } from "../components/util/allCategories";
@@ -31,16 +34,16 @@ import DeckSelect from "@/main-components/DeckSelectButton";
 
 const arrow = "/dokkanIcons/icons/right-arrow-icon.png"
 
-function AllComponents({ profileData }) {
-  const MyDeckSelectButton = dynamic(() => import('../components/main-components/DeckSelectButton'), {
-    ssr: false,
-  });
+const MyDeckSelectButton = dynamic(() => import('../components/main-components/DeckSelectButton'), {
+  ssr: false,
+});
 
-  const MySaveAndGrayCharacterButton = dynamic(() => import('../components/main-components/SaveAndGrayCharactersButton'), {
-    ssr: false,
-  });
+const MySaveAndGrayCharacterButton = dynamic(() => import('../components/main-components/SaveAndGrayCharactersButton'), {
+  ssr: false,
+});
 
-  const {showMiddleDiv, setShowMiddleDiv, showCardDetails, setShowCardDetails, showCalculator, setShowCalculator, showDEFCalculator, setShowDEFCalculator, grayCharactersInSelectedDeck, setGrayCharactersInSelectedDeck, allCharacterIDsInDeck, setAllCharacterIDsInDeck } = useContext(UserContext);
+function AllComponents({  }) {
+  const { profileData, showMiddleDiv, setShowMiddleDiv, hoverCharacterStats, setHoverCharacterStats, showCardDetails, setShowCardDetails, showCalculator, setShowCalculator, showDEFCalculator, setShowDEFCalculator, grayCharactersInSelectedDeck, setGrayCharactersInSelectedDeck, allCharacterIDsInDeck, setAllCharacterIDsInDeck } = useContext(UserContext);
   
   const { loading: allCharactersLoading, data: allCharactersData, error: allCharactersError } = useQuery(QUERY_CHARACTERS);
   const allCharacters = allCharactersData?.characters || [];
@@ -199,7 +202,6 @@ function AllComponents({ profileData }) {
   const [updateSavedCharacters,{ error: updateSavedCharactersError, data: updatedSavedCharacters }] = useMutation(UPDATE_SAVED_CHARACTERS);
   //this runs on the save button click
   async function handleUpdateSavedCharacters() {
-    // const profileData = Auth.getProfile();
     await updateSavedCharacters({
       variables: {
         profileId: profileData?.data?._id,
@@ -277,8 +279,6 @@ function AllComponents({ profileData }) {
     };
   }, []);
   
-  
-
   const [showCardSelection, setShowCardSelection] = useState(true)
   const [showTeamWeb, setShowTeamWeb] = useState(false)
   const [showCardStats, setShowCardStats] = useState(false)
@@ -323,7 +323,6 @@ function AllComponents({ profileData }) {
       }
     }
     
-
     function handleCharacterSelection(character){
       const existingCharacter = webOfTeam.find(webCharacter => webCharacter.id === character.id)
       if (existingCharacter) {
@@ -333,8 +332,6 @@ function AllComponents({ profileData }) {
         setCardDetails(character)
       }
     }
-
-    const [hoverCharacterStats, setHoverCharacterStats] = useState(null)
 
     const [viewableCharacters, setViewableCharacters] = useState(200)
     // this useEffect is for automatically loading characters by increasing the viewableCharacters
@@ -457,7 +454,7 @@ function AllComponents({ profileData }) {
             </div>
 
             <div className="w-1/2 h-full border-black card-sm:text-lg font-bold">
-              <MyDeckSelectButton profileData={profileData} userDeckData={userDeckData} selectedDeck={selectedDeck} setSelectedDeck={setSelectedDeck} allCharactersLoading={allCharactersLoading}/>
+              <MyDeckSelectButton userDeckData={userDeckData} selectedDeck={selectedDeck} setSelectedDeck={setSelectedDeck} allCharactersLoading={allCharactersLoading}/>
             </div>
 
           </div>
@@ -537,13 +534,16 @@ function AllComponents({ profileData }) {
               />
             
               <div className="flex w-full py-1 items-center justify-center">
-                <MySaveAndGrayCharacterButton profileData={profileData} multiCardSelection={multiCardSelection} setMultiCardSelection={setMultiCardSelection} handleUpdateSavedCharacters={handleUpdateSavedCharacters} allCharactersLoading={allCharactersLoading}/>
+                <MySaveAndGrayCharacterButton multiCardSelection={multiCardSelection} setMultiCardSelection={setMultiCardSelection} handleUpdateSavedCharacters={handleUpdateSavedCharacters} allCharactersLoading={allCharactersLoading}/>
               </div>
 
             </div>
           </div>
 
           {/* //character select box */}
+
+          {/* <CharacterSelectionBox cardContainerRef={cardContainerRef} setHoverCharacterStats={setHoverCharacterStats} webOfTeam={webOfTeam} multiCardSelection={multiCardSelection} viewableCharacters={viewableCharacters} charactersToDisplay={charactersToDisplay} allCharactersLoading={allCharactersLoading}/> */}
+
           <div 
           ref={cardContainerRef}
           id={'characterContainer'}
@@ -578,8 +578,8 @@ function AllComponents({ profileData }) {
                     `}></div>
                     <CharacterCard 
                     individualCharacter={character} 
-                    mobileSize={'60px'} 
-                    desktopSize={'85px'}
+                    mobilesize={'60px'} 
+                    desktopsize={'85px'}
                     />
                   </div>
                 ))}

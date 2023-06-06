@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useMemo, useContext } from "react";
+import React, { useState, useRef, useEffect, useMemo, memo, useContext } from "react";
 import * as characterStyling from "../util/characterCardStyling";
 import * as linkSkillInfo from "../util/linkSkillInfo";
 
@@ -12,7 +12,9 @@ import { UserContext } from '../../pages/_app';
 
 import Image from 'next/image';
 
-function CardDetails({ cardDetails, hoverCharacterStats, turnOnEZAStats, setTurnOnEZAStats }) {
+function CardDetails ({ cardDetails }) {
+  const { hoverCharacterStats, turnOnEZAStats, setTurnOnEZAStats } = useContext(UserContext)
+
   const divRef1 = useRef(null);
   
   const characterDetails = useMemo(() => {
@@ -23,17 +25,15 @@ function CardDetails({ cardDetails, hoverCharacterStats, turnOnEZAStats, setTurn
     }
   }, [cardDetails, hoverCharacterStats]);
 
-  const [showEZAStats, setShowEZAStats] = useState(false)
-
   useEffect(() => {
     if(hoverCharacterStats && turnOnEZAStats && (hoverCharacterStats?.glb_date_eza || hoverCharacterStats?.jp_date_eza)){
-      setShowEZAStats(true)
+      setTurnOnEZAStats(true)
     } else if ((hoverCharacterStats && turnOnEZAStats && (!hoverCharacterStats?.glb_date_eza || !hoverCharacterStats?.jp_date_eza))){
-      setShowEZAStats(false)
+      setTurnOnEZAStats(false)
     } else if((turnOnEZAStats && (cardDetails.glb_date_eza || cardDetails.jp_date_eza))){
-      setShowEZAStats(true)
+      setTurnOnEZAStats(true)
     } else {
-      setShowEZAStats(false)
+      setTurnOnEZAStats(false)
     }
   },[cardDetails, turnOnEZAStats, hoverCharacterStats])
 
@@ -46,7 +46,7 @@ function CardDetails({ cardDetails, hoverCharacterStats, turnOnEZAStats, setTurn
           <ScrollingDiv divRef={divRef1} text={characterDetails?.name}/>
 
           <div>
-            <CharacterCard individualCharacter={characterDetails} mobileSize={'100px'} desktopSize={'100px'}/>
+            <CharacterCard individualCharacter={characterDetails} mobilesize={'100px'} desktopsize={'100px'}/>
           </div>
 
           <button
@@ -54,7 +54,7 @@ function CardDetails({ cardDetails, hoverCharacterStats, turnOnEZAStats, setTurn
           onClick={() => setTurnOnEZAStats(!turnOnEZAStats)}
           className={`disabled:text-gray-900 font-header EZA-header text-2xl relative z-50`}>
             EZA
-            {showEZAStats ? 
+            {turnOnEZAStats ? 
             <img 
             className="absolute max-w-[200%] h-[120%] -bottom-[10%] -right-[50%] z-0 object-contain"
             alt='extreme awakening'
@@ -71,7 +71,7 @@ function CardDetails({ cardDetails, hoverCharacterStats, turnOnEZAStats, setTurn
               Leader Skill:
             </p>
             <div className="w-full h-fit px-2 font-bold bg-orange-100 p-2 shadow-[inset_0_-5px_6px_rgba(0,0,0,0.6)] border-2 border-slate-900 text-sm card-sm:text-md">
-              {!showEZAStats ? characterDetails?.ls_description: characterDetails?.ls_description_eza}
+              {!turnOnEZAStats ? characterDetails?.ls_description: characterDetails?.ls_description_eza}
             </div>
           </div>
 
@@ -82,7 +82,7 @@ function CardDetails({ cardDetails, hoverCharacterStats, turnOnEZAStats, setTurn
             </p>
             <ScrollingDiv divRef={divRef1} text={characterDetails?.ps_name} />
             <div className="flex w-full font-bold bg-orange-100 m-2 p-2 shadow-[inset_0_-5px_6px_rgba(0,0,0,0.6)] border-2 border-slate-900 text-sm card-sm:text-md">
-              {!showEZAStats ? 
+              {!turnOnEZAStats ? 
                 <CardDescription text={characterDetails?.ps_description} />
                 : 
                 <CardDescription text={characterDetails?.ps_description_eza} />
@@ -96,7 +96,7 @@ function CardDetails({ cardDetails, hoverCharacterStats, turnOnEZAStats, setTurn
             </p>
             <ScrollingDiv divRef={divRef1} text={characterDetails?.sa_name} />
             <div className="w-full h-fit px-2 font-bold bg-orange-100 p-2 shadow-[inset_0_-5px_6px_rgba(0,0,0,0.6)] border-2 border-slate-900 text-sm card-sm:text-md">
-              {!showEZAStats ? 
+              {!turnOnEZAStats ? 
                 <CardDescription text={characterDetails?.sa_description} />
                 : 
                 <CardDescription text={characterDetails?.sa_description_eza} />}
@@ -112,7 +112,7 @@ function CardDetails({ cardDetails, hoverCharacterStats, turnOnEZAStats, setTurn
             </p>
             <ScrollingDiv divRef={divRef1} text={characterDetails?.ultra_sa_name} />
             <div className="flex font-bold bg-orange-100 m-2 p-2 shadow-[inset_0_-5px_6px_rgba(0,0,0,0.6)] border-2 border-slate-900 text-sm card-sm:text-md">
-            {!showEZAStats ? 
+            {!turnOnEZAStats ? 
               <CardDescription text={characterDetails?.ultra_sa_description} />
               : 
               <CardDescription text={characterDetails?.ultra_sa_description_eza} />}

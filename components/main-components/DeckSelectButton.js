@@ -1,10 +1,15 @@
-import { useContext, useState } from 'react';
+import React, { useContext, useState, memo } from 'react';
 import { Auth } from '../util/auth';
 import { UserContext } from '../../pages/_app';
 
-const DeckSelect = ({ profileData, userDeckData, selectedDeck, setSelectedDeck, allCharactersLoading }) => {
-  const { showCardDetails, setShowCardDetails } = useContext(UserContext)
-
+const DeckSelect = React.memo(({ userDeckData, selectedDeck, setSelectedDeck, allCharactersLoading }) => {  
+  const { profileData, showCardDetails, setShowCardDetails } = useContext(UserContext)
+  
+  console.log(profileData)
+  console.log(userDeckData)
+  console.log(selectedDeck)
+  console.log(allCharactersLoading)
+  
   const handleSelectedDeckOptionClick = (deckId) => {
     if (deckId === '') {
       return;
@@ -58,6 +63,7 @@ const DeckSelect = ({ profileData, userDeckData, selectedDeck, setSelectedDeck, 
       </select>
     </div>
   );
-};
+}
+)
 
-export default DeckSelect;
+export default memo(DeckSelect);

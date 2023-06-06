@@ -154,7 +154,7 @@ function SuggestToWeb({ allCharacters, selectedCharacter, userCharacters, handle
           <div className="flex shrink-0 px-1">
             {/* <p className="text-xsm card-sm:text-[.72rem] font-bold text-center underline underline-offset-2 decoration-solid decoration-2 ">Selected Card</p> */}
             <div>
-              <CharacterCard individualCharacter={selectedCharacter} mobileSize={'80px'} desktopSize={'80px'}/>
+              <CharacterCard individualCharacter={selectedCharacter} mobilesize={'80px'} desktopsize={'80px'}/>
             </div>
           </div>
 
@@ -375,9 +375,9 @@ const CharacterLinkDisplay = ({matchCount, webOfTeam, selectedCharacter, charact
   
   //   return(
   //     <div className="flex flex-row bg-red-500">
-  //       <CharacterCard individualCharacter={selectedCharacter} mobileSize={'60px'} desktopSize={'80px'}/>
+  //       <CharacterCard individualCharacter={selectedCharacter} mobilesize={'60px'} desktopsize={'80px'}/>
   //       {sameLeaderTeam && sameLeaderTeam.map(character =>
-  //         <CharacterCard key={'suggested-team'+character.id} individualCharacter={character} mobileSize={'60px'} desktopSize={'80px'}/>
+  //         <CharacterCard key={'suggested-team'+character.id} individualCharacter={character} mobilesize={'60px'} desktopsize={'80px'}/>
   //       )}
   //     </div>
   //   )

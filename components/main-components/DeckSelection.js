@@ -1,11 +1,11 @@
 import React, { useState, useContext } from "react";
 import Auth from "../util/auth";
 import CharacterCard from "../cards/CharacterCard";
-import MakeTeamForm from "../modals/MakeTeamForm"
-import EditTeamForm from "../modals/EditTeamForm"
-import ErrorModal from "../modals/ErrorModal"
-import WarningModal from "../modals/WarningModal";
-import TeamAnalysis from "../modals/TeamAnalysis"
+import MakeTeamForm from "../modals/modals-home/MakeTeamForm"
+import EditTeamForm from "../modals/modals-home/EditTeamForm"
+import ErrorModal from "../modals/modals-home/ErrorModal"
+import WarningModal from "../modals/modals-home/WarningModal";
+import TeamAnalysis from "../modals/modals-home/TeamAnalysis"
 
 import { UserContext } from '../../pages/_app';
 
@@ -151,12 +151,12 @@ export default function DeckSelection({ characterDictionary, webOfTeam, userDeck
               <div className="grid grid-cols-2 gap-y-6 justify-items-center">
                 <p className="col-span-2 font-header w-full text-xl card-sm:text-xl font-[100] border-black text-center">Team</p>
                 <div>
-                  <CharacterCard individualCharacter={characterDictionary[team.info.leader] || 0} leaderOrSubLeader={'leader'} mobileSize={'80px'} desktopSize={'80px'} />
+                  <CharacterCard individualCharacter={characterDictionary[team.info.leader] || 0} leaderOrSubLeader={'leader'} mobilesize={'80px'} desktopsize={'80px'} />
                 </div> 
                   {team.characters.map((character) => 
                     character.id !== team.info.leader && character.id !== team.info.subLeader ?
                     <div key={character.id}>
-                    <CharacterCard key={'TeamCard'+character.id} individualCharacter={characterDictionary[character.id]} leaderOrSubLeader={''} mobileSize={'80px'} desktopSize={'80px'}/>
+                    <CharacterCard key={'TeamCard'+character.id} individualCharacter={characterDictionary[character.id]} leaderOrSubLeader={''} mobilesize={'80px'} desktopsize={'80px'}/>
                     </div>
                     :
                     null
@@ -167,7 +167,7 @@ export default function DeckSelection({ characterDictionary, webOfTeam, userDeck
                 <div className="flex flex-col items-center">
                   <p className="font-header text-xl card-sm:text-xl font-[100] border-black text-center">Sub/Friend</p>
                     <div>
-                    <CharacterCard individualCharacter={characterDictionary[team.info.subLeader] || 0} leaderOrSubLeader={'sub'} mobileSize={'80px'} desktopSize={'80px'}/>
+                    <CharacterCard individualCharacter={characterDictionary[team.info.subLeader] || 0} leaderOrSubLeader={'sub'} mobilesize={'80px'} desktopsize={'80px'}/>
                     </div>
                 </div>
 
@@ -175,10 +175,10 @@ export default function DeckSelection({ characterDictionary, webOfTeam, userDeck
                   <p className="font-header text-xl card-sm:text-xl font-[100] border-black text-center">Rotation 1</p>
                     <div className="flex">
                       <div>
-                        <CharacterCard individualCharacter={characterDictionary[team.info.rotation1[0]] || 0} mobileSize={'80px'} desktopSize={'80px'}/>
+                        <CharacterCard individualCharacter={characterDictionary[team.info.rotation1[0]] || 0} mobilesize={'80px'} desktopsize={'80px'}/>
                       </div>
                       <div>
-                        <CharacterCard individualCharacter={characterDictionary[team.info.rotation1[1]] || 0} mobileSize={'80px'} desktopSize={'80px'}/>
+                        <CharacterCard individualCharacter={characterDictionary[team.info.rotation1[1]] || 0} mobilesize={'80px'} desktopsize={'80px'}/>
                       </div>
                     </div>
                 </div>
@@ -187,10 +187,10 @@ export default function DeckSelection({ characterDictionary, webOfTeam, userDeck
                   <p className="font-header text-xl card-sm:text-xl font-[100] border-black text-center">Rotation 2</p>
                     <div className="flex">
                       <div>
-                        <CharacterCard individualCharacter={characterDictionary[team.info.rotation2[0]] || 0} mobileSize={'80px'} desktopSize={'80px'}/>
+                        <CharacterCard individualCharacter={characterDictionary[team.info.rotation2[0]] || 0} mobilesize={'80px'} desktopsize={'80px'}/>
                       </div>                                            
                       <div>
-                        <CharacterCard individualCharacter={characterDictionary[team.info.rotation2[1]] || 0} mobileSize={'80px'} desktopSize={'80px'}/>
+                        <CharacterCard individualCharacter={characterDictionary[team.info.rotation2[1]] || 0} mobilesize={'80px'} desktopsize={'80px'}/>
                       </div>
                     </div>
                 </div>

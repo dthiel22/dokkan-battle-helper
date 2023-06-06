@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
 
-import HamburgerModal from "../modals/HamburgerModal"
+import HamburgerModal from "../modals/modals-home/HamburgerModal"
 
 import Image from 'next/image';
 

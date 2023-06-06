@@ -11,7 +11,7 @@ const leaderIcon = "/dokkanIcons/icons/leader-icon.png";
 const friendIcon = "/dokkanIcons/icons/friend-icon.png";
 const ezaIcon = "/dokkanIcons/icons/z.png";
 
-const CharacterCard = ({ individualCharacter, mobileSize, desktopSize, EZA, leaderOrSubLeader }) => {
+const CharacterCard = ({ individualCharacter, mobilesize, desktopsize, EZA, leaderOrSubLeader }) => {
     const characterThumb = `/characterArt/${individualCharacter.id}.png`;
     const characterRarity = `/dokkanIcons/rarity/${individualCharacter.rarity.toLowerCase()}.png`;
     const characterTypeBackground = `/dokkanIcons/types/${individualCharacter.type.slice(1,4).toLowerCase()}-background.png`
@@ -27,7 +27,7 @@ const CharacterCard = ({ individualCharacter, mobileSize, desktopSize, EZA, lead
                 <img
                     src={characterThumb}
                     // loading='lazy'
-                    className={`w-[${mobileSize}] card-sm:w-[${desktopSize}] bottom-[5%] bg-no-repeat relative z-40`}
+                    className={`w-[${mobilesize}] card-sm:w-[${desktopsize}] bottom-[5%] bg-no-repeat relative z-40`}
                     alt={individualCharacter.name}
                 />
                 {leaderOrSubLeader === 'leader' ? <img src={leaderIcon} className='w-[80%] -top-[2%] right-[33%] absolute z-50'/> : null}

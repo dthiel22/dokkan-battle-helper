@@ -23,6 +23,7 @@ function MyApp({ Component, pageProps }) {
 
   const [showMiddleDiv, setShowMiddleDiv] = useState(true);
   const [showCardDetails, setShowCardDetails] = useState(true);
+  const [hoverCharacterStats, setHoverCharacterStats] = useState(null);
   const [turnOnEZAStats, setTurnOnEZAStats] = useState(false);
   const [showCalculator, setShowCalculator] = useState(false);
   const [showDEFCalculator, setShowDEFCalculator] = useState(false);
@@ -37,10 +38,13 @@ return (
   <ApolloProvider client={client}>
     <UserContext.Provider
       value={{
+        profileData,
         showMiddleDiv,
         setShowMiddleDiv,
         showCardDetails,
         setShowCardDetails,
+        hoverCharacterStats,
+        setHoverCharacterStats,
         turnOnEZAStats,
         setTurnOnEZAStats,
         showCalculator,

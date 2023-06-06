@@ -4,9 +4,9 @@ import ReactDom from "react-dom";
 import LoginSignUpModal from "./LoginSignUpModal";
 import NewsAndUpdatesModal from "./NewsAndUpdates";
 
-import Auth from "../util/auth";
+import Auth from "../../util/auth";
 
-import { UserContext } from '../../pages/_app';
+import { UserContext } from '../../../pages/_app';
 
 export default function HamburgerModal({open, onClose}) {
 

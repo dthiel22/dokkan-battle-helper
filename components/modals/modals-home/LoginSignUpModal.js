@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import ReactDom from "react-dom";
 
 import { useMutation } from "@apollo/client";
-import { ADD_USER, LOGIN_USER } from "../util/mutations";
+import { ADD_USER, LOGIN_USER } from "../../util/mutations";
 
-import Auth from "../util/auth";
+import Auth from "../../util/auth";
 
 import Image from 'next/image';
 

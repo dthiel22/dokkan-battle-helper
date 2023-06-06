@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
 import { UserContext } from '../../pages/_app'
 
-export default function SaveAndGrayCharactersButton({ profileData, multiCardSelection, setMultiCardSelection, handleUpdateSavedCharacters, allCharactersLoading}) {
-    const { grayCharactersInSelectedDeck, setGrayCharactersInSelectedDeck, selectedDeck } = useContext(UserContext)
+export default function SaveAndGrayCharactersButton({ multiCardSelection, setMultiCardSelection, handleUpdateSavedCharacters, allCharactersLoading}) {
+    const { profileData, grayCharactersInSelectedDeck, setGrayCharactersInSelectedDeck, selectedDeck } = useContext(UserContext)
 
     if (!profileData?.data) {
         return (

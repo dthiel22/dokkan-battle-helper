@@ -5,8 +5,8 @@ import 'reactflow/dist/style.css';
 
 import html2canvas from "html2canvas";
 
-import TeamAnalysisCard from "../main-components/TeamAnalysisCard";
-import NodeStats from "../main-components/NodeStats"
+import TeamAnalysisCard from "../../main-components/TeamAnalysisCard";
+import NodeStats from "../../main-components/NodeStats"
 
 const nodeTypes = {
   character: TeamAnalysisCard,
