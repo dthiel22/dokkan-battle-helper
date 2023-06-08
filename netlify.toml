@@ -5,23 +5,3 @@
 
 [[plugins]]
 package = "@netlify/plugin-nextjs"
-
-[[redirects]]
-  from = "/"
-  to = "/"
-  status = 200
-
-[[redirects]]
-  from = "/help"
-  to = "/help"
-  status = 200
-
-[[redirects]]
-  from = "/api-connect"
-  to = "/api-connect"
-  status = 200
-
-[[redirects]]
-  from = "/strategy"
-  to = "/strategy"
-  status = 200

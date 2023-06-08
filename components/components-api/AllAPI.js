@@ -214,7 +214,7 @@ function AllAPI() {
   return (
     <div className="fixed flex flex-col h-full bg-slate-900">
         <Navbar />
-      {profileData?.data?._id === process.env.CONNECT_API_USER && 
+      {profileData?.data?._id === process.env.NEXT_PUBLIC_CONNECT_API_USER && 
       <>
         <div className="flex w-screen bg-slate-700">
           <p>What would you like to do?</p>
