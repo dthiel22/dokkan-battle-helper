@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
 import { UserContext } from '../../pages/_app'
 
-export default function SaveAndGrayCharactersButton({ multiCardSelection, setMultiCardSelection, handleUpdateSavedCharacters, allCharactersLoading}) {
-    const { profileData, grayCharactersInSelectedDeck, setGrayCharactersInSelectedDeck, selectedDeck } = useContext(UserContext)
-
+export default function SaveAndGrayCharactersButton({ selectedDeck, multiCardSelection, setMultiCardSelection, handleUpdateSavedCharacters, allCharactersLoading}) {
+    const { profileData, grayCharactersInSelectedDeck, setGrayCharactersInSelectedDeck } = useContext(UserContext)
+    
     if (!profileData?.data) {
         return (
             <h2 className="p-2 text-sm lg:text-base font-bold">
@@ -48,6 +48,7 @@ export default function SaveAndGrayCharactersButton({ multiCardSelection, setMul
         </button>
       </div>
     </div>
+
     {selectedDeck !== '' &&
     <div className="flex p-2 justify-center items-center">
         <h2 className="pr-3 text-sm card-sm:text-base font-bold">
@@ -72,6 +73,7 @@ export default function SaveAndGrayCharactersButton({ multiCardSelection, setMul
         </div>
     </div>
     }
+
   </div>
   )
 }

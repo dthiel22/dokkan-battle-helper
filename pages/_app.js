@@ -65,7 +65,7 @@ return (
         setShowSuggestedCardsByStats,
       }}
     >
-      <Component {...pageProps} profileData={profileData} />
+      <Component {...pageProps} />
     </UserContext.Provider>
   </ApolloProvider>
 );

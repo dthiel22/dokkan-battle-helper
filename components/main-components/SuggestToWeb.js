@@ -84,6 +84,8 @@ function SuggestToWeb({ allCharacters, selectedCharacter, userCharacters, handle
       setWindowWidth(window.innerWidth);
     };
 
+    handleResize();
+    
     if (typeof window !== 'undefined') {
       setWindowWidth(window.innerWidth);
       window.addEventListener('resize', handleResize);

@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import ReactDom from "react-dom";
 
-import CharacterCard from "../../cards/ServerCharacterCard";
+import CharacterCard from "../../cards/CharacterCard";
 import SearchForm from "../../main-components/SearchForm";
 
 import { useSortedCharacters } from "../../util/sorting";
+import { findCharacterLeaderCategories } from "../../util/allCategories";
 
 export default function CharacterSelectionModal( {characterDictionary, userData, handleCharacterSelection, open, onClose} ) {
 
@@ -19,24 +20,26 @@ export default function CharacterSelectionModal( {characterDictionary, userData,
   const userCharacterIds = userData?.savedCharacters
   const userCharacterObjects = userCharacterIds.map(characterId => characterDictionary[characterId])
   
-  const [filteredCharacters, setFilteredCharacters] = useState(null)
-  const [viewableCharacters, setViewableCharacters] = useState(75);
+  const [viewableCharacters, setViewableCharacters] = useState(150)
   const [newFilterData, setNewFilterData] = useState({})
+  const [filteredCharacters, setFilteredCharacters] = useState(null)
 
   const filterAndSetCharacters = (filterData) => [setFilteredCharacters(getFilteredCharacters(allCharacters, userCharacterObjects, filterData, selectedCategories)),setNewFilterData(filterData)]
-
-  //TODO: can be optimized/look cleaner if this sort/filter was a util function
-  //this seems complex but isn't when broken down. First, it starts with charactersToDisplay and sets it equal to filteredCharacters. However, if filteredCharacters (anything in the form is filled out) is null then look for the state of the filter and filter based on that
+  
   const [filterByGame, setFilterByGame] = useState(true);
 
-  const charactersToDisplay = useSortedCharacters(allCharacters, filteredCharacters, filterByGame)
+  let charactersToDisplay = useSortedCharacters(allCharacters, filteredCharacters, filterByGame)
 
+  if(newFilterData?.characterCategory?.length > 0 && filteredCharacters?.length === 0){
+    charactersToDisplay = []
+  }
+  
   const characterSelectContainerRef = useRef(null)
 
   const [selectedCategories, setSelectedCategories] = useState([]);
 
   const handleNewCategorySelected = (e) => {
-    setViewableCharacters(50)
+    setViewableCharacters(150)
     if(e.target.value === ''){
       setSelectedCategories([])
     }
@@ -58,7 +61,7 @@ export default function CharacterSelectionModal( {characterDictionary, userData,
   
       const handleScroll = () => {
         if ((cardContainer.scrollTop + cardContainer.clientHeight) >= (cardContainer.scrollHeight - 240)) {
-          setViewableCharacters(viewableCharacters + 50);
+          setViewableCharacters(viewableCharacters + 150);
         }
       };
   
@@ -151,11 +154,24 @@ export default function CharacterSelectionModal( {characterDictionary, userData,
 const getFilteredCharacters = (allCharacters, userCharacters, filterData, selectedCategories) => {
   const baseChars = filterData.isUserDeck ? userCharacters : allCharacters || [];
   return baseChars.filter((character) => {
+    
+    const leaderNumbers = character.ls_description.match(/\d+/g) || []
+    let characterLeadCategories
+    if(selectedCategories.length > 0 && leaderNumbers.length > 0 && leaderNumbers.some(num => num >= 150) && leaderNumbers.some(num => num <= 200)){
+      characterLeadCategories = (findCharacterLeaderCategories(character))
+    }
+    
     return (
       (!selectedCategories.length || (filterData.matchAllCategories
-        ? selectedCategories.every(category => character.category.includes(category))
-        : selectedCategories.some(category => character.category.includes(category))
+        ? selectedCategories.every(category => character.category && character.category.includes(category))
+        : selectedCategories.some(category => character.category && character.category.includes(category))
       )) &&
+      (!filterData.isCommonLeader || (selectedCategories.length > 0 ?
+        filterData.matchAllCategories
+        ? selectedCategories.every(category => characterLeadCategories?.includes(category))
+        : selectedCategories.some(category => characterLeadCategories?.includes(category))
+        :
+        (leaderNumbers ? leaderNumbers.map(string => parseInt(string)).some(num => num >= 150 && num <= 200) : false))) &&      
       (!filterData.searchTerm || character.name.toLowerCase().includes(filterData.searchTerm.toLowerCase())) &&
       (!filterData.characterType || character.type.includes(filterData.characterType)) &&
       (!filterData.characterSuperOrExtreme || character.type.slice(0, 1).includes(filterData.characterSuperOrExtreme)) &&

@@ -48,6 +48,8 @@ function Web({ webOfTeam, removeFromWebOfTeam, allCharactersLoading, selectedCha
       setWindowWidth(window.innerWidth);
     };
 
+    handleResize();
+
     if (typeof window !== 'undefined') {
       setWindowWidth(window.innerWidth);
       window.addEventListener('resize', handleResize);

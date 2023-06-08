@@ -4,10 +4,7 @@ import ReactDom from "react-dom";
 import MakeTeamFromScratch from "./MakeTakeFromScratch"
 import NewTeamForTeamPostModal from "./NewTeamForTeamPostModal"
 
-import {AdvancedImage, lazyload} from '@cloudinary/react';
-import {CloudinaryImage} from "@cloudinary/url-gen";
-import {URLConfig} from "@cloudinary/url-gen";
-import {CloudConfig} from "@cloudinary/url-gen";
+import CharacterCard from "@/cards/CharacterCard";
 
 import Image from 'next/image';
 
@@ -103,31 +100,31 @@ export default function SelectTeamToStageModal( {reloadTeams, userDecks, userDat
                 <div className="flex flex-wrap w-full h-1/4 py-2 px-1 card-sm:px-8 mb-2 border-x-4 border-b-4 border-black rounded-b-lg justify-around relative">
                   {team.characters.length === 6 &&
                     <>
-                      <CharacterCard individualCharacter={characterDictionary[team?.info?.leader] || 0} team={team} type={'leader'} />
+                      <CharacterCard mobilesize={'56px'} desktopsize={'80px'} individualCharacter={characterDictionary[team?.info?.leader] || 0} team={team} type={'leader'} />
                       
                       {team.characters.map((individualCharacter) => {
                         if (team.info.leader !== individualCharacter.id && team.info.subLeader !== individualCharacter.id) {
-                          return <CharacterCard individualCharacter={individualCharacter} team={team} key={individualCharacter.id}/>;
+                          return <CharacterCard mobilesize={'56px'} desktopsize={'80px'} individualCharacter={individualCharacter} team={team} key={individualCharacter.id}/>;
                         }
                         return null;
                       })}
 
-                      <CharacterCard individualCharacter={characterDictionary[team?.info?.subLeader || 0]} team={team} type={'subleader'}/>
+                      <CharacterCard mobilesize={'56px'} desktopsize={'80px'} individualCharacter={characterDictionary[team?.info?.subLeader || 0]} team={team} type={'subleader'}/>
                     </>
                   }
                   {team.characters.length !== 6 &&
                     <>
                       {team.characters.map((individualCharacter => (
                         (team.info.leader === individualCharacter.id) ?
-                          <CharacterCard individualCharacter={individualCharacter} team={team} type={'leader'} key={'leader'}/> : null
+                          <CharacterCard mobilesize={'56px'} desktopsize={'80px'} individualCharacter={individualCharacter} team={team} type={'leader'} key={'leader'}/> : null
                       )))}
                       {team.characters.map((individualCharacter => (
                         (team.info.leader !== individualCharacter.id && team.info.subLeader !== individualCharacter.id) ?
-                        <CharacterCard individualCharacter={individualCharacter} team={team} key={individualCharacter.id}/> : null
+                        <CharacterCard mobilesize={'56px'} desktopsize={'80px'} individualCharacter={individualCharacter} team={team} key={individualCharacter.id}/> : null
                       )))}
                       {team.characters.map((individualCharacter => (
                         (team.info.subLeader === individualCharacter.id && individualCharacter.id !== team.info.leader) ?
-                          <CharacterCard individualCharacter={individualCharacter} team={team} type={'subleader'} key={'subLeader'}/> : null
+                          <CharacterCard mobilesize={'56px'} desktopsize={'80px'} individualCharacter={individualCharacter} team={team} type={'subleader'} key={'subLeader'}/> : null
                       )))}
                     </>
                   }
@@ -139,53 +136,5 @@ export default function SelectTeamToStageModal( {reloadTeams, userDecks, userDat
       </div>
     </>,
     document.getElementById("SelectTeamToStageModal")
-  );
-}
-
-const CharacterCard = ({individualCharacter, type}) => {
-  if (individualCharacter === 0){
-    return null
-  }
-  // Set the Cloud configuration and URL configuration
-  let cloudConfig = new CloudConfig({cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME});
-
-  let urlConfig = new URLConfig({secure: true});
-  // Instantiate and configure a CloudinaryImage object.
-  let characterThumb = new CloudinaryImage(`v1676235853/Character Thumb/${individualCharacter.id}`, cloudConfig, urlConfig);
-  let characterRarity = new CloudinaryImage(`v1676242408/rarities-types/${individualCharacter.rarity}`, cloudConfig, urlConfig);
-  let characterTypeBadge = new CloudinaryImage(`v1676242408/rarities-types/${individualCharacter.type.toLowerCase()}`, cloudConfig, urlConfig);
-  let characterTypeBackground = new CloudinaryImage(`v1676242381/rarities-types/${individualCharacter.type.slice(1,4).toLowerCase()}-background`, cloudConfig, urlConfig);
- 
-  return (
-    <>
-        <div className='w-fit relative'>
-          {type === 'leader' ? <img src={leaderIcon} className='w-[56px] card-sm:w-[80px] -top-[2%] right-[33%] absolute z-50'/> : null}
-          {type === 'subleader' ? <img src={friendIcon} className='w-[56px] card-sm:w-[80px] -top-[2%] right-[33%] absolute z-50'/> : null}
-          <AdvancedImage
-            className="h-[70px] card-sm:h-[100px] w-[70px] card-sm:w-[100px] bg-no-repeat relative z-50 top-[1%] card-sm:top-[.5%] right-[0%] card-sm:right-[0%] z-40"
-            cldImage={characterThumb}
-            alt={individualCharacter.name}
-            plugins={[lazyload({rootMargin: '10px 20px 10px 30px', threshold: 0.05})]}
-          />
-          <AdvancedImage
-            cldImage={characterRarity}
-            className={individualCharacter.rarity === "UR"
-                ? "h-[26.67%] card-sm:h-[25px] absolute bottom-[6%] card-sm:bottom-[6%] left-[-2%] card-sm:left-[-5%] z-50"
-                : "h-[31.67%] card-sm:h-[34px] absolute bottom-[6%] card-sm:bottom-[5%] left-[0%] card-sm:left-[-1%] z-50"
-            }
-            plugins={[lazyload({rootMargin: '10px 20px 10px 30px', threshold: 0.05})]}
-          />
-          <AdvancedImage
-            className="w-[80%] card-sm:w-[83%] absolute top-[14%] card-sm:top-[11.5%] right-[12%] card-sm:right-[8%] z-0"
-            cldImage={characterTypeBackground}
-            plugins={[lazyload({rootMargin: '10px 20px 10px 30px', threshold: 0.05})]}
-          />
-          <AdvancedImage
-            className="w-[40%] card-sm:w-[40px] absolute top-[0%] card-sm:top-[0%] right-[-1%] card-sm:right-[-2%] z-50"
-            cldImage={characterTypeBadge}
-            plugins={[lazyload({rootMargin: '10px 20px 10px 30px', threshold: 0.05})]}
-          />
-        </div>
-    </>
   );
 }

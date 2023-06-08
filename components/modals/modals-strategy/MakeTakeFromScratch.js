@@ -4,14 +4,16 @@ import ReactDom from "react-dom";
 import { useMutation } from "@apollo/client";
 import { ADD_TEAM_POST_TO_STAGE } from "../../util/mutations"
 
+import {Cloudinary} from "@cloudinary/url-gen";
 import {AdvancedImage, lazyload} from '@cloudinary/react';
 import {CloudinaryImage} from "@cloudinary/url-gen";
 import {URLConfig} from "@cloudinary/url-gen";
 import {CloudConfig} from "@cloudinary/url-gen";
 
+import CharacterCard from "@/cards/CharacterCard";
+import ItemCard from "@/cards/ItemCard";
+
 import CharacterSelectionModal from "./CharacterSelectionModal"
-import { update } from "lodash";
-import { object } from "prop-types";
 
 import Image from 'next/image';
 
@@ -276,18 +278,20 @@ export default function MakeTeamFromScratch( {reloadTeams, userData, stageData, 
             <div className="flex flex-wrap mb-6 justify-around items-center">
 
               <div className="flex card-sm:flex-col card-sm:w-fit px-2 justify-around">
+
                 <div className="flex flex-col justify-center items-center">
                   <p className="font-header flex card-sm:w-fit text-base justify-center items-center card-sm:text-xl">Leader</p>
                   <button className='relative' onClick={(e) => handleOpenCharacterSelection(e, 0)}>
                     <div className="flex w-full h-full bg-black/[.9] border-2 border-black text-white font-bold justify-center items-center text-center absolute top-0 left-0 z-[1000] opacity-0 hover:opacity-100 transition-opacity duration-300">Select Character</div>
-                    <CharacterCard individualCharacter={characterObjects[0]} leaderOrSub={'leader'}/>
+                    <CharacterCard mobilesize={'90px'} desktopsize={'100px'} individualCharacter={{id:characterObjects[0].id, rarity:characterObjects[0].rarity, type:characterObjects[0].type}} leaderOrSub={'leader'}/>
                   </button>
                 </div>
+
                 <div className="flex flex-col justify-center items-center">
                   <p className="font-header flex card-sm:w-fit text-base justify-center card-sm:text-xl">Friend</p>
                   <button className='relative' onClick={(e) => handleOpenCharacterSelection(e, 1)}>
                     <div className="flex w-full h-full bg-black/[.9] border-2 border-black text-white font-bold justify-center items-center text-center absolute top-0 left-0 z-[1000] opacity-0 hover:opacity-100 transition-opacity duration-300">Select Character</div>
-                    <CharacterCard individualCharacter={characterObjects[1]} leaderOrSub={'subLeader'}/>
+                    <CharacterCard mobilesize={'90px'} desktopsize={'100px'} individualCharacter={{id:characterObjects[1].id, rarity:characterObjects[1].rarity, type:characterObjects[1].type}} leaderOrSub={'subLeader'}/>
                   </button>
                 </div>
 
@@ -301,28 +305,29 @@ export default function MakeTeamFromScratch( {reloadTeams, userData, stageData, 
                   <div className="flex justify-center w-full">
                   <button className='relative' onClick={(e) => handleOpenCharacterSelection(e, 2)}>
                     <div className="flex w-full h-full bg-black/[.9] border-2 border-black text-white font-bold justify-center items-center text-center absolute top-0 left-0 z-[1000] opacity-0 hover:opacity-100 transition-opacity duration-300">Select Character</div>
-                    <CharacterCard individualCharacter={characterObjects[2]}/>
+                    <CharacterCard mobilesize={'90px'} desktopsize={'100px'} individualCharacter={{id:characterObjects[2].id, rarity:characterObjects[2].rarity, type:characterObjects[2].type}}/>
                   </button>
 
 
                     <button className='relative' onClick={(e) => handleOpenCharacterSelection(e, 3)}>
                       <div className="flex w-full h-full bg-black/[.9] border-2 border-black text-white font-bold justify-center items-center text-center absolute top-0 left-0 z-[1000] opacity-0 hover:opacity-100 transition-opacity duration-300">Select Character</div>
-                      <CharacterCard individualCharacter={characterObjects[3]}/>
+                      <CharacterCard mobilesize={'90px'} desktopsize={'100px'} individualCharacter={{id:characterObjects[3].id, rarity:characterObjects[3].rarity, type:characterObjects[3].type}}/>
                     </button>
                   </div>
 
                 </div>
+
                 <div className="flex flex-col ">
 
                   <p className="font-header w-full text-center text-base card-sm:text-xl">Rotation 2</p>
                   <div className="flex justify-center w-full">
                     <button className='relative' onClick={(e) => handleOpenCharacterSelection(e, 4)}>
                     <div className="flex w-full h-full bg-black/[.9] border-2 border-black text-white font-bold justify-center items-center text-center absolute top-0 left-0 z-[1000] opacity-0 hover:opacity-100 transition-opacity duration-300">Select Character</div>
-                    <CharacterCard individualCharacter={characterObjects[4]}/>
+                    <CharacterCard mobilesize={'90px'} desktopsize={'100px'} individualCharacter={{id:characterObjects[4].id, rarity:characterObjects[4].rarity, type:characterObjects[4].type}}/>
                     </button>
                     <button className='relative' onClick={(e) => handleOpenCharacterSelection(e, 5)}>
                     <div className="flex w-full h-full bg-black/[.9] border-2 border-black text-white font-bold justify-center items-center text-center absolute top-0 left-0 z-[1000] opacity-0 hover:opacity-100 transition-opacity duration-300">Select Character</div>
-                    <CharacterCard individualCharacter={characterObjects[5]}/>
+                    <CharacterCard mobilesize={'90px'} desktopsize={'100px'} individualCharacter={{id:characterObjects[5].id, rarity:characterObjects[5].rarity, type:characterObjects[5].type}}/>
                     </button>
                   </div>
 
@@ -335,15 +340,15 @@ export default function MakeTeamFromScratch( {reloadTeams, userData, stageData, 
                 <p className="font-header flex w-full text-base card-sm:text-xl justify-center">Float Characters</p>
                 <button className='relative' onClick={(e) => handleOpenCharacterSelection(e, 6)}>
                   <div className="flex w-full h-full bg-black/[.9] border-2 border-black text-white font-bold justify-center items-center text-center absolute top-0 left-0 z-[1000] opacity-0 hover:opacity-100 transition-opacity duration-300">Select Character</div>
-                  <CharacterCard individualCharacter={characterObjects[6]}/>
+                  <CharacterCard mobilesize={'90px'} desktopsize={'100px'} individualCharacter={{id:characterObjects[6].id, rarity:characterObjects[6].rarity, type:characterObjects[6].type}}/>
                 </button>
                 <button className='relative' onClick={(e) => handleOpenCharacterSelection(e, 7)}>
                   <div className="flex w-full h-full bg-black/[.9] border-2 border-black text-white font-bold justify-center items-center text-center absolute top-0 left-0 z-[1000] opacity-0 hover:opacity-100 transition-opacity duration-300">Select Character</div>
-                  <CharacterCard individualCharacter={characterObjects[7]}/>
+                  <CharacterCard mobilesize={'90px'} desktopsize={'100px'} individualCharacter={{id:characterObjects[7].id, rarity:characterObjects[7].rarity, type:characterObjects[7].type}}/>
                 </button>
                 <button className='relative' onClick={(e) => handleOpenCharacterSelection(e, 8)}>
                   <div className="flex w-full h-full bg-black/[.9] border-2 border-black text-white font-bold justify-center items-center text-center absolute top-0 left-0 z-[1000] opacity-0 hover:opacity-100 transition-opacity duration-300">Select Character</div>
-                  <CharacterCard individualCharacter={characterObjects[8]}/>
+                  <CharacterCard mobilesize={'90px'} desktopsize={'100px'} individualCharacter={{id:characterObjects[8].id, rarity:characterObjects[8].rarity, type:characterObjects[8].type}}/>
                 </button>
 
               </div>
@@ -363,7 +368,7 @@ export default function MakeTeamFromScratch( {reloadTeams, userData, stageData, 
               />
             </div>
 
-            {stageData.missions.length > 0 &&
+            {stageData?.missions?.length > 0 &&
               <label htmlFor='mission' className="flex flex-col lg:flex-row w-full py-2 justify-center items-center font-bold">
                 <p className="mr-2">Mission Accomplished: </p>
                 <select className="flex w-full card-sm:w-fit font-base text-base truncate" name='mission' id="mission">
@@ -435,7 +440,7 @@ const CharacterInfoBar = ({ character, role, leadeOrSub, characterObjects }) => 
   return (
     <div className="flex flex-col logo-md:flex-row items-center w-full border-t-4 border-black">
       <div className="flex flex-col w-fit p-2 justify-center items-center">
-        <CharacterCard individualCharacter={character} leadeOrSub={leadeOrSub}/>
+        <CharacterCard mobilesize={'90px'} desktopsize={'100px'} individualCharacter={character} leadeOrSub={leadeOrSub}/>
         <div className="flex flex-col w-full justify-center items-center">
           <label htmlFor={`${role}EZA`} className="flex px-1 py-2 justify-center items-center font-bold">
             EZA:
@@ -507,7 +512,6 @@ const CharacterInfoBar = ({ character, role, leadeOrSub, characterObjects }) => 
           />
         </div>
       </div>
-
     </div>
   );
 };
@@ -520,7 +524,7 @@ const ItemSelection = ({ item, itemSelection, handleItemSelection }) => {
     style={{ cursor: "pointer" }}
     className={`w-fit relative p-2
     ${isItemSelected ? 'bg-amber-900/[.75] hover:bg-amber-900/[.9]' : 'hover:bg-slate-900/[.4]'}`}>
-        <ItemCard item={item}/>
+        <ItemCard item={item} mobilesize={'50px'} desktopsize={'80px'}/>
     </div>
   );
 }
@@ -538,99 +542,27 @@ const SupportMemorySelection = ({ supportMemory, supportMemorySelection, setSupp
   );
 }
 
-const CharacterCard = ({individualCharacter, leaderOrSub}) => {
-  // Set the Cloud configuration and URL configuration
-  let cloudConfig = new CloudConfig({cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME});
-
-  let urlConfig = new URLConfig({secure: true});
-  // Instantiate and configure a CloudinaryImage object.
-  let characterThumb = new CloudinaryImage(`Character Thumb/${individualCharacter.id}`, cloudConfig, urlConfig);
-  let characterRarity = new CloudinaryImage(`rarities-types/${individualCharacter.rarity}`, cloudConfig, urlConfig);
-  let characterTypeBadge = new CloudinaryImage(`rarities-types/${individualCharacter.type.toLowerCase()}`, cloudConfig, urlConfig);
-  let characterTypeBackground = new CloudinaryImage(`rarities-types/${individualCharacter.type.slice(1,4).toLowerCase()}-background`, cloudConfig, urlConfig);
- 
-  return (
-    <>
-        <div className='w-fit relative'>
-          <AdvancedImage
-            className={`w-[90px] ${individualCharacter.id === 0 ? 'w-[70px] card-sm:w-[100px] m-2' : 'card-sm:w-[120px]' } bg-no-repeat relative z-50 top-[1%] card-sm:top-[.5%] right-[0%] card-sm:right-[0%] z-40`}
-            cldImage={characterThumb}
-            alt={individualCharacter.name}
-            plugins={[lazyload({rootMargin: '10px 20px 10px 30px', threshold: 0.05})]}
-            />
-          {individualCharacter.rarity !== 'none' && leaderOrSub === 'leader' ? <img src={leaderIcon} className='w-[72%] card-sm:w-[72%] -top-[2%] right-[33%] absolute z-50'/> : null}
-          {individualCharacter.rarity !== 'none' && leaderOrSub === 'subLeader' ? <img src={friendIcon} className='w-[72%] card-sm:w-[72%] -top-[2%] right-[33%] absolute z-50'/> : null}
-
-          {individualCharacter.rarity !== 'none' &&
-            <AdvancedImage
-            cldImage={characterRarity}
-            className={individualCharacter.rarity === "UR"
-                ? "h-[26.67%] card-sm:h-[27%] absolute bottom-[6%] card-sm:bottom-[6%] left-[-2%] card-sm:left-[-5%] z-50"
-                : "h-[31.67%] card-sm:h-[32%] absolute bottom-[6%] card-sm:bottom-[5%] left-[0%] card-sm:left-[-1%] z-50"
-            }
-            plugins={[lazyload({rootMargin: '10px 20px 10px 30px', threshold: 0.05})]}
-          />}
-
-          {individualCharacter.type !== 'none' &&
-            <AdvancedImage
-            className="w-[80%] card-sm:w-[83%] absolute top-[14%] card-sm:top-[11.5%] right-[12%] card-sm:right-[8%] z-0"
-            cldImage={characterTypeBackground}
-            plugins={[lazyload({rootMargin: '10px 20px 10px 30px', threshold: 0.05})]}
-          />}
-
-          {individualCharacter.type !== 'none' &&
-            <AdvancedImage
-            className="w-[40%] card-sm:w-[40%] absolute top-[0%] card-sm:top-[0%] right-[-1%] card-sm:right-[-6%] z-50"
-            cldImage={characterTypeBadge}
-            plugins={[lazyload({rootMargin: '10px 20px 10px 30px', threshold: 0.05})]}
-          />}
-        </div>
-    </>
-  );
-}
-
-const ItemCard = ({item}) => {
-  // Set the Cloud configuration and URL configuration
-  let cloudConfig = new CloudConfig({cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME});
-  let urlConfig = new URLConfig({secure: true});
-  // Instantiate and configure a CloudinaryImage object.
-  let itemThumb = new CloudinaryImage(`Items/${item.id}`, cloudConfig, urlConfig);
-  let itemBackground = item.type ? new CloudinaryImage(`Items/background-${item.type.toLowerCase()}`, cloudConfig, urlConfig) : null;
- 
-  return (
-    <>
-        <div className='w-fit relative'>
-          <AdvancedImage
-            className="h-[50px] card-sm:h-[80px] w-[50px] card-sm:w-[80px] bg-no-repeat relative z-50 top-[1%] card-sm:top-[.5%] right-[0%] card-sm:right-[0%] z-40"
-            cldImage={itemThumb}
-            alt={item.name}
-            plugins={[lazyload({rootMargin: '10px 20px 10px 30px', threshold: 0.05})]}
-            />
-          {itemBackground && (
-            <AdvancedImage
-              className="w-[100%] card-sm:w-[100%] absolute top-[0%] card-sm:top-[0%] right-[0%] card-sm:right-[0%] z-0"
-              cldImage={itemBackground}
-              plugins={[lazyload({rootMargin: '10px 20px 10px 30px', threshold: 0.05})]}
-            />
-          )}
-        </div>
-    </>
-  );
-}
-
 const SupportMemoryCard = ({supportMemory}) => {
-  // Set the Cloud configuration and URL configuration
-  let cloudConfig = new CloudConfig({cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME});
-  let urlConfig = new URLConfig({secure: true});
+    // Set the Cloud configuration and URL configuration
+    const cld = new Cloudinary({
+      cloud: {
+        cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
+      },
+      url: {
+          // TODO: upgrade cloudinary to unlock secureDistribution
+          // secureDistribution: 'www.dokkanbattlehelper.com', 
+          secure: true // or false if you don't want to use HTTPS
+      }
+    });
   // Instantiate and configure a CloudinaryImage object.
-  let supportMemoryThumb = new CloudinaryImage(`Support Memories/${supportMemory.id}`, cloudConfig, urlConfig);
+  let supportMemoryThumb = cld.image(`Support Memories/${supportMemory.id}`);
   
   return (
     <>
         <div className='w-fit relative'>
           <AdvancedImage
             className={`w-[70px] card-sm:w-[100px] ${supportMemory.id === 0 && 'pt-4'} bg-no-repeat relative z-50 top-[1%] card-sm:top-[.5%] right-[0%] card-sm:right-[0%] z-40`}
-            cldImage={supportMemoryThumb}
+            cldImg={supportMemoryThumb}
             alt={supportMemory.name}
             plugins={[lazyload({rootMargin: '10px 20px 10px 30px', threshold: 0.05})]}
             />

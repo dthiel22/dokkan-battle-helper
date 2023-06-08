@@ -6,6 +6,7 @@ import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
 import { GET_EVENT_DATA, GET_USERDATA } from "../../pages/api/queries";
 import { ADD_COMMENT_TO_STAGE, ADD_REPLY_TO_COMMENT, REMOVE_REPLY_FROM_COMMENT } from "../util/mutations";
 
+import CharacterCard from '@/cards/CharacterCard';
 import Reply from './Reply';
 import CharacterSelectionForReply from "./CharacterSelectionForReply";
 import WarningRemoveCommentModal from '../modals/modals-strategy/WarningRemoveCommentModal';
@@ -180,14 +181,17 @@ export default function Comment({ comment, characterDictionary, selectedStage, r
                 
                 <div className="flex w-full justify-center">
                   <div className="flex flex-wrap w-fit p-2 my-2 border-2 border-black justify-center">
-                  {profileData?.data?._id ? <p className="w-full text-center text-lg font-bold underline decoration-2">Characters Suggested</p> : <p className="w-full text-center text-lg font-bold">Log In To Suggest Characters</p>}
-                      {characterSelection && characterSelection.map(characterId => 
-                      <div key={characterId} className={`hover:bg-amber-600`}
-                      onClick={() => handleCommentCharacterSelection(characterId)}
-                      >
-                        <CharacterCard individualCharacter={characterDictionary[characterId]}/>
-                      </div>  
-                        )}
+
+                    {profileData?.data?._id ? <p className="w-full text-center text-lg font-bold underline decoration-2">Characters Suggesting</p> : <p className="w-full text-center text-lg font-bold">Log In To Suggest Characters</p>}
+
+                    {characterSelection && characterSelection.map(characterId => 
+                    <div key={characterId} className={`hover:bg-amber-600`}
+                    onClick={() => handleCommentCharacterSelection(characterId)}
+                    >
+                      <CharacterCard individualCharacter={characterDictionary[characterId]} mobilesize={'60px'} desktopsize={'75px'}/>
+                    </div>  
+                      )}
+
                   </div>
                 </div>
                 
@@ -232,45 +236,3 @@ export default function Comment({ comment, characterDictionary, selectedStage, r
   )
 }
 
-const CharacterCard = ({individualCharacter}) => {
-  // Set the Cloud configuration and URL configuration
-  let cloudConfig = new CloudConfig({cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME});
-
-  let urlConfig = new URLConfig({secure: true});
-  // Instantiate and configure a CloudinaryImage object.
-  let characterThumb = new CloudinaryImage(`Character Thumb/${individualCharacter.id}`, cloudConfig, urlConfig);
-  let characterRarity = new CloudinaryImage(`rarities-types/${individualCharacter.rarity}`, cloudConfig, urlConfig);
-  let characterTypeBadge = new CloudinaryImage(`rarities-types/${individualCharacter.type.toLowerCase()}`, cloudConfig, urlConfig);
-  let characterTypeBackground = new CloudinaryImage(`rarities-types/${individualCharacter.type.slice(1,4).toLowerCase()}-background`, cloudConfig, urlConfig);
- 
-  return (
-    <>
-        <div className='w-fit relative'>
-          <AdvancedImage
-            className="h-[60px] card-sm:h-[75px] w-[60px] card-sm:w-[75px] bg-no-repeat relative z-50 top-[1%] card-sm:top-[.5%] right-[0%] card-sm:right-[0%] z-40"
-            cldImage={characterThumb}
-            alt={individualCharacter.name}
-            // plugins={[lazyload({rootMargin: '10px 20px 10px 30px', threshold: 0.05})]}
-            />
-          <AdvancedImage
-            cldImage={characterRarity}
-            className={individualCharacter.rarity === "UR"
-                ? "h-[26.67%] card-sm:h-[27%] absolute bottom-[6%] card-sm:bottom-[6%] left-[-2%] card-sm:left-[-5%] z-50"
-                : "h-[31.67%] card-sm:h-[32%] absolute bottom-[6%] card-sm:bottom-[5%] left-[0%] card-sm:left-[-1%] z-50"
-            }
-            // plugins={[lazyload({rootMargin: '10px 20px 10px 30px', threshold: 0.05})]}
-          />
-          <AdvancedImage
-            className="w-[80%] card-sm:w-[83%] absolute top-[14%] card-sm:top-[11.5%] right-[12%] card-sm:right-[8%] z-0"
-            cldImage={characterTypeBackground}
-            // plugins={[lazyload({rootMargin: '10px 20px 10px 30px', threshold: 0.05})]}
-          />
-          <AdvancedImage
-            className="w-[40%] card-sm:w-[40%] absolute top-[0%] card-sm:top-[0%] right-[-1%] card-sm:right-[-6%] z-50"
-            cldImage={characterTypeBadge}
-            // plugins={[lazyload({rootMargin: '10px 20px 10px 30px', threshold: 0.05})]}
-          />
-        </div>
-    </>
-  );
-}

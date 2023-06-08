@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-import Auth from "../util/auth";
+import Auth from "../components/util/auth";
 
-import Navbar from "./Navbar"
+import Navbar from "../components/main-components/Navbar"
 
 import {  } from "@apollo/client";
-import {  } from "../../pages/api/queries";
-import {  } from "../util/mutations";
+import {  } from "./api/queries";
+import {  } from "../components/util/mutations";
 
 import {AdvancedImage, lazyload} from '@cloudinary/react';
 import {CloudinaryImage} from "@cloudinary/url-gen";
@@ -14,11 +14,11 @@ import {CloudConfig} from "@cloudinary/url-gen";
 
 import Image from 'next/image';
 
-let cloudConfig = new CloudConfig({cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME});
-let urlConfig = new URLConfig({secure: true});
+// let cloudConfig = new CloudConfig({cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME});
+// let urlConfig = new URLConfig({secure: true});
 
-let teamOf6 = new CloudinaryImage(`Misc/teamOf6`, cloudConfig, urlConfig);
-let teamOf7 = new CloudinaryImage(`Misc/teamOf7`, cloudConfig, urlConfig);
+// let teamOf6 = new CloudinaryImage(`Misc/teamOf6`, cloudConfig, urlConfig);
+// let teamOf7 = new CloudinaryImage(`Misc/teamOf7`, cloudConfig, urlConfig);
 
 
 const addIcon = "/dokkanIcons/icons/add-icon.png";
@@ -52,12 +52,12 @@ function Help() {
                 <div className="flex flex-col px-4 border-b-4 <1000px>:border-r-4 <1000px>:border-b-0 border-black justify-center items-center">
                     <p className="font-header text-2xl text-center">Team of 6</p>
                     <p className="font-bold">In this team, the Super Saiyan God Duo would be the leader and sub-leader. The first rotation would be the Super Saiyan God Duo with Super Saiyan Gohan and the second rotation would be Super Saiyan God Duo with Super Saiyan God Goku [PHY]. Then the Super Saiyan 4 Duo, Super Saiyan God Goku [INT], and Super Saiyan Gogeta would be the float characters.</p>
-                    <AdvancedImage cldImage={teamOf6} />
+                    {/* <AdvancedImage cldimage={teamOf6} /> */}
                 </div>
                 <div className="flex flex-col px-4 border-black justify-center items-center">
                     <p className="font-header text-2xl text-center">Team of 7</p>
                     <p className="font-bold">Teams of 7 are a bit more straight up. In this team, Goku (Youth) [INT] is the leader and Goku (Youth) [PHY] is the sub-leader. Goku (Youth) [PHY] will rotate with Chi-Chi (Youth) while Goku (Youth) [INT] will rotate with Goku (Youth) & Bulma (Youth). Hacchan, Jacki Chun, and Yamcha are the floating characters.</p>
-                    <AdvancedImage cldImage={teamOf7} />
+                    {/* <AdvancedImage cldimage={teamOf7} /> */}
                 </div>
             </div>
             {/* ADD PHOTOS AND CAPTIONS */}

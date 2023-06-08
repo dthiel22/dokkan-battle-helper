@@ -52,14 +52,14 @@
 //             className='flex w-fit justify-center items-center relative'>
 //             <AdvancedImage
 //                 className="w-[60px] card-sm:w-[95px] bottom-[5%] bg-no-repeat relative z-40"
-//                 cldImage={characterThumb}
+//                 cldimage={characterThumb}
 //                 alt={individualCharacter.name}
 //             />
 //             {leaderOrSubLeader === 'leader' ? <img src={leaderIcon} className='w-[80%] -top-[2%] right-[33%] absolute z-50'/> : null}
 //             {leaderOrSubLeader === 'subLeader' ? <img src={friendIcon} className='w-[80%] -top-[2%] right-[33%] absolute z-50'/> : null}
 //             {EZA ? <img src={ezaIcon} className='w-[30%] bottom-[5%] right-[0%] absolute z-50'/> : null}
 //             <AdvancedImage
-//                 cldImage={characterRarity}
+//                 cldimage={characterRarity}
 //                 className={individualCharacter.rarity === "UR"
 //                     ? "h-[26.67%] card-sm:h-[27%] absolute bottom-[6%] card-sm:bottom-[6%] left-[-2%] card-sm:left-[-5%] z-50"
 //                     : "h-[31.67%] card-sm:h-[32%] absolute bottom-[6%] card-sm:bottom-[5%] left-[0%] card-sm:left-[-1%] z-50"
@@ -67,11 +67,11 @@
 //             />
 //             <AdvancedImage
 //                 className="w-[80%] card-sm:w-[81%] absolute top-[13%] z-0"
-//                 cldImage={characterTypeBackground}
+//                 cldimage={characterTypeBackground}
 //             />
 //             <AdvancedImage
 //                 className="w-[40%] card-sm:w-[40%] absolute top-[0%] card-sm:top-[0%] right-[-1%] card-sm:right-[-2%] z-50"
-//                 cldImage={characterTypeBadge}
+//                 cldimage={characterTypeBadge}
 //             />
 //             </div>
 //     );

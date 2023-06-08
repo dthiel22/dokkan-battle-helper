@@ -52,12 +52,6 @@ function AllComponents({  }) {
     allCharacters.map((characterObj) => [characterObj.id, characterObj])
   );
 
-  const { loading: allItemsLoading, data: allItemsData } = useQuery(GET_ITEMS_DATA);
-  const allItems = allItemsData?.items || [];
-  
-  const { loading: allSupportMemoryLoading, data: allSupperMemoryData } = useQuery(GET_SUPPORT_MEMORY_DATA);
-  const allSupportMemories = allSupperMemoryData?.supportMemory || [];
-
   const [selectedDeck, setSelectedDeck] = useState("");
 
   const [cardDetails, setCardDetails] = useState({
@@ -266,6 +260,8 @@ function AllComponents({  }) {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
+
+    handleResize();
 
     if (typeof window !== 'undefined') {
       setWindowWidth(window.innerWidth);
@@ -534,7 +530,7 @@ function AllComponents({  }) {
               />
             
               <div className="flex w-full py-1 items-center justify-center">
-                <MySaveAndGrayCharacterButton multiCardSelection={multiCardSelection} setMultiCardSelection={setMultiCardSelection} handleUpdateSavedCharacters={handleUpdateSavedCharacters} allCharactersLoading={allCharactersLoading}/>
+                <MySaveAndGrayCharacterButton selectedDeck={selectedDeck} multiCardSelection={multiCardSelection} setMultiCardSelection={setMultiCardSelection} handleUpdateSavedCharacters={handleUpdateSavedCharacters} allCharactersLoading={allCharactersLoading}/>
               </div>
 
             </div>

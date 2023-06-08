@@ -14,7 +14,7 @@ const CharacterCard = React.memo(({ individualCharacter, mobilesize, desktopsize
     // Set the Cloud configuration and URL configuration
     const cld = new Cloudinary({
         cloud: {
-          cloudName: 'ddmgbof1l'
+          cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
         },
         url: {
             // TODO: upgrade cloudinary to unlock secureDistribution
@@ -22,7 +22,19 @@ const CharacterCard = React.memo(({ individualCharacter, mobilesize, desktopsize
             secure: true // or false if you don't want to use HTTPS
         }
     });
+
     const characterThumb = cld.image(`Character Thumb/${individualCharacter.id}`);
+
+    if (individualCharacter.id === 0){
+        return(
+            <AdvancedImage
+            className={`w-[70px] card-sm:w-[100px] bg-no-repeat relative z-40`}
+            cldImg={characterThumb}
+            alt={individualCharacter.name}
+            />
+        )
+    }
+
     const characterRarity = cld.image(`rarities-types/${individualCharacter.rarity}`)
     let characterTypeBadge = '';
     if (individualCharacter.jp_date && !individualCharacter.glb_date){
@@ -31,6 +43,7 @@ const CharacterCard = React.memo(({ individualCharacter, mobilesize, desktopsize
         characterTypeBadge = cld.image(`rarities-types/${individualCharacter?.type?.toLowerCase()}`)
     }
     const characterTypeBackground = cld.image(`rarities-types/${individualCharacter?.type?.slice(1,4)?.toLowerCase()}-background`)
+
 
     return (
         <div 

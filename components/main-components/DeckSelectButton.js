@@ -3,12 +3,8 @@ import { Auth } from '../util/auth';
 import { UserContext } from '../../pages/_app';
 
 const DeckSelect = React.memo(({ userDeckData, selectedDeck, setSelectedDeck, allCharactersLoading }) => {  
-  const { profileData, showCardDetails, setShowCardDetails } = useContext(UserContext)
   
-  console.log(profileData)
-  console.log(userDeckData)
-  console.log(selectedDeck)
-  console.log(allCharactersLoading)
+  const { profileData, showCardDetails, setShowCardDetails } = useContext(UserContext)
   
   const handleSelectedDeckOptionClick = (deckId) => {
     if (deckId === '') {
