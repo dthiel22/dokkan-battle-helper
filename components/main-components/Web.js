@@ -3,7 +3,7 @@ import ReactFlow, {applyNodeChanges,applyEdgeChanges,ReactFlowProvider,useViewpo
 import { countBy, set } from "lodash";
 import * as linkSkillInfo from "../util/linkSkillInfo";
 
-import WebOptionsModal from '../modals/WebOptionsModal.js'
+import WebOptionsModal from '../modals/modals-home/WebOptionsModal.js'
 import WebCard from "../cards/WebCard";
 import CustomEdge from "./CustomEdge";
 
@@ -47,6 +47,8 @@ function Web({ webOfTeam, removeFromWebOfTeam, allCharactersLoading, selectedCha
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
+
+    handleResize();
 
     if (typeof window !== 'undefined') {
       setWindowWidth(window.innerWidth);

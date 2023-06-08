@@ -1,21 +1,27 @@
 import React, { memo } from "react";
 
-
+import {Cloudinary} from "@cloudinary/url-gen";
 import {AdvancedImage, lazyload} from '@cloudinary/react';
-import {CloudinaryImage} from "@cloudinary/url-gen";
-import {URLConfig} from "@cloudinary/url-gen";
-import {CloudConfig} from "@cloudinary/url-gen";
 
 function EventTab({ event }) {
-  // Set the Cloud configuration and URL configuration
-  let cloudConfig = new CloudConfig({cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME});
-  let urlConfig = new URLConfig({secure: true});
+    // Set the Cloud configuration and URL configuration
+    const cld = new Cloudinary({
+      cloud: {
+        cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
+      },
+      url: {
+          // TODO: upgrade cloudinary to unlock secureDistribution
+          // secureDistribution: 'www.dokkanbattlehelper.com', 
+          secure: true // or false if you don't want to use HTTPS
+      }
+  });
+
   // Instantiate and configure a CloudinaryImage object.
-  let eventPhoto = new CloudinaryImage(`Events/${event.name.replace(/ /g, '_').replace(/[^\w\s]|_/g, '')}`, cloudConfig, urlConfig);
+  let eventPhoto = cld.image(`Events/${event.name.replace(/ /g, '_').replace(/[^\w\s]|_/g, '')}`);
 
   return (
     <div>
-      <AdvancedImage cldImage={eventPhoto}/>
+      <AdvancedImage cldImg={eventPhoto}/>
     </div>
   );
 };

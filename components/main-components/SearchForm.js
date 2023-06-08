@@ -8,7 +8,9 @@ import Image from 'next/image';
 
 const closeIcon = "/dokkanIcons/icons/right-arrow-icon.png"
 
-const SearchForm = ({ onFormChange, selectedCategories, handleNewCategorySelected, handleSelectedCategoryRemoval, showMiddleDiv }) => {
+const SearchForm = ({ onFormChange, selectedCategories, handleNewCategorySelected, handleSelectedCategoryRemoval }) => {
+  const { showMiddleDiv } = useContext(UserContext)
+  
   const [windowWidth, setWindowWidth] = useState(0);
 
   useEffect(() => {

@@ -4,8 +4,10 @@ import { allCategoryOptions } from '../util/allCategories'
 
 import { UserContext } from '../../pages/_app'; 
 
-const SuggestForm = ({ onFormChange, selectedCategories, handleNewCategorySelected, handleSelectedCategoryRemoval, statsSelectedOptions, handleStatsSelectedOptions, allCharactersLoading, levelOfLinks, setLevelOfLinks }) => {
+const SuggestForm = ({ onFormChange, selectedCategories, handleNewCategorySelected, handleSelectedCategoryRemoval, statsSelectedOptions, handleStatsSelectedOptions, allCharactersLoading }) => {
 
+  const { levelOfLinks, setLevelOfLinks } = useContext(UserContext)
+  
   function handleFormChange(e) {
     const formData = Object.fromEntries(new FormData(e.currentTarget));
     onFormChange(formData);

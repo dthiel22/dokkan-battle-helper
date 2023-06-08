@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
 
-import HamburgerModal from "../modals/HamburgerModal"
+import HamburgerModal from "../modals/modals-home/HamburgerModal"
 
 import Image from 'next/image';
 
@@ -41,9 +41,7 @@ const AppNavbar = ({ handleShowSingleCardStats, handleShowCharacterSelection, ha
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
-  
     handleResize();
-  
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);

@@ -12,7 +12,9 @@ import { UserContext } from '../../pages/_app';
 
 import Image from 'next/image';
 
-function CardDetails({ cardDetails, hoverCharacterStats, turnOnEZAStats, setTurnOnEZAStats }) {
+function CardDetails({ cardDetails, hoverCharacterStats }) {
+  const { turnOnEZAStats, setTurnOnEZAStats } = useContext(UserContext)
+
   const divRef1 = useRef(null);
   
   const characterDetails = useMemo(() => {
@@ -23,6 +25,7 @@ function CardDetails({ cardDetails, hoverCharacterStats, turnOnEZAStats, setTurn
     }
   }, [cardDetails, hoverCharacterStats]);
 
+  //this separate EZA state allows for the constant turnOnEZAStats to control it depending on if a character has an EZA or not
   const [showEZAStats, setShowEZAStats] = useState(false)
 
   useEffect(() => {
@@ -46,7 +49,7 @@ function CardDetails({ cardDetails, hoverCharacterStats, turnOnEZAStats, setTurn
           <ScrollingDiv divRef={divRef1} text={characterDetails?.name}/>
 
           <div>
-            <CharacterCard individualCharacter={characterDetails} mobileSize={'100px'} desktopSize={'100px'}/>
+            <CharacterCard individualCharacter={characterDetails} mobilesize={'100px'} desktopsize={'100px'}/>
           </div>
 
           <button
@@ -55,13 +58,14 @@ function CardDetails({ cardDetails, hoverCharacterStats, turnOnEZAStats, setTurn
           className={`disabled:text-gray-900 font-header EZA-header text-2xl relative z-50`}>
             EZA
             {showEZAStats ? 
-            <img 
+            <Image 
+            width={100}
+            height={30}
+            src= {'/dokkanIcons/power-up.png'}
             className="absolute max-w-[200%] h-[120%] -bottom-[10%] -right-[50%] z-0 object-contain"
             alt='extreme awakening'
-            src= {process.env.PUBLIC_URL + '/dokkanIcons/power-up.png'}
             /> : ''
             }
-            
           </button>
         </div>
 

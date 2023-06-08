@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useRef } from "react";
 import ReactDom from "react-dom";
-import Auth from "../util/auth";
+import Auth from "../../util/auth";
 
 import ErrorModal from "./ErrorModal";
+import CharacterCard from "@/cards/CharacterCard";
 
 import { useMutation, useLazyQuery } from "@apollo/client";
-import { ADD_TEAM_TO_DECK } from "../util/mutations"
-import { GET_ONE_TEAM_POST } from "../../pages/api/queries"
+import { ADD_TEAM_TO_DECK } from "../../util/mutations"
+import { GET_ONE_TEAM_POST } from "../../../pages/api/queries"
 
 import {AdvancedImage, lazyload} from '@cloudinary/react';
 import {CloudinaryImage} from "@cloudinary/url-gen";
@@ -15,11 +16,11 @@ import {CloudConfig} from "@cloudinary/url-gen";
 
 import Image from 'next/image';
 
-const closeIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/close-icon.png";
-const leaderIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/leader-icon.png";
-const subLeaderIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/subleader-icon.png";
-const firstIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/1-icon.png";
-const secondIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/2-icon.png";
+const closeIcon = "/dokkanIcons/icons/close-icon.png";
+const leaderIcon = "/dokkanIcons/icons/leader-icon.png";
+const subLeaderIcon = "/dokkanIcons/icons/subleader-icon.png";
+const firstIcon = "/dokkanIcons/icons/1-icon.png";
+const secondIcon = "/dokkanIcons/icons/2-icon.png";
 
 
 export default function MakeTeamForm( {team, selectedDeck, open, onClose} ) {
@@ -134,25 +135,25 @@ export default function MakeTeamForm( {team, selectedDeck, open, onClose} ) {
             <h1 className="font-header card-sm:text-2xl">Select A Leader</h1>
             <div className="flex flex-wrap w-full p-2 justify-around bg-orange-100 border-4 border-black rounded-lg">
             {team.map((individualCharacter => (
-              <CharacterLeaderSelect key={'leaderSelect'} team={team} individualCharacter={individualCharacter} name="leaderSelect" label={individualCharacter.id}/>   
+              <CharacterLeaderSelect key={individualCharacter.id + 'leaderMakeSelect'} team={team} individualCharacter={individualCharacter} mobilesize={'60px'} desktopsize={'85px'} name="leaderSelect" label={individualCharacter.id}/>   
             )))}
             </div>
             <h1 className="font-header card-sm:text-2xl">Select A Sub-Leader</h1>
             <div className="flex flex-wrap w-full p-2 justify-around bg-orange-100 border-4 border-black rounded-lg">
             {team.map((individualCharacter => (
-              <CharacterSubLeaderSelect key={'subLeaderSelect'} team={team} individualCharacter={individualCharacter} name="subLeaderSelect" label={individualCharacter.id}/>   
+              <CharacterSubLeaderSelect key={individualCharacter.id + 'subLeaderMakeSelect'} team={team} individualCharacter={individualCharacter} mobilesize={'60px'} desktopsize={'85px'} name="subLeaderSelect" label={individualCharacter.id}/>   
             )))}
             </div>
             <h1 className="font-header card-sm:text-2xl">Select Your First Rotation</h1>
             <div className="flex flex-wrap w-full p-2 justify-around bg-orange-100 border-4 border-black rounded-lg">
             {team.map((individualCharacter => (
-              <Rotation1CharacterSelection key={'rotation1Select'} individualCharacter={individualCharacter} label={individualCharacter.id} rotation1Characters={rotation1Characters} handleRotation1Characters={handleRotation1Characters}/>   
+              <Rotation1CharacterSelection key={individualCharacter.id + 'rotation1MakeSelect'} individualCharacter={individualCharacter} mobilesize={'60px'} desktopsize={'85px'} label={individualCharacter.id} rotation1Characters={rotation1Characters} handleRotation1Characters={handleRotation1Characters}/>   
             )))}
             </div>
             <h1 className="font-header card-sm:text-2xl">Select Your Second Rotation</h1>
             <div className="flex flex-wrap w-full p-2 justify-around bg-orange-100 border-4 border-black rounded-lg">
             {team.map((individualCharacter => (
-              <Rotation2CharacterSelection key={'rotation2Select'} individualCharacter={individualCharacter} label={individualCharacter.id} rotation2Characters={rotation2Characters} handleRotation2Characters={handleRotation2Characters}/>   
+              <Rotation2CharacterSelection key={individualCharacter.id + 'rotation2MakeSelect'} individualCharacter={individualCharacter} mobilesize={'60px'} desktopsize={'85px'} label={individualCharacter.id} rotation2Characters={rotation2Characters} handleRotation2Characters={handleRotation2Characters}/>   
             )))}
             </div>
             <h1 className="font-header card-sm:text-2xl">What is your strategy/tactic for this team?</h1>
@@ -194,7 +195,7 @@ const CharacterLeaderSelect = ({ individualCharacter, name, label, ...inputProps
         style={{ cursor: "pointer" }}
         className="w-fit relative lg:hover:bg-slate-900/[.4] peer-checked:bg-amber-900/[.75] lg:hover:peer-checked:bg-amber-900/[.9]"
       >
-        <CharacterCard individualCharacter={individualCharacter}/>
+        <CharacterCard individualCharacter={individualCharacter} mobilesize={'60px'} desktopsize={'85px'}/>
       </div>
     </label>
   );
@@ -215,7 +216,7 @@ const CharacterSubLeaderSelect = ({ individualCharacter, name, label, ...inputPr
         style={{ cursor: "pointer" }}
         className="w-fit relative lg:hover:bg-slate-900/[.4] peer-checked:bg-amber-900/[.75] lg:hover:peer-checked:bg-amber-900/[.9]"
       >
-        <CharacterCard individualCharacter={individualCharacter}/>
+        <CharacterCard individualCharacter={individualCharacter} mobilesize={'60px'} desktopsize={'85px'}/>
       </div>
     </label>
   );
@@ -229,9 +230,9 @@ const Rotation1CharacterSelection = ({ individualCharacter, label, rotation1Char
     style={{ cursor: "pointer" }}
     className={`w-fit relative
     ${isRotationCharacters ? 'bg-amber-900/[.75] hover:bg-amber-900/[.9]' : 'hover:bg-slate-900/[.4]'}`}>
-      {rotation1Characters[0] === label ? <img src={firstIcon} className="w-10 z-[1000] absolute bottom-[62%] right-[62%]"/> : null}
-      {rotation1Characters[1] === label ? <img src={secondIcon} className="w-10 z-[1000] absolute bottom-[62%] right-[62%]"/> : null}
-        <CharacterCard individualCharacter={individualCharacter}/>
+      {rotation1Characters[0] === label ? <img src={firstIcon} className="w-6 card-sm:w-10 z-[1000] absolute bottom-[62%] right-[62%]"/> : null}
+      {rotation1Characters[1] === label ? <img src={secondIcon} className="w-6 card-sm:w-10 z-[1000] absolute bottom-[62%] right-[62%]"/> : null}
+        <CharacterCard individualCharacter={individualCharacter} mobilesize={'60px'} desktopsize={'85px'}/>
       </div>
   );
 };
@@ -244,52 +245,9 @@ const Rotation2CharacterSelection = ({ individualCharacter, label, rotation2Char
     style={{ cursor: "pointer" }}
     className={`w-fit relative
     ${isRotationCharacters ? 'bg-amber-900/[.75] hover:bg-amber-900/[.9]' : 'hover:bg-slate-900/[.4]'}`}>
-      {rotation2Characters[0] === label ? <img src={firstIcon} className="w-10 z-[1000] absolute bottom-[62%] right-[62%]"/> : null}
-      {rotation2Characters[1] === label ? <img src={secondIcon} className="w-10 z-[1000] absolute bottom-[62%] right-[62%]"/> : null}
-        <CharacterCard individualCharacter={individualCharacter}/>
+      {rotation2Characters[0] === label ? <img src={firstIcon} className="w-6 card-sm:w-10 z-[1000] absolute bottom-[62%] right-[62%]"/> : null}
+      {rotation2Characters[1] === label ? <img src={secondIcon} className="w-6 card-sm:w-10 z-[1000] absolute bottom-[62%] right-[62%]"/> : null}
+        <CharacterCard individualCharacter={individualCharacter} mobilesize={'60px'} desktopsize={'85px'}/>
       </div>
   );
 };
-
-const CharacterCard = ({individualCharacter}) => {
-  // Set the Cloud configuration and URL configuration
-  let cloudConfig = new CloudConfig({cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME});
-
-  let urlConfig = new URLConfig({secure: true});
-  // Instantiate and configure a CloudinaryImage object.
-  let characterThumb = new CloudinaryImage(`v1676235853/Character Thumb/${individualCharacter.id}`, cloudConfig, urlConfig);
-  let characterRarity = new CloudinaryImage(`v1676242408/rarities-types/${individualCharacter.rarity}`, cloudConfig, urlConfig);
-  let characterTypeBadge = new CloudinaryImage(`v1676242408/rarities-types/${individualCharacter.type.toLowerCase()}`, cloudConfig, urlConfig);
-  let characterTypeBackground = new CloudinaryImage(`v1676242381/rarities-types/${individualCharacter.type.slice(1,4).toLowerCase()}-background`, cloudConfig, urlConfig);
- 
-  return (
-    <>
-        <div className='w-fit relative'>
-          <AdvancedImage
-            className="h-[50px] card-sm:h-[100px] w-[50px] card-sm:w-[100px] bg-no-repeat relative z-50 top-[10%] card-sm:top-[0%] right-[2%] card-sm:right-[0%]"
-            cldImage={characterThumb}
-            alt={individualCharacter.name}
-            plugins={[lazyload({rootMargin: '10px 20px 10px 30px', threshold: 0.05})]}
-          />
-          <AdvancedImage
-            cldImage={characterRarity}
-            className={individualCharacter.rarity === "UR"
-                ? "h-[16px] card-sm:h-[25px] absolute bottom-[6%] card-sm:bottom-[6%] left-[-2%] card-sm:left-[-5%] z-50"
-                : "h-[19px] card-sm:h-[34px] absolute bottom-[6%] card-sm:bottom-[5%] left-[0%] card-sm:left-[-1%] z-50"
-            }
-            plugins={[lazyload({rootMargin: '10px 20px 10px 30px', threshold: 0.05})]}
-          />
-          <AdvancedImage
-            className="w-[80%] card-sm:w-[83%] absolute top-[14%] card-sm:top-[11.5%] right-[12%] card-sm:right-[8%] z-0"
-            cldImage={characterTypeBackground}
-            plugins={[lazyload({rootMargin: '10px 20px 10px 30px', threshold: 0.05})]}
-          />
-          <AdvancedImage
-            className="w-[24px] card-sm:w-[40px] absolute top-[0%] card-sm:top-[0%] right-[-1%] card-sm:right-[-2%] z-50"
-            cldImage={characterTypeBadge}
-            plugins={[lazyload({rootMargin: '10px 20px 10px 30px', threshold: 0.05})]}
-          />
-        </div>
-    </>
-  );
-}

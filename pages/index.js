@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useMemo, useContext } from "react";
 import Navbar from "../components/main-components/Navbar"
 import CharacterCard from "../components/cards/CharacterCard";
 import AllComponentsCard from "../components/cards/AllComponentsCard";
+import CharacterSelectionBox from "@/main-components/CharacterSelectionBox";
 import SearchForm from "../components/main-components/SearchForm";
 import SuggestToWeb from "../components/main-components/SuggestToWeb";
 
@@ -14,10 +15,12 @@ import { UPDATE_SAVED_CHARACTERS, ADD_TEAM_TO_DECK } from "../components/util/mu
 import CardDetails from "../components/main-components/CardDetails";
 import DeckSelection from "../components/main-components/DeckSelection.js";
 import Auth from "../components/util/auth";
-import NewsAndUpdatesModal from "../components/modals/NewsAndUpdates";
+import NewsAndUpdatesModal from "../components/modals/modals-home/NewsAndUpdates";
 import CalculatorATK from "../components/main-components/CalculatorATK";
 import CalculatorDEF from "../components/main-components/CalculatorDEF";
-import Announcement from "../components/modals/Announcement";
+import Announcement from "../components/modals/modals-home/Announcement";
+import DeckSelectButton from "../components/main-components/DeckSelectButton";
+import SaveAndGrayCharactersButton from "../components/main-components/SaveAndGrayCharactersButton";
 
 import { useSortedCharacters } from "../components/util/sorting";
 import { findCharacterLeaderCategories } from "../components/util/allCategories";
@@ -25,22 +28,29 @@ import { findCharacterLeaderCategories } from "../components/util/allCategories"
 import { UserContext } from '../pages/_app';
 
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
+
+import DeckSelect from "@/main-components/DeckSelectButton";
 
 const arrow = "/dokkanIcons/icons/right-arrow-icon.png"
 
-function AllComponents({ showMiddleDiv, setShowMiddleDiv, showCalculator, setShowCalculator, showDEFCalculator, setShowDEFCalculator, grayCharactersInSelectedDeck, setGrayCharactersInSelectedDeck, allCharacterIDsInDeck, setAllCharacterIDsInDeck }) {
+const MyDeckSelectButton = dynamic(() => import('../components/main-components/DeckSelectButton'), {
+  ssr: false,
+});
+
+const MySaveAndGrayCharacterButton = dynamic(() => import('../components/main-components/SaveAndGrayCharactersButton'), {
+  ssr: false,
+});
+
+function AllComponents({  }) {
+  const { profileData, showMiddleDiv, setShowMiddleDiv, hoverCharacterStats, setHoverCharacterStats, showCardDetails, setShowCardDetails, showCalculator, setShowCalculator, showDEFCalculator, setShowDEFCalculator, grayCharactersInSelectedDeck, setGrayCharactersInSelectedDeck, allCharacterIDsInDeck, setAllCharacterIDsInDeck } = useContext(UserContext);
+  
   const { loading: allCharactersLoading, data: allCharactersData, error: allCharactersError } = useQuery(QUERY_CHARACTERS);
   const allCharacters = allCharactersData?.characters || [];
   
   const characterDictionary = Object.fromEntries(
     allCharacters.map((characterObj) => [characterObj.id, characterObj])
   );
-
-  const { loading: allItemsLoading, data: allItemsData } = useQuery(GET_ITEMS_DATA);
-  const allItems = allItemsData?.items || [];
-  
-  const { loading: allSupportMemoryLoading, data: allSupperMemoryData } = useQuery(GET_SUPPORT_MEMORY_DATA);
-  const allSupportMemories = allSupperMemoryData?.supportMemory || [];
 
   const [selectedDeck, setSelectedDeck] = useState("");
 
@@ -125,7 +135,6 @@ function AllComponents({ showMiddleDiv, setShowMiddleDiv, showCalculator, setSho
   // }, [addToWebOfTeam, removeFromWebOfTeam]);
 
   // call initial query to find savedCharacters (array of IDs from user) the onComplete allows the saved characters to be set to the deck (important for adding and removing characters)
-  const profileData = Auth.getProfile() || [];
   const [getUserData, { loading: isUserDataLoading, data: userData }] = useLazyQuery(
     GET_USERDATA,
     {
@@ -187,7 +196,6 @@ function AllComponents({ showMiddleDiv, setShowMiddleDiv, showCalculator, setSho
   const [updateSavedCharacters,{ error: updateSavedCharactersError, data: updatedSavedCharacters }] = useMutation(UPDATE_SAVED_CHARACTERS);
   //this runs on the save button click
   async function handleUpdateSavedCharacters() {
-    const profileData = Auth.getProfile();
     await updateSavedCharacters({
       variables: {
         profileId: profileData?.data?._id,
@@ -206,27 +214,6 @@ function AllComponents({ showMiddleDiv, setShowMiddleDiv, showCalculator, setSho
 
   function newCardDetails(characterId) {
     setCardDetails(characterDictionary[characterId])
-  }
-
-  const [showCardDetails, setShowCardDetails] = useState(true);
-
-  const handleSelectedDeckOptionClick = (deckId) => {
-    if (deckId === ''){
-      return
-    } else if(deckId === selectedDeck){
-      setShowCardDetails(false)
-    }
-  }
-  const handleSelectedDeck = (deckId) => {
-    if (deckId === ''){
-      setShowCardDetails(true)
-      setSelectedDeck('')
-    }else if (deckId === selectedDeck){
-      setShowCardDetails(false);
-    }else{
-      setShowCardDetails(false);
-      setSelectedDeck(deckId)
-    }
   }
 
   const [selectedCategories, setSelectedCategories] = useState([])
@@ -274,6 +261,8 @@ function AllComponents({ showMiddleDiv, setShowMiddleDiv, showCalculator, setSho
       setWindowWidth(window.innerWidth);
     };
 
+    handleResize();
+
     if (typeof window !== 'undefined') {
       setWindowWidth(window.innerWidth);
       window.addEventListener('resize', handleResize);
@@ -286,8 +275,6 @@ function AllComponents({ showMiddleDiv, setShowMiddleDiv, showCalculator, setSho
     };
   }, []);
   
-  
-
   const [showCardSelection, setShowCardSelection] = useState(true)
   const [showTeamWeb, setShowTeamWeb] = useState(false)
   const [showCardStats, setShowCardStats] = useState(false)
@@ -332,7 +319,6 @@ function AllComponents({ showMiddleDiv, setShowMiddleDiv, showCalculator, setSho
       }
     }
     
-
     function handleCharacterSelection(character){
       const existingCharacter = webOfTeam.find(webCharacter => webCharacter.id === character.id)
       if (existingCharacter) {
@@ -342,8 +328,6 @@ function AllComponents({ showMiddleDiv, setShowMiddleDiv, showCalculator, setSho
         setCardDetails(character)
       }
     }
-
-    const [hoverCharacterStats, setHoverCharacterStats] = useState(null)
 
     const [viewableCharacters, setViewableCharacters] = useState(200)
     // this useEffect is for automatically loading characters by increasing the viewableCharacters
@@ -466,27 +450,7 @@ function AllComponents({ showMiddleDiv, setShowMiddleDiv, showCalculator, setSho
             </div>
 
             <div className="w-1/2 h-full border-black card-sm:text-lg font-bold">
-              {Auth.loggedIn() ? (
-                <select
-                  className={`disabled:bg-gray-500 flex w-full h-full border-black rounded-r-lg justify-center items-center text-center cursor-pointer ${showCardDetails? "border-2 bg-orange-200" : "border-4 bg-orange-400"}`}
-                  id="deckSelect"
-                  value={selectedDeck}
-                  onChange={(e) => handleSelectedDeck(e.target.value)}
-                  onClick={(e) => handleSelectedDeckOptionClick(e.target.value)}
-                  disabled={allCharactersLoading}
-                >
-                  <option className="font-bold" value=''>Decks</option>
-                  {userDeckData.map((deck) => (
-                    <option className="font-bold" key={deck._id} value={deck._id}>
-                      {deck.name}
-                    </option>
-                  ))}
-                </select>
-              ) : (
-                <div className="flex w-full h-full border-black border-2 text-base bg-gray-600 rounded-r-lg justify-center items-center text-center">
-                  Log In To See Decks
-                </div>
-              )}
+              <MyDeckSelectButton userDeckData={userDeckData} selectedDeck={selectedDeck} setSelectedDeck={setSelectedDeck} allCharactersLoading={allCharactersLoading}/>
             </div>
 
           </div>
@@ -566,78 +530,16 @@ function AllComponents({ showMiddleDiv, setShowMiddleDiv, showCalculator, setSho
               />
             
               <div className="flex w-full py-1 items-center justify-center">
-                {Auth.loggedIn() ? (
-                  <div className="flex flex-col">
-                    <div className="flex flex-row items-center">
-                      <h2 className="pr-3 card-sm:p-2 text-sm card-sm:text-base text-center font-bold">
-                        Save Characters
-                      </h2>
-                      <div className="flex items-center">
-                        <label className="inline-flex relative items-center mr-5 cursor-pointer">
-                          <input
-                            type="checkbox"
-                            className="sr-only peer"
-                            checked={multiCardSelection}
-                            readOnly
-                          />
-                          <div
-                            onClick={() => {setMultiCardSelection(!multiCardSelection)}}
-                            className="w-6 card-sm:w-11 h-3 card-sm:h-6 bg-orange-100 rounded-full peer peer-focus:ring-green-300  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[18%] card-sm:after:top-[8%] after:left-[1px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 card-sm:after:h-5 after:w-3 card-sm:after:w-5 after:transition-all peer-checked:bg-orange-500"
-                          ></div>
-                          <span className="ml-2 text-sm card-sm:text-base font-bold text-gray-900">
-                            ON
-                          </span>
-                        </label>
-                      </div>
-                      <div>
-                        <button
-                          disabled={!multiCardSelection || allCharactersLoading}
-                          type="button"
-                          data-mdb-ripple="true"
-                          data-mdb-ripple-color="light"
-                          className="disabled:bg-gray-500 inline-block px-3 card-sm:px-3 py-2 card-sm:py-2 bg-blue-600 text-white font-medium text-sm card-sm:text-base leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-                          onClick={() => handleUpdateSavedCharacters()}
-                        >
-                          Save
-                        </button>
-                      </div>
-                    </div>
-                    {selectedDeck !== '' &&
-                    <div className="flex p-2 justify-center items-center">
-                        <h2 className="pr-3 text-sm card-sm:text-base font-bold">
-                          Gray Characters In Deck
-                        </h2>
-                        <div className="flex items-center">
-                          <label className="inline-flex relative items-center mr-5 cursor-pointer">
-                            <input
-                              type="checkbox"
-                              className="sr-only peer"
-                              checked={grayCharactersInSelectedDeck}
-                              readOnly
-                            />
-                            <div
-                              onClick={() => setGrayCharactersInSelectedDeck(!grayCharactersInSelectedDeck)}
-                              className="w-6 card-sm:w-11 h-3 card-sm:h-6 bg-orange-100 rounded-full peer peer-focus:ring-green-300  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[21%] card-sm:after:top-[8%] after:left-[1px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 card-sm:after:h-5 after:w-3 card-sm:after:w-5 after:transition-all peer-checked:bg-orange-500"
-                            ></div>
-                            <span className="ml-2 text-sm card-sm:text-base font-bold text-gray-900">
-                              ON
-                            </span>
-                          </label>
-                        </div>
-                    </div>
-                    }
-                  </div>
-                ) : (
-                  <h2 className="p-2 text-sm lg:text-base font-bold">
-                    Please log in to add players
-                  </h2>
-                )}
+                <MySaveAndGrayCharacterButton selectedDeck={selectedDeck} multiCardSelection={multiCardSelection} setMultiCardSelection={setMultiCardSelection} handleUpdateSavedCharacters={handleUpdateSavedCharacters} allCharactersLoading={allCharactersLoading}/>
               </div>
-            </div>
 
+            </div>
           </div>
 
           {/* //character select box */}
+
+          {/* <CharacterSelectionBox cardContainerRef={cardContainerRef} setHoverCharacterStats={setHoverCharacterStats} webOfTeam={webOfTeam} multiCardSelection={multiCardSelection} viewableCharacters={viewableCharacters} charactersToDisplay={charactersToDisplay} allCharactersLoading={allCharactersLoading}/> */}
+
           <div 
           ref={cardContainerRef}
           id={'characterContainer'}
@@ -672,8 +574,8 @@ function AllComponents({ showMiddleDiv, setShowMiddleDiv, showCalculator, setSho
                     `}></div>
                     <CharacterCard 
                     individualCharacter={character} 
-                    mobileSize={'60px'} 
-                    desktopSize={'85px'}
+                    mobilesize={'60px'} 
+                    desktopsize={'85px'}
                     />
                   </div>
                 ))}

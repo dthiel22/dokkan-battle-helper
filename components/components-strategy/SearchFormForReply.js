@@ -4,7 +4,7 @@ import { allCategoryOptions } from '../util/allCategories'
 
 import Image from 'next/image';
 
-const closeIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/circular-close-icon.png"
+const closeIcon = "/dokkanIcons/icons/circular-close-icon.png"
 
 const SearchForm = ({ onFormChange, selectedCategories, handleNewCategorySelected, handleSelectedCategoryRemoval }) => {
 

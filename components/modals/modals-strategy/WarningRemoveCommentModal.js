@@ -6,7 +6,7 @@ import { REMOVE_COMMENT_FROM_STAGE } from "../../util/mutations"
 
 import Image from 'next/image';
 
-const closeIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/close-icon.png";
+const closeIcon = "/dokkanIcons/icons/close-icon.png";
 
 export default function WarningRemoveCommentModal( {open, onClose, profileId, selectedStageId, commentId, reloadCommentsReplies} ) {
 

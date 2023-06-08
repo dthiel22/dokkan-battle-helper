@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import ReactDom from "react-dom";
 
-import { UserContext } from '../../pages/_app';
+import { UserContext } from '../../../pages/_app';
 
 export default function WebOptionsModal( {open, onClose, showSummationLinks, setShowSummationLinks, levelOfLinks, setLevelOfLinks, showSuggestedCardsByStats, setShowSuggestedCardsByStats} ) {
   if (!open) return null;

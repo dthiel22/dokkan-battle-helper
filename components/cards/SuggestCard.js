@@ -85,7 +85,7 @@ function SuggestCard({ character, webOfTeam, selectedCharacter, handleNewDetails
             </div>
           </div>
         )}
-          <CharacterCard individualCharacter={character} mobileSize={'80px'} desktopSize={'85px'}/>
+          <CharacterCard individualCharacter={character} mobilesize={'80px'} desktopsize={'85px'}/>
           {selectedCharacter.id === character.id && statsSelectedOptions !== 'None' &&
           <div
             className='w-[20px] card-sm:w-[25px] h-[20px] card-sm:h-[25px] border-2 border-black rounded-full bg-green-500 absolute bottom-[5%] right-[7%] z-50'>

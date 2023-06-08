@@ -8,13 +8,13 @@ const friendIcon = "/dokkanIcons/icons/friend-icon.png";
 const subIcon = "/dokkanIcons/icons/subleader-icon.png";
 const ezaIcon = "/dokkanIcons/icons/z.png";
 
-const CharacterCard = React.memo(({ individualCharacter, mobileSize, desktopSize, EZA, leaderOrSubLeader }) => {
+const CharacterCard = React.memo(({ individualCharacter, mobilesize, desktopsize, EZA, leaderOrSubLeader }) => {
     // console.log(individualCharacter?.ps_description)
 
     // Set the Cloud configuration and URL configuration
     const cld = new Cloudinary({
         cloud: {
-          cloudName: 'ddmgbof1l'
+          cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
         },
         url: {
             // TODO: upgrade cloudinary to unlock secureDistribution
@@ -22,7 +22,19 @@ const CharacterCard = React.memo(({ individualCharacter, mobileSize, desktopSize
             secure: true // or false if you don't want to use HTTPS
         }
     });
+
     const characterThumb = cld.image(`Character Thumb/${individualCharacter.id}`);
+
+    if (individualCharacter.id === 0){
+        return(
+            <AdvancedImage
+            className={`w-[70px] card-sm:w-[100px] bg-no-repeat relative z-40`}
+            cldImg={characterThumb}
+            alt={individualCharacter.name}
+            />
+        )
+    }
+
     const characterRarity = cld.image(`rarities-types/${individualCharacter.rarity}`)
     let characterTypeBadge = '';
     if (individualCharacter.jp_date && !individualCharacter.glb_date){
@@ -32,11 +44,12 @@ const CharacterCard = React.memo(({ individualCharacter, mobileSize, desktopSize
     }
     const characterTypeBackground = cld.image(`rarities-types/${individualCharacter?.type?.slice(1,4)?.toLowerCase()}-background`)
 
+
     return (
         <div 
         className={`flex w-fit justify-center items-center relative`}>
             <AdvancedImage
-                className={`w-[${mobileSize}] card-sm:w-[${desktopSize}] bottom-[5%] bg-no-repeat relative z-40`}
+                className={`w-[${mobilesize}] card-sm:w-[${desktopsize}] bottom-[5%] bg-no-repeat relative z-40`}
                 cldImg={characterThumb}
                 alt={individualCharacter.name}
                 // plugins={[lazyload({rootMargin: '1000px 200px 1000px 200px', threshold: 0.1})]} //top, right, bottom, left

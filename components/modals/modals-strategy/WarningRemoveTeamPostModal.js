@@ -4,7 +4,7 @@ import ReactDom from "react-dom";
 import { useMutation } from "@apollo/client";
 import { REMOVE_TEAM_POST_FROM_STAGE } from "../../util/mutations"
 
-const closeIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/close-icon.png";
+const closeIcon = "/dokkanIcons/icons/close-icon.png";
 
 import Image from 'next/image';
 

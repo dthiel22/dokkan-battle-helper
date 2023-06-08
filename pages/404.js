@@ -1,9 +1,9 @@
 import React from 'react'
-import Navbar from './Navbar'
+import Navbar from '../components/main-components/Navbar'
 
 import Image from 'next/image';
 
-const confusedGoku = process.env.PUBLIC_URL + "/dokkanIcons/goku_confused.jpg";
+const confusedGoku = "/dokkanIcons/goku_confused.jpg";
 
 
 export default function NoPage() {

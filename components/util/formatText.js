@@ -164,9 +164,7 @@ export const filterForATKStatsAfterAction = (passiveSkillDescription) => {
   let ATKpercentage
 
   for (const regex of regexPatterns) {
-    console.log(regex)
     for (const oneDescription of descriptionArray){
-      console.log(oneDescription)
       const matches = oneDescription?.match(regex);
       if (matches) {
         ATKpercentage = parseInt(matches[1]);
@@ -177,10 +175,8 @@ export const filterForATKStatsAfterAction = (passiveSkillDescription) => {
   }
 
   if (matchFound) {
-    console.log(`ATK percentage gained = ${ATKpercentage}% per ki sphere`);
     return {attackPercentage: ATKpercentage}
   } else {
-    // console.log("No match found.");
     return {attackPercentage: 0,}
   }
 }

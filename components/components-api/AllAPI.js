@@ -15,8 +15,8 @@ import AddCharacterEZA from "./AddCharacterEZA";
 
 import Image from 'next/image';
 
-const addIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/add-icon.png";
-const arrows = process.env.PUBLIC_URL + "/dokkanIcons/icons/right-arrow-icon.png";
+const addIcon = "/dokkanIcons/icons/add-icon.png";
+const arrows = "/dokkanIcons/icons/right-arrow-icon.png";
 
 function AllAPI() {
   const profileData = Auth.getProfile() || [];
@@ -100,6 +100,7 @@ function AllAPI() {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
@@ -213,7 +214,7 @@ function AllAPI() {
   return (
     <div className="fixed flex flex-col h-full bg-slate-900">
         <Navbar />
-      {profileData?.data?._id === process.env.CONNECT_API_USER && 
+      {profileData?.data?._id === process.env.NEXT_PUBLIC_CONNECT_API_USER && 
       <>
         <div className="flex w-screen bg-slate-700">
           <p>What would you like to do?</p>
@@ -334,8 +335,8 @@ function AllAPI() {
                   >
                     <CharacterCard
                       individualCharacter={character}
-                      mobileSize={"60px"}
-                      desktopSize={"85px"}
+                      mobilesize={"60px"}
+                      desktopsize={"85px"}
                     />
                   </div>
                 ))

@@ -1,27 +1,52 @@
-import React, { useState, useEffect, useRef } from "react";
-import Auth from "../util/auth";
+import React, { useState, useEffect, useRef, useContext } from "react";
+import Auth from "../components/util/auth";
 
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
-import { GET_EVENT_DATA, GET_ALL_EVENTS_WITH_STAGES, GET_ALL_TEAMS_IN_STAGE, GET_ONE_STAGE_COMMENTS_REPLIES, GET_USERDATA } from "../../pages/api/queries";
-import { ADD_COMMENT_TO_STAGE, ADD_REPLY_TO_COMMENT, REMOVE_REPLY_FROM_COMMENT } from "../util/mutations";
+import { GET_ITEMS_DATA, GET_SUPPORT_MEMORY_DATA, QUERY_CHARACTERS, GET_ALL_EVENTS_WITH_STAGES, GET_ALL_TEAMS_IN_STAGE, GET_ONE_STAGE_COMMENTS_REPLIES, GET_USERDATA } from "./api/queries";
+import { ADD_COMMENT_TO_STAGE, ADD_REPLY_TO_COMMENT, REMOVE_REPLY_FROM_COMMENT } from "../components/util/mutations";
 
-import EventTab from "./EventTab";
-import StageTab from "./StageTab";
-import TeamOnStage from "./TeamOnStage"
-import AllTeamInfo from "../modals/modals-strategy/AllTeamInfoModal"
-import Navbar from "../main-components/Navbar"
+import EventTab from "../components/components-strategy/EventTab";
+import StageTab from "../components/components-strategy/StageTab";
+import TeamOnStage from "../components/components-strategy/TeamOnStage"
+import AllTeamInfo from "../components/modals/modals-strategy/AllTeamInfoModal"
+import Navbar from "../components/main-components/Navbar"
 
-import SelectTeamToStageModal from "../modals/modals-strategy/SelectTeamToStageModal";
-import WarningRemoveCommentModal from "../modals/modals-strategy/WarningRemoveCommentModal";
-import Comment from "./Comment";
+import SelectTeamToStageModal from "../components/modals/modals-strategy/SelectTeamToStageModal";
+import AddTeamToStageButton from "@/components-strategy/AddTeamToStageButton";
+import Comment from "../components/components-strategy/Comment";
+import CommentForm from "@/components-strategy/CommentForm";
 
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 
+import { UserContext } from "./_app";
 
-const addIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/add-icon.png";
-const commentIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/comment-icon.png";
+const commentIcon = "/dokkanIcons/icons/comment-icon.png";
 
-function AllStrategy( { allCharactersLoading, characterDictionary, allItems, allSupportMemories} ) {
+const DynamicCommentForm = dynamic(() => import('../components/components-strategy/CommentForm'), {
+  ssr: false,
+});
+
+const DynamicAddTeamToStageButton = dynamic(() => import('../components/components-strategy/AddTeamToStageButton'), {
+  ssr: false,
+});
+
+function AllStrategy( {  } ) {
+  const { loading: allCharactersLoading, data: allCharactersData } = useQuery(QUERY_CHARACTERS);
+  const allCharacters = allCharactersData?.characters || [];
+
+  const characterDictionary = Object.fromEntries(
+    allCharacters.map((characterObj) => [characterObj.id, characterObj])
+  );
+
+  const { loading: allItemsLoading, data: allItemsData } = useQuery(GET_ITEMS_DATA);
+  const allItems = allItemsData?.items || []
+  
+  const { loading: allSupportMemoryoading, data: allSupperMemoryData } = useQuery(GET_SUPPORT_MEMORY_DATA);
+  const allSupportMemories = allSupperMemoryData?.supportMemory || []
+
+  const { profileData } = useContext(UserContext)
+  
   const [selectedEvent, setSelectedEvent] = useState(null)
   const [selectedStage, setSelectedStage] = useState(null)
   const [selectedTeam, setSelectedTeam] = useState(null)
@@ -30,7 +55,6 @@ function AllStrategy( { allCharactersLoading, characterDictionary, allItems, all
   const [openSelectTeamToStage, setOpenSelectTeamToStage] = useState(false)
   const [openAllTeamInfoModal, setOpenAllTeamInfoModal] = useState(false)
 
-  const profileData = Auth.getProfile() || [];
   const { loading: isUserDataLoading, data: userData } = useQuery(GET_USERDATA,
     {
       variables: {
@@ -222,11 +246,12 @@ function AllStrategy( { allCharactersLoading, characterDictionary, allItems, all
   }
 
   // this allows the screen to change sizes and auto update revealing/hiding the middle column
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [windowWidth, setWindowWidth] = useState(0);
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
+    handleResize()
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
@@ -250,9 +275,9 @@ function AllStrategy( { allCharactersLoading, characterDictionary, allItems, all
           <div className="flex flex-col w-screen lg:w-full border-4 border-black rounded-lg overflow-y-auto">
             
             <div className="h-1/2 border-b-4 border-black">
-              <div className="flex flex-col h-full items-center overflow-y-auto">
+              <div className={`flex flex-col ${allCharactersLoading ? 'h-[300px]' : 'h-full'} items-center overflow-y-auto`}>
                 <p className="font-header flex w-full h-fit justify-center items-center text-3xl sticky top-0 border-x-4 border-b-4 border-black bg-orange-200 z-[998]">Events</p>
-                {allCharactersLoading ? <div className="flex w-[90%] bg-orange-200 p-2 m-2 text-xl text-center justify-center items-center border-4 border-black">loading...</div>
+                {allCharactersLoading ? <div className="w-[90%] h-fit p-4 mt-4 text-lg font-bold border-2 border-black bg-orange-200 text-center rounded-lg">events loading...</div>
                 :
                 allEvents && sortedEvents.map(event => 
                   <div 
@@ -268,14 +293,20 @@ function AllStrategy( { allCharactersLoading, characterDictionary, allItems, all
             <div className="h-1/2">
               <div className="flex h-full flex-wrap mb-1 justify-around overflow-y-auto">
                 <p className="font-header flex w-full h-fit justify-center items-center text-3xl sticky top-0 border-x-4 border-b-4 border-black bg-orange-200 z-[998]">Stages</p>
-                {selectedEvent && 
-                selectedEvent.stages.map((stage) =>
-                <div key={stage._id} 
-                onClick={() => handleSetSelectedStage(stage)} 
-                className={`my-2 mx-4 hover:bg-slate-900/[.4] ${selectedStage?._id === stage._id ? 'bg-slate-900/[.75] hover:bg-slate-900/[.9]' : ''} cursor-pointer`}>
-                  <StageTab stageName={stage.name}/>
-                </div>
-                )}
+                {selectedEvent ?
+                  (selectedEvent.stages.map((stage) =>
+                      <div key={stage._id} 
+                      onClick={() => handleSetSelectedStage(stage)} 
+                      className={`my-2 mx-4 hover:bg-slate-900/[.4] ${selectedStage?._id === stage._id ? 'bg-slate-900/[.75] hover:bg-slate-900/[.9]' : ''} cursor-pointer`}>
+                        <StageTab stageName={stage.name}/>
+                      </div>
+                    )
+                    )
+                    :
+                    (
+                      <div className="w-[90%] h-fit p-4 mt-4 text-lg font-bold border-2 border-black bg-orange-200 text-center rounded-lg">{allCharactersLoading ? 'events loading...' : 'Please select an event'}</div>
+                    )
+                }
               </div>
             </div>
           </div>
@@ -305,47 +336,13 @@ function AllStrategy( { allCharactersLoading, characterDictionary, allItems, all
               </div>
               }
             </div>
+
               {showComments && 
                   <div className="w-full min-h-[600px] max-h-[600px] border-b-4 border-black z-50 bg-orange-100 rounded-b-lg p-4 pb-14 shadow-md black-scrollbar overflow-y-auto">
-                  <p className="flex w-full py-6 font-header justify-center items-center text-xl text-center underline decoration-2 underline-offset-8">Comments</p>
-                  {profileData?.data?._id ?
-                    <form
-                    ref={commentFormRef}
-                    onSubmit={(e) => handleCommentSubmit(e)}
-                    className="flex flex-col mt-2 justify-end items-end"
-                    >
-                      <textarea
-                        name="commentInput"
-                        className="w-full p-2 border-2 border-black resize-none"
-                        maxLength="500"
-                        placeholder="write comment here..."
-                        required
-                        onChange={(e) => setCommentInput(e.target.value)}
-                        value={commentInput}
-                        style={{ minHeight: "50px" }}
-                      ></textarea>
-                      <span className="flex w-full my-2 justify-between">
-                        <label>
-                          <input 
-                          name='addSavedCharacter'
-                          type="checkbox"
-                          defaultValue={true}
-                          className='mr-2'
-                          ></input>
-                          include saved characters to post
-                        </label>
-                        <button type='submit' className="px-2 py-1 ml-2 border-2 border-black bg-orange-300 hover:bg-orange-400 z-[1000] relative">Submit Comment</button>
-                      </span>
-                    </form> 
-                    :
-                    <textarea
-                        className="w-full p-2 border-2 border-black resize-none"
-                        maxLength="500"
-                        placeholder="Please log in to add a comment"
-                        style={{ minHeight: "50px" }}
-                        readOnly
-                    ></textarea>
-                  }
+                    <p className="flex w-full py-6 font-header justify-center items-center text-xl text-center underline decoration-2 underline-offset-8">Comments</p>
+
+                    <DynamicCommentForm commentFormRef={commentFormRef} commentInput={commentInput} setCommentInput={setCommentInput}/>
+
                   {allCommentsAndRepliesLoading ? <div className="flex w-full p-4 mt-4 text-lg font-bold border-2 border-black bg-orange-200 justify-center items-center rounded-lg">Comments are loading...</div> :
                     allCommentsAndReplies.length > 0 ? 
                       allCommentsAndReplies
@@ -359,44 +356,8 @@ function AllStrategy( { allCharactersLoading, characterDictionary, allItems, all
                 </div>
               }
 
-            {Auth.loggedIn() ? (
-              selectedStage &&
-                <> 
-                  {/* TODO: Allow team to be filtered by characters they have saved TODO: */}
-                  {/* <div className="flex mb-2 justify-center items-center">
-                      <h2 className="pr-3 card-sm:p-2 text-sm card-sm:text-base font-bold">
-                        Filter Teams By Saved Characters
-                      </h2>
-                      <div className="flex items-center">
-                        <label className="inline-flex relative items-center mr-5 cursor-pointer">
-                          <input
-                            type="checkbox"
-                            className="sr-only peer"
-                            checked={filterDecksBySavedCharacters}
-                            readOnly
-                          />
-                          <div
-                            onClick={() => {handleFilterBySavedCharacters()}}
-                            className="w-6 card-sm:w-11 h-3 card-sm:h-6 bg-orange-100 rounded-full peer peer-focus:ring-green-300  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[21%] card-sm:after:top-[8%] after:left-[1px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 card-sm:after:h-5 after:w-3 card-sm:after:w-5 after:transition-all peer-checked:bg-orange-500"
-                          ></div>
-                          <span className="ml-2 text-sm card-sm:text-base font-bold">
-                            ON
-                          </span>
-                        </label>
-                      </div>
-                  </div> */}
-                  <button onClick={() => handleOpenSelectTeamToStageModal(selectedTeam)} className="disabled:bg-gray-500 flex justify-center items-center w-[90%] h-fit p-2 my-2 border-4 border-black text-md card-sm:text-lg font-bold rounded-full bg-orange-200 hover:bg-orange-400 transition ease-in-out">
-                    <img src={addIcon} className="w-6 card-sm:w-8 mr-2"/>ADD TEAM TO STAGE
-                  </button>
-                </>
-              )
-              :
-              (
-              <div className="flex justify-center items-center text-center w-[90%] h-fit px-4 py-2 my-2 border-4 border-black text-md card-sm:text-lg font-bold rounded-full bg-orange-200">Please Log In To Add A Team To This Stage</div>
-              )
-            }
-
-
+              <DynamicAddTeamToStageButton selectedTeam={selectedTeam} handleOpenSelectTeamToStageModal={handleOpenSelectTeamToStageModal}/>
+              
             {!selectedEvent &&
             <div className="flex w-[90%] p-4 mt-4 text-lg font-bold border-2 border-black bg-orange-200 justify-center items-center rounded-lg">Please select an event</div>
             }      

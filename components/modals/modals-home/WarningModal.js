@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import ReactDom from "react-dom";
 
 import { useMutation } from "@apollo/client";
-import { REMOVE_TEAM_FROM_DECK } from "../util/mutations"
+import { REMOVE_TEAM_FROM_DECK } from "../../util/mutations"
 
 import Image from 'next/image';
 
-const closeIcon = process.env.PUBLIC_URL + "/dokkanIcons/icons/close-icon.png";
+const closeIcon = "/dokkanIcons/icons/close-icon.png";
 
 export default function WarningModal( {open, onClose, profileId, selectedDeck, team} ) {
   const [reamoveTeamFromDeck, { error: removeTeamFromDeckError, data: updatedRemoveTeamFromDeck }] = useMutation(REMOVE_TEAM_FROM_DECK)
