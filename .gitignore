@@ -28,7 +28,7 @@ yarn-error.log*
 .env*.local
 
 #netlify config
-.netlify.toml
+# .netlify.toml
 
 # vercel
 .vercel
