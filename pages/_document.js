@@ -1,10 +1,25 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
+import Script from 'next/script';
 
 class MyDocument extends Document {
   render() {
     return (
       <Html>
         <Head>
+          <Script 
+          src="https://www.googletagmanager.com/gtag/js?id=G-XR832YLLT5"
+          strategy="afterInteractive"
+          />
+          <Script id="google-analytics" strategy="afterInteractive">
+            {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-XR832YLLT5');
+            `}
+          </Script>
+          <meta charset="utf-8" />
           <title>Dokkan Battle Helper</title>
           <meta property="og:site_name" content="Dokkan Battle Helper"/>
           <meta name="description" content="Create the best Dokkan Battle teams with the most links"/>
