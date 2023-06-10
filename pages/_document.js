@@ -5,10 +5,19 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
+          <title>Dokkan Battle Helper</title>
+          <meta property="og:site_name" content="Dokkan Battle Helper"/>
+          <meta name="description" content="Create the best Dokkan Battle teams with the most links"/>
+          <meta name="keywords" content="dokkan, battle, team, buildiong, link tool, cards, links, categories, help, helper"/>
+
+          <meta name="apple-mobile-web-app-capable" content="yes"/>
+          <meta name="apple-mobile-web-app-title" content="Dokkan Battle Helper"/>
+          <meta name="application-name" content="Dokkan Battle Helper"/>
+          <meta name="mobile-web-app-capable" content="yes"/>
           {/* Add the Google Fonts link tag here */}
-        <link rel="preconnect" href="https://fonts.googleapis.com"/>
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true"/>
-        <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet"/>
+          <link rel="preconnect" href="https://fonts.googleapis.com"/>
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true"/>
+          <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet"/>
         </Head>
         <body>
           <div id="Announcement"></div>
