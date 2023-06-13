@@ -7,12 +7,17 @@ import CharacterCard from './CharacterCard'
 
 import { UserContext } from '../../pages/_app';
 
-function SuggestCard({ character, webOfTeam, selectedCharacter, handleNewDetails, addToWebOfTeam, removeFromWebOfTeam, statsSelectedOptions, grayCharactersInSelectedDeck, allCharacterIDsInDeck, levelOfLinks }) {
+function SuggestCard({ character, webOfTeam, selectedCharacter, handleNewDetails, addToWebOfTeam, removeFromWebOfTeam, statsSelectedOptions, allCharacterIDsInDeck }) {
+  if (!selectedCharacter){
+    return
+  }
+
+  const { levelOfLinks, grayCharactersInSelectedDeck } = useContext(UserContext)
 
   const [isInWeb, setIsInWeb] = useState();
   // this useEffect sets the isInWeb (which is originally checking to see if a character is in the web). The map function makes a new array of all characters with just their ids. Then, if this is included, isInWeb is set to true, which will change the state of the ternary to make the background of the card change
   useEffect(() => {
-    setIsInWeb(webOfTeam.map((char) => char.id).includes(character.id));
+    setIsInWeb(webOfTeam.map((char) => char.id).includes(character.id)); 
   }, [webOfTeam]);
 
   //logic for card click...allows for div to close when click outside of card is made
