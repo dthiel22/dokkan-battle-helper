@@ -12,7 +12,9 @@ import * as linkSkillInfo from "../util/linkSkillInfo"
 
 import { UserContext } from '../../pages/_app.js';
 
-function SuggestToWeb({ allCharacters, selectedCharacter, userCharacters, handleNewDetails, webOfTeam,  addToWebOfTeam, removeFromWebOfTeam, allCharactersLoading, levelOfLinks, showMiddleDiv, showSuggestedCardsByStats }) {
+function SuggestToWeb({ allCharacters, selectedCharacter, userCharacters, handleNewDetails, webOfTeam,  addToWebOfTeam, removeFromWebOfTeam, allCharactersLoading }) {
+  const { levelOfLinks, showMiddleDiv, showSuggestedCardsByStats } = useContext(UserContext)
+
   // these allow the selected options in the SuggestForm to be passed into the SuggestCards
   const [statsSelectedOptions, setStatsSelectedOptions] = useState("None");
 
@@ -70,7 +72,7 @@ function SuggestToWeb({ allCharacters, selectedCharacter, userCharacters, handle
   }, [selectedCategories]); 
 
   //TODO: this is then the array of arrays (characters paired by how many links match) 
-  const charactersWithMatchedLinks = groupCharactersByLinkCount(filteredSuggestedCharacters, selectedCharacter.link_skill);
+  const charactersWithMatchedLinks = selectedCharacter?.link_skill ? groupCharactersByLinkCount(filteredSuggestedCharacters, selectedCharacter.link_skill) : []
 
   const [showSuggestedCards, setShowSuggestedCards] = useState(false)
   function handleSetShowSuggestedCards () {

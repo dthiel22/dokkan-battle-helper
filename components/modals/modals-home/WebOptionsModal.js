@@ -3,7 +3,9 @@ import ReactDom from "react-dom";
 
 import { UserContext } from '../../../pages/_app';
 
-export default function WebOptionsModal( {open, onClose, showSummationLinks, setShowSummationLinks, levelOfLinks, setLevelOfLinks, showSuggestedCardsByStats, setShowSuggestedCardsByStats} ) {
+export default function WebOptionsModal( {open, onClose} ) {
+    const { levelOfLinks, setLevelOfLinks, showSummationLinks, setShowSummationLinks, showSuggestedCardsByStats, setShowSuggestedCardsByStats } = useContext(UserContext)
+
   if (!open) return null;
   
   return ReactDom.createPortal(

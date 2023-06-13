@@ -9,8 +9,10 @@ const subIcon = "/dokkanIcons/icons/subleader-icon.png";
 const ezaIcon = "/dokkanIcons/icons/z.png";
 
 const CharacterCard = React.memo(({ individualCharacter, mobilesize, desktopsize, EZA, leaderOrSubLeader }) => {
-    // console.log(individualCharacter?.ps_description)
-
+    // allows for initial render to have no selected character
+    if(individualCharacter === null || typeof individualCharacter === 'undefined'){
+        return
+    }
     // Set the Cloud configuration and URL configuration
     const cld = new Cloudinary({
         cloud: {
@@ -24,7 +26,7 @@ const CharacterCard = React.memo(({ individualCharacter, mobilesize, desktopsize
     });
 
     const characterThumb = cld.image(`Character Thumb/${individualCharacter.id}`);
-
+    
     if (individualCharacter.id === 0){
         return(
             <AdvancedImage

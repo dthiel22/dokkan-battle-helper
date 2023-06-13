@@ -30,7 +30,9 @@ let viewPort = {
   zoom: .55,
 };
 
-function Web({ webOfTeam, removeFromWebOfTeam, allCharactersLoading, selectedCharacter, handleNewDetails, addToWebOfTeam, statsSelectedOptions, showSuggestedCards, handleSetShowSuggestedCards, showMiddleDiv, showSuggestedCardsByStats, setShowSuggestedCardsByStats }) {
+function Web({ webOfTeam, removeFromWebOfTeam, allCharactersLoading, selectedCharacter, handleNewDetails, addToWebOfTeam, statsSelectedOptions, showSuggestedCards, handleSetShowSuggestedCards, }) {
+  const { showMiddleDiv, showSuggestedCardsByStats, setShowSuggestedCardsByStats } = useContext(UserContext)
+
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
 
   const [existingNodes, setExistingNodes] = useState(buildAllNodes(webOfTeam));

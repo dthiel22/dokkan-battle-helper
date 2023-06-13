@@ -6,7 +6,7 @@ import { UserContext } from '../../pages/_app';
 
 import Image from 'next/image';
 
-const closeIcon = "/dokkanIcons/icons/right-arrow-icon.png"
+const closeIcon = "/dokkanIcons/icons/circular-close-icon.png"
 
 const SearchForm = ({ onFormChange, selectedCategories, handleNewCategorySelected, handleSelectedCategoryRemoval }) => {
   const { showMiddleDiv } = useContext(UserContext)

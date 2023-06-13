@@ -660,7 +660,7 @@ export const linkSkillStatBoosts = (linkSkills) => {
 
 export const linkSkillStatsBoostedFor2Characters_lvl_1 = (character1, character2) => {
   // gets matched links between the selected character and character card
-    const matchedLinks = findMatchingLinks(character1.link_skill, character2.link_skill) || []
+    const matchedLinks = character1?.link_skill && character2?.link_skill && findMatchingLinks(character1.link_skill, character2.link_skill) || []
     let matchedLinkInfo = [];
     // gets lvl1 linkskill info of the match links
     for (let i = 0; i < matchedLinks.length; i++) {
