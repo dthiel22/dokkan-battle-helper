@@ -4,7 +4,8 @@
   publish = ".next"
 
 [[redirects]]
-from = "/*"
-to = "https://dokkan.team/:splat"
-status = 301
-force = true
+  from = "/*"
+  to = "https://dokkan.team/:splat"
+  status = 301
+  force = true
+  conditions = { Domain = "www.dokkanbattlebuilder.com" }
