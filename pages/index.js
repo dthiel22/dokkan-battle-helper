@@ -12,6 +12,7 @@ import {QUERY_CHARACTERS,GET_ITEMS_DATA,GET_SUPPORT_MEMORY_DATA,GET_USERDATA, GE
 
 import { useMutation } from "@apollo/client";
 import { UPDATE_SAVED_CHARACTERS, ADD_TEAM_TO_DECK } from "../components/util/mutations";
+import Introduction from "@/main-components/Introduction";
 import CardDetails from "../components/main-components/CardDetails";
 import DeckSelection from "../components/main-components/DeckSelection.js";
 import Auth from "../components/util/auth";
@@ -54,7 +55,10 @@ function AllComponents({  }) {
 
   const [selectedDeck, setSelectedDeck] = useState("");
 
-  const [cardDetails, setCardDetails] = useState(null);
+  const [cardDetails, setCardDetails] = useState({
+    id:0,
+    link_skill:['Super Saiyan']
+  });
 
   //setting a state of webOfTeam for characeters in graph
   const [webOfTeam, setWebOfTeam] = useState([]);
@@ -246,17 +250,6 @@ function AllComponents({  }) {
     const [announcementOpen, setAnnouncementOpen] = useState(false)
 
     const [openNewsModal, setOpenNewsModal] = useState(false)
-
-    if (typeof window !== 'undefined') {
-      const firstLogInShowNews = localStorage.getItem('announcement2');
-      const timestamp = localStorage.getItem('announcement2Timestamp');
-    
-      if (!firstLogInShowNews || (timestamp && Date.now() - timestamp > 30 * 24 * 60 * 60 * 1000)) {
-        setOpenNewsModal(true);
-        localStorage.setItem('announcement2', 'true');
-        localStorage.setItem('announcement2Timestamp', Date.now());
-      }
-    }
     
     function handleCharacterSelection(character){
       const existingCharacter = webOfTeam.find(webCharacter => webCharacter.id === character.id)
@@ -353,63 +346,77 @@ function AllComponents({  }) {
         </div>
         }
 
-        {/* TODO: card detail styling */}
-        <div
-          id="SingleCardDetails"
-          className={`${showCardStats || (showMiddleDiv && (windowWidth > 900)) ? '' : 'hidden'} flex flex-1 flex-col w-screen lg:w-1/4 lg:max-w-[400px] lg:min-w-[0px] bg-gradient-radial from-slate-500 via-slate-600 to-slate-900 overflow-y-auto`}
-          >
-
-          {(showMiddleDiv && (windowWidth > 900)) &&
-          <div className="flex w-full p-2">
-            <button
+<div
+  id="SingleCardDetails"
+  className={`${
+    showCardStats || (showMiddleDiv && windowWidth > 900)
+      ? ''
+      : 'hidden'
+  } flex flex-1 flex-col w-screen lg:w-1/4 lg:max-w-[400px] lg:min-w-[0px] bg-gradient-radial from-slate-500 via-slate-600 to-slate-900 overflow-y-auto`}
+>
+  {(cardDetails.id === 0 && !hoverCharacterStats) ? (
+    <Introduction setOpenNewsModal={setOpenNewsModal}/>
+  ) : (
+    <>
+      {showMiddleDiv && windowWidth > 900 && (
+        <div className="flex w-full p-2">
+          <button
             onClick={() => setShowMiddleDiv(false)}
             className="flex py-2 px-4 w-1/2 text-md card-sm:text-base lg:text-sm <1000px>:text-[.77rem] xl:text-[.85rem] font-bold justify-center items-center text-center cursor-pointer border-2 border-black bg-orange-200 hover:bg-orange-300"
-            >
-              Hide Character Details
-            </button>
+          >
+            Hide Character Details
+          </button>
 
-            <button
+          <button
             onClick={() => setShowCalculator(!showCalculator)}
             className="flex py-2 px-4 w-1/2 text-md card-sm:text-base lg:text-sm <1000px>:text-[.77rem] xl:text-[.85rem] font-bold justify-center items-center text-center cursor-pointer border-2 border-black bg-orange-200 hover:bg-orange-300"
-            >
-              {showCalculator ? 'Show Team Web' : 'Show Calculator' }
-            </button>
-          </div>
-          }
-
-          <div className="flex flex-row w-full h-fit px-2 mt-2">
-
-            <div className="w-1/2">
-              <div
-                onClick={() => setShowCardDetails(true)}
-                className={`flex py-2 px-4 w-full h-full border-black card-sm:text-lg font-bold rounded-l-lg justify-center items-center text-center cursor-pointer ${showCardDetails ? "border-4 bg-orange-400" : "border-2 bg-orange-200"}`}
-              >
-                Card Details
-              </div>
-            </div>
-
-            <div className="w-1/2 h-full border-black card-sm:text-lg font-bold">
-              <MyDeckSelectButton userDeckData={userDeckData} selectedDeck={selectedDeck} setSelectedDeck={setSelectedDeck} allCharactersLoading={allCharactersLoading}/>
-            </div>
-
-          </div>
-
-          {showCardDetails ? (
-            <CardDetails
-              cardDetails={cardDetails}
-              hoverCharacterStats={hoverCharacterStats}
-            />
-            ) : (
-            <DeckSelection
-              characterDictionary={characterDictionary}
-              webOfTeam={webOfTeam}
-              userDeckData={userDeckData}
-              selectedDeck={selectedDeck}
-              addToWebOfTeam={addToWebOfTeam}
-              removeFromWebOfTeam={removeFromWebOfTeam}
-            />
-          )}
+          >
+            {showCalculator ? 'Show Team Web' : 'Show Calculator'}
+          </button>
         </div>
+      )}
+
+      <div className="flex flex-row w-full h-fit px-2 mt-2">
+        <div className="w-1/2">
+          <div
+            onClick={() => setShowCardDetails(true)}
+            className={`flex py-2 px-4 w-full h-full border-black card-sm:text-lg font-bold rounded-l-lg justify-center items-center text-center cursor-pointer ${
+              showCardDetails ? 'border-4 bg-orange-400' : 'border-2 bg-orange-200'
+            }`}
+          >
+            Card Details
+          </div>
+        </div>
+
+        <div className="w-1/2 h-full border-black card-sm:text-lg font-bold">
+          <MyDeckSelectButton
+            userDeckData={userDeckData}
+            selectedDeck={selectedDeck}
+            setSelectedDeck={setSelectedDeck}
+            allCharactersLoading={allCharactersLoading}
+          />
+        </div>
+      </div>
+
+      {showCardDetails ? (
+        <CardDetails
+          cardDetails={cardDetails}
+          hoverCharacterStats={hoverCharacterStats}
+        />
+      ) : (
+        <DeckSelection
+          characterDictionary={characterDictionary}
+          webOfTeam={webOfTeam}
+          userDeckData={userDeckData}
+          selectedDeck={selectedDeck}
+          addToWebOfTeam={addToWebOfTeam}
+          removeFromWebOfTeam={removeFromWebOfTeam}
+        />
+      )}
+    </>
+  )}
+</div>
+
 
         {/* TODO: Card selection styling */}
         <div

@@ -24,7 +24,7 @@ function SuggestToWeb({ allCharacters, selectedCharacter, userCharacters, handle
     setStatsSelectedOptions(event.target.value);
   };
 
-  const selectedLinks = selectedCharacter?.link_skill || [];
+  const selectedLinks = selectedCharacter.link_skill;
 
   const linkedCharacters = allCharacters ? allCharacters.filter(character => {
     const characterLinks = character.link_skill;
