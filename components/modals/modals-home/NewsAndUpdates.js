@@ -17,21 +17,28 @@ export default function NewsAndUpdatesModal( {open, onClose} ) {
         <div 
         onClick={(e) => e.stopPropagation()}
         className="flex flex-col w-3/4 lg:w-3/5 h-[70vh] lg:max-h-3/4 border-4 border-black rounded-lg shadow-lg fixed bg-gray-100 z-[1000] overflow-y-auto">
-          {/* <img onClick={() => onClose()} src={closeIcon} className="absolute top-2 right-2 rounded-lg transition ease-in-out hover:bg-gray-400/[.6] cursor-pointer"/> */}
-          <h1 className="font-header w-full h-fit px-14 border-b-4 border-black text-2xl lg:text-4xl <1000px>:text-5xl text-center bg-orange-300">WELCOME TO DOKKAN BATTLE HELPER!</h1>
           <div className="flex flex-row">
           </div>
           
           <div className="flex flex-col w-full bg-orange-200">
-              <div className="pb-4">
-                <h1 className="font-header pt-2 text-xl card-sm:text-2xl lg:text-4xl font-light text-center underline underline-offset-8 decoration-2">The Best Dokkan Link Helper</h1>
-                <p className="px-4 pt-2 text-base border-r-4 card-sm:text-lg font-bold indent-10">The biggest reason we wanted to make this web app was to help players build effect teams that link well. Whether you are a beginer looking for a team that can complete an event or a long time veteran looking for an easy place to post teams on our strategy page, we believe this app can be used by everyone. A couple of use cases for the app include seeing what characters link well with others, saving teams to a deck (great feature to help those looking to make teams to complete Ultimate Clash), and seeing/posting teams on specific stages for others to see. The team building page can be accessed at <a className='text-blue-500' href={`https://dokkan.team/`}>dokkan.team</a> while the team strategies and team postings can be found at <a className='text-blue-500' href={`https://dokkan.team/strategy`}>dokkan.team/strategy</a>. We hope you enjoy this app. If there is any information missing or is incorrect, please fill out the information in this <a className='text-blue-500' href={'https://docs.google.com/forms/d/e/1FAIpQLSdmglG-bsdZL1R41EYEsfrnN5tgJyK-CPfs1D4cNwNBpcxfxg/viewform?usp=sf_link'} target={'_blank'}>form</a>.</p>
-              </div>
-
               <div className="pb-14">
                 <p className="font-header pt-2 text-xl card-sm:text-2xl lg:text-4xl font-light text-center underline underline-offset-8 decoration-2">Updates</p>
 
                 <div className="h-full">
+                  <div className="flex flex-wrap justify-around">
+                    <NewsDiv date={'JUNE/13/2023'} information={<>
+                      <p className="px-2 card-sm:px-4 py-2 text-md card-sm:text-base font-bold">TLDR:</p>
+                      <li className="px-2 card-sm:px-4 text-md card-sm:text-base font-bold">Moved frameworks</li>
+                      <li className="px-2 card-sm:px-4 text-md card-sm:text-base font-bold">Fixed errors that the migration caused</li>
+                      <li className="px-2 card-sm:px-4 text-md card-sm:text-base font-bold">Updated character data</li>
+                      <p className="px-2 card-sm:px-4 py-2 text-md card-sm:text-base font-bold indent-4">Back after a long hiatus. I received a contract position with a company so I have had less time to put into this site but now that life is in a rhythm, I've finally had the time to start pushing some updates out. The biggest issue I needed to tackle, that I have been working on for the past 3 months, was having my site be indexed by Google. I switched frameworks, from React to Next, to allow the native processes of Next.js to take over the server side rendering just so I didn't have to worry about doing it in React. The transfer took about a week (I cleaned up a good amount of code to) and now I am happy to say that google can properly index my site (my site will now be able to populate on an organic google search)! Obviously, it will take time to reach the top of the dokkan searches, but I am working hard on my SEO to make that possible.</p> 
+                      <p className="px-2 card-sm:px-4 py-2 text-md card-sm:text-base font-bold indent-4">Along with these changes, I fixed all the errors that happened with the framework migration. If there are any more error that you do run into, please let me know <a className='text-blue-500' href="https://docs.google.com/forms/d/e/1FAIpQLSdmglG-bsdZL1R41EYEsfrnN5tgJyK-CPfs1D4cNwNBpcxfxg/viewform?usp=sf_link" target={'_blank'}>here</a>. I also added the new characters and updated a lot of character EZA information, two people actually took the time to look over every character and make sure they matched up.....huuuuuuge shout out to who ever did that (I added a contact information question in the form so that I can reach out to those who take the time to do that in the future).</p> 
+                      <p className="px-2 card-sm:px-4 py-2 text-md card-sm:text-base font-bold indent-4">All in all, I am pumped to be back on the saddle and SUPER stoked google can see the site now. Now is the fun part of seeing if we can climb up the organic search laddler. I am going to continue working on the calculators and also adding transformed characters. The transformed characters will take a little longer because I need to change a bit of the character structure just so I can get it to function properly. I hope you continue to enjoy using the app!</p> 
+                      </>}
+                      key={'Update 5'}
+                    />
+                  </div> 
+
                   <div className="flex flex-wrap justify-around">
                     <NewsDiv date={'MAY/21/2023'} information={<>
                       <p className="px-2 card-sm:px-4 py-2 text-md card-sm:text-base font-bold">TLDR:</p>

@@ -13,6 +13,10 @@ import { UserContext } from '../../pages/_app';
 import Image from 'next/image';
 
 function CardDetails({ cardDetails, hoverCharacterStats }) {
+  if (cardDetails === null){
+    return
+  }
+  
   const { turnOnEZAStats, setTurnOnEZAStats } = useContext(UserContext)
 
   const divRef1 = useRef(null);
