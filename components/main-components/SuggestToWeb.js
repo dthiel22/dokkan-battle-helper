@@ -12,7 +12,7 @@ import * as linkSkillInfo from "../util/linkSkillInfo"
 
 import { UserContext } from '../../pages/_app.js';
 
-function SuggestToWeb({ allCharacters, selectedCharacter, userCharacters, handleNewDetails, webOfTeam,  addToWebOfTeam, removeFromWebOfTeam, allCharactersLoading }) {
+function SuggestToWeb({ allCharacters, selectedCharacter, userCharacters, handleNewDetails, webOfTeam, addToWebOfTeam, removeFromWebOfTeam, allCharactersLoading }) {
   const { levelOfLinks, showMiddleDiv, showSuggestedCardsByStats } = useContext(UserContext)
 
   // these allow the selected options in the SuggestForm to be passed into the SuggestCards
@@ -25,12 +25,12 @@ function SuggestToWeb({ allCharacters, selectedCharacter, userCharacters, handle
   };
 
   const selectedLinks = selectedCharacter.link_skill;
-
+  
   const linkedCharacters = allCharacters ? allCharacters.filter(character => {
     const characterLinks = character.link_skill;
-    return characterLinks.some(link => selectedLinks.includes(link));
+    return characterLinks.some(link => selectedLinks.includes(link)); 
   }) : [];
-  
+
 
   //TODO: this is making a function with filterData passed in, then setting the state for filtered characters to the filterData
   const [filteredSuggestedCharacters, setFilteredSuggestedCharacters] = useState([])
@@ -67,12 +67,12 @@ function SuggestToWeb({ allCharacters, selectedCharacter, userCharacters, handle
   
   //This useEffect allows for filtered characters to refresh AFTER a category is added or removed
   useEffect(() => {
-    const filteredChars = getFilteredCharacters(allCharacters, userCharacters, newFilterData, selectedCategories);
+    const filteredChars = getFilteredCharacters(linkedCharacters, userCharacters, newFilterData, selectedCategories);
     setFilteredSuggestedCharacters(filteredChars);
-  }, [selectedCategories]); 
+  }, [selectedCategories, selectedCharacter]); 
 
   //TODO: this is then the array of arrays (characters paired by how many links match) 
-  const charactersWithMatchedLinks = selectedCharacter?.link_skill ? groupCharactersByLinkCount(filteredSuggestedCharacters, selectedCharacter.link_skill) : []
+  const charactersWithMatchedLinks = groupCharactersByLinkCount(filteredSuggestedCharacters, selectedCharacter.link_skill)
 
   const [showSuggestedCards, setShowSuggestedCards] = useState(false)
   function handleSetShowSuggestedCards () {
@@ -178,17 +178,17 @@ function SuggestToWeb({ allCharacters, selectedCharacter, userCharacters, handle
         ref={suggestedCardContainer}
         className={`flex-1 overflow-y-auto`}>
           {showSuggestedCardsByStats ? 
-          <OrderByStatsBuffed showSuggestedCards={showSuggestedCards} webOfTeam={webOfTeam} handleNewDetails={handleNewDetails} addToWebOfTeam={addToWebOfTeam} removeFromWebOfTeam={removeFromWebOfTeam} statsSelectedOptions={statsSelectedOptions} selectedCharacter={selectedCharacter} linkedCharacters={filteredSuggestedCharacters} viewableCharacters={viewableCharacters} levelOfLinks={levelOfLinks}/>
+            <OrderByStatsBuffed showSuggestedCards={showSuggestedCards} webOfTeam={webOfTeam} handleNewDetails={handleNewDetails} addToWebOfTeam={addToWebOfTeam} removeFromWebOfTeam={removeFromWebOfTeam} statsSelectedOptions={statsSelectedOptions} selectedCharacter={selectedCharacter} linkedCharacters={filteredSuggestedCharacters} viewableCharacters={viewableCharacters} levelOfLinks={levelOfLinks}/>
           :
-          <>
-            <CharacterLinkDisplay matchCount={7} webOfTeam={webOfTeam} selectedCharacter={selectedCharacter} charactersWithMatchedLinks={charactersWithMatchedLinks} handleNewDetails={handleNewDetails}  addToWebOfTeam={ addToWebOfTeam} removeFromWebOfTeam={removeFromWebOfTeam} statsSelectedOptions={statsSelectedOptions} />
-            <CharacterLinkDisplay matchCount={6} webOfTeam={webOfTeam} selectedCharacter={selectedCharacter} charactersWithMatchedLinks={charactersWithMatchedLinks} handleNewDetails={handleNewDetails}  addToWebOfTeam={ addToWebOfTeam} removeFromWebOfTeam={removeFromWebOfTeam}  statsSelectedOptions={statsSelectedOptions}/>
-            <CharacterLinkDisplay matchCount={5} webOfTeam={webOfTeam} selectedCharacter={selectedCharacter} charactersWithMatchedLinks={charactersWithMatchedLinks} handleNewDetails={handleNewDetails}  addToWebOfTeam={ addToWebOfTeam} removeFromWebOfTeam={removeFromWebOfTeam}  statsSelectedOptions={statsSelectedOptions}/>
-            <CharacterLinkDisplay matchCount={4} webOfTeam={webOfTeam} selectedCharacter={selectedCharacter} charactersWithMatchedLinks={charactersWithMatchedLinks} handleNewDetails={handleNewDetails}  addToWebOfTeam={ addToWebOfTeam} removeFromWebOfTeam={removeFromWebOfTeam}  statsSelectedOptions={statsSelectedOptions}/>
-            <CharacterLinkDisplay matchCount={3} webOfTeam={webOfTeam} selectedCharacter={selectedCharacter} charactersWithMatchedLinks={charactersWithMatchedLinks} handleNewDetails={handleNewDetails}  addToWebOfTeam={ addToWebOfTeam} removeFromWebOfTeam={removeFromWebOfTeam}  statsSelectedOptions={statsSelectedOptions}/>
-            <CharacterLinkDisplay matchCount={2} webOfTeam={webOfTeam} selectedCharacter={selectedCharacter} charactersWithMatchedLinks={charactersWithMatchedLinks} handleNewDetails={handleNewDetails}  addToWebOfTeam={ addToWebOfTeam} removeFromWebOfTeam={removeFromWebOfTeam}  statsSelectedOptions={statsSelectedOptions}/>
-            <CharacterLinkDisplay matchCount={1} webOfTeam={webOfTeam} selectedCharacter={selectedCharacter} charactersWithMatchedLinks={charactersWithMatchedLinks} handleNewDetails={handleNewDetails}  addToWebOfTeam={ addToWebOfTeam} removeFromWebOfTeam={removeFromWebOfTeam}  statsSelectedOptions={statsSelectedOptions}/>
-          </>
+            <>
+              <CharacterLinkDisplay matchCount={7} webOfTeam={webOfTeam} selectedCharacter={selectedCharacter} charactersWithMatchedLinks={charactersWithMatchedLinks} handleNewDetails={handleNewDetails}  addToWebOfTeam={ addToWebOfTeam} removeFromWebOfTeam={removeFromWebOfTeam} statsSelectedOptions={statsSelectedOptions} />
+              <CharacterLinkDisplay matchCount={6} webOfTeam={webOfTeam} selectedCharacter={selectedCharacter} charactersWithMatchedLinks={charactersWithMatchedLinks} handleNewDetails={handleNewDetails}  addToWebOfTeam={ addToWebOfTeam} removeFromWebOfTeam={removeFromWebOfTeam}  statsSelectedOptions={statsSelectedOptions}/>
+              <CharacterLinkDisplay matchCount={5} webOfTeam={webOfTeam} selectedCharacter={selectedCharacter} charactersWithMatchedLinks={charactersWithMatchedLinks} handleNewDetails={handleNewDetails}  addToWebOfTeam={ addToWebOfTeam} removeFromWebOfTeam={removeFromWebOfTeam}  statsSelectedOptions={statsSelectedOptions}/>
+              <CharacterLinkDisplay matchCount={4} webOfTeam={webOfTeam} selectedCharacter={selectedCharacter} charactersWithMatchedLinks={charactersWithMatchedLinks} handleNewDetails={handleNewDetails}  addToWebOfTeam={ addToWebOfTeam} removeFromWebOfTeam={removeFromWebOfTeam}  statsSelectedOptions={statsSelectedOptions}/>
+              <CharacterLinkDisplay matchCount={3} webOfTeam={webOfTeam} selectedCharacter={selectedCharacter} charactersWithMatchedLinks={charactersWithMatchedLinks} handleNewDetails={handleNewDetails}  addToWebOfTeam={ addToWebOfTeam} removeFromWebOfTeam={removeFromWebOfTeam}  statsSelectedOptions={statsSelectedOptions}/>
+              <CharacterLinkDisplay matchCount={2} webOfTeam={webOfTeam} selectedCharacter={selectedCharacter} charactersWithMatchedLinks={charactersWithMatchedLinks} handleNewDetails={handleNewDetails}  addToWebOfTeam={ addToWebOfTeam} removeFromWebOfTeam={removeFromWebOfTeam}  statsSelectedOptions={statsSelectedOptions}/>
+              <CharacterLinkDisplay matchCount={1} webOfTeam={webOfTeam} selectedCharacter={selectedCharacter} charactersWithMatchedLinks={charactersWithMatchedLinks} handleNewDetails={handleNewDetails}  addToWebOfTeam={ addToWebOfTeam} removeFromWebOfTeam={removeFromWebOfTeam}  statsSelectedOptions={statsSelectedOptions}/>
+            </>
           }
 
           
@@ -199,10 +199,6 @@ function SuggestToWeb({ allCharacters, selectedCharacter, userCharacters, handle
 }
 
 const OrderByStatsBuffed = ({ showSuggestedCards, webOfTeam, handleNewDetails, addToWebOfTeam, removeFromWebOfTeam, statsSelectedOptions, selectedCharacter, linkedCharacters, viewableCharacters, levelOfLinks}) => {
-  if(!showSuggestedCards){
-    return null
-  }
-
   const characterArrayWithStats = linkedCharacters.map(linkedCharacter => {
     let linkSkillStatsBoosted
     if(levelOfLinks === 1){
