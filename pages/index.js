@@ -557,14 +557,14 @@ function AllComponents({  }) {
           )
           :
           <SuggestToWeb
+            allCharacters={allCharacters}
+            allCharactersLoading={allCharactersLoading}
             selectedCharacter={cardDetails}
             userCharacters={userCharacters}
             handleNewDetails={newCardDetails}
             addToWebOfTeam={addToWebOfTeam}
             webOfTeam={webOfTeam}
             removeFromWebOfTeam={removeFromWebOfTeam}
-            allCharacters={allCharacters}
-            allCharactersLoading={allCharactersLoading}
           />
           }
         </div>

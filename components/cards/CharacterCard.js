@@ -30,7 +30,7 @@ const CharacterCard = React.memo(({ individualCharacter, mobilesize, desktopsize
     if (individualCharacter.id === 0){
         return(
             <AdvancedImage
-            className={`w-[70px] card-sm:w-[100px] bg-no-repeat relative z-40`}
+            className={`w-[70px] card-sm:w-[100px] p-2 bg-no-repeat relative z-40`}
             cldImg={characterThumb}
             alt={individualCharacter.name}
             />
