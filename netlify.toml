@@ -2,13 +2,27 @@
 [build]
   command = "npm run build"
   publish = ".next"
+  
+[[redirects]]
+  from = "http://dokkanbattlehelper.com/*"
+  to = "https://dokkan.team/:splat"
+  status = 301
+  force = true
 
 [[redirects]]
   from = "https://dokkanbattlehelper.com/*"
   to = "https://dokkan.team/:splat"
   status = 301
+  force = true
 
-  [[redirects]]
-  from = "http://dokkanbattlehelper.com/*"
+[[redirects]]
+  from = "http://www.dokkanbattlehelper.com/*"
   to = "https://dokkan.team/:splat"
   status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.dokkanbattlehelper.com/*"
+  to = "https://dokkan.team/:splat"
+  status = 301
+  force = true
