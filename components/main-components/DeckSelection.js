@@ -160,11 +160,15 @@ const SinglePaneLayout = ({ allTeams, characterDictionary, handleEditTeamInfo, h
     <div className="flex flex-wrap w-full p-2" key={allTeams}>
     {allTeams ? allTeams.map(team => (
       <div key={team._id} className='flex flex-wrap w-full max-w-[400px] lg:max-w-full py-2 pl-2 pr-10 mb-2 border-4 border-black rounded-lg bg-orange-200 hover:bg-orange-400 relative'> 
-          <img src={editIcon} onClick={() => handleEditTeamInfo(team)} className="w-8 card-sm:w-10 h-8 card-sm:h-10 p-1 mt-2 mr-2 text-center hover:bg-gray-500/[.75] transition ease-in-out rounded-lg z-50 absolute top-0 right-0 cursor-pointer"/>
-          <img src={trashIcon} onClick={() => handleWarningModal(team)} className="w-8 card-sm:w-10 h-8 card-sm:h-10 p-1 mb-1 mr-1 hover:bg-gray-500/[.75] transition ease-in-out rounded-lg z-50 absolute bottom-0 right-0 cursor-pointer"/>
-          <img src={teamToWebIcon} title='clear current team web and add this team to web' onClick={() => handleAddTeamToWeb(team)} className="w-8 card-sm:w-10 h-8 card-sm:h-10 p-1 mr-1 hover:bg-gray-500/[.75] transition ease-in-out rounded-lg z-50 absolute top-[37%] right-0 cursor-pointer"/>
-        <CharacterCard key={'leader'+team.info.leader} individualCharacter={characterDictionary[team.info.leader]} leaderOrSubLeader={'leader'} mobilesize={"60px"} desktopsize={"80px"}/>
-        <CharacterCard key={'subleader'+team.info.subLeadereader} individualCharacter={characterDictionary[team.info.subLeader]} leaderOrSubLeader={'subLeader'} mobilesize={"60px"} desktopsize={"80px"}/>
+        <img src={editIcon} onClick={() => handleEditTeamInfo(team)} className="w-8 card-sm:w-10 h-8 card-sm:h-10 p-1 mt-2 mr-2 text-center hover:bg-gray-500/[.75] transition ease-in-out rounded-lg z-50 absolute top-0 right-0 cursor-pointer"/>
+        <img src={trashIcon} onClick={() => handleWarningModal(team)} className="w-8 card-sm:w-10 h-8 card-sm:h-10 p-1 mb-1 mr-1 hover:bg-gray-500/[.75] transition ease-in-out rounded-lg z-50 absolute bottom-0 right-0 cursor-pointer"/>
+        <img src={teamToWebIcon} title='clear current team web and add this team to web' onClick={() => handleAddTeamToWeb(team)} className="w-8 card-sm:w-10 h-8 card-sm:h-10 p-1 mr-1 hover:bg-gray-500/[.75] transition ease-in-out rounded-lg z-50 absolute top-[37%] right-0 cursor-pointer"/>
+        <div>
+          <CharacterCard key={'leader'+team.info.leader} individualCharacter={characterDictionary[team.info.leader]} leaderOrSubLeader={'leader'} mobilesize={"60px"} desktopsize={"80px"}/>
+        </div>
+        <div>
+          <CharacterCard key={'subleader'+team.info.subLeadereader} individualCharacter={characterDictionary[team.info.subLeader]} leaderOrSubLeader={'subLeader'} mobilesize={"60px"} desktopsize={"80px"}/>
+        </div>
         {team.characters.map((character) => character.id !== team.info.leader && character.id !== team.info.subLeader ?
           <div key={character.id}>
             <CharacterCard key={'TeamCard'+character.id} individualCharacter={characterDictionary[character.id]} leaderOrSubLeader={''} mobilesize={"60px"} desktopsize={"80px"}/>
