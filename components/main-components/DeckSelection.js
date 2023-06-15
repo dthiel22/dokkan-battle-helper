@@ -138,7 +138,7 @@ export default function DeckSelection({ characterDictionary, webOfTeam, userDeck
         <div className="flex px-8 py-1 text-md card-sm:text-base font-bold items-center border-2 border-black bg-orange-200 rounded-full">
           Layout:
           <button 
-          onClick={() => setShowGridLayout(true)}><img src={gridIcon} className={`h-fit w-8 mx-2 hover:bg-gray-500/[.75] transition ease-in-out rounded-lg ${showGridLayout && 'bg-gray-500'}`}/></button>
+          onClick={() => setShowGridLayout(true)}><img src={gridIcon} className={`w-8 h-8 mx-2 hover:bg-gray-500/[.75] transition ease-in-out rounded-lg ${showGridLayout && 'bg-gray-500'}`}/></button>
           <button
           className={`${!showGridLayout ? 'w-12 h-5 mx-2 bg-black rounded-lg border-4 border-gray-500/[.75] transition ease-in-out' : 'w-10 h-3 mx-2 bg-black rounded-lg hover:w-12 hover:h-5 hover:border-4 hover:border-gray-500/[.75] transition ease-in-out'}`}
           onClick={() => setShowGridLayout(false)}></button>
