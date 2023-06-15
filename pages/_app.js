@@ -33,6 +33,7 @@ function MyApp({ Component, pageProps }) {
   const [allNodePositions, setAllNodePositions] = useState([]);
   const [levelOfLinks, setLevelOfLinks] = useState(1);
   const [showSuggestedCardsByStats, setShowSuggestedCardsByStats] = useState(true);
+  const [showGridLayout, setShowGridLayout] = useState(true)
 
 return (
   <ApolloProvider client={client}>
@@ -63,6 +64,8 @@ return (
         setLevelOfLinks,
         showSuggestedCardsByStats,
         setShowSuggestedCardsByStats,
+        showGridLayout,
+        setShowGridLayout
       }}
     >
       <Component {...pageProps} />
