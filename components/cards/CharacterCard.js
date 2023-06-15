@@ -9,6 +9,7 @@ const subIcon = "/dokkanIcons/icons/subleader-icon.png";
 const ezaIcon = "/dokkanIcons/icons/z.png";
 
 const CharacterCard = React.memo(({ individualCharacter, mobilesize, desktopsize, EZA, leaderOrSubLeader }) => {
+    console.log(desktopsize)
     // allows for initial render to have no selected character
     if(individualCharacter === null || typeof individualCharacter === 'undefined'){
         return
