@@ -45,6 +45,10 @@ module.exports = {
         '2xl': '1536px',
         // => @media (min-width: 1536px) { ... }
       },
+      width:{
+        '50px':'50px',
+        '60px':'60px'
+      },
       height: {
         '10vh': '10vh',
         '[9%]': '9%',

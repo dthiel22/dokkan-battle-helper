@@ -8,10 +8,6 @@ import CharacterCard from './CharacterCard'
 import { UserContext } from '../../pages/_app';
 
 function SuggestCard({ character, webOfTeam, selectedCharacter, handleNewDetails, addToWebOfTeam, removeFromWebOfTeam, statsSelectedOptions, allCharacterIDsInDeck }) {
-  if (!selectedCharacter){
-    return
-  }
-
   const { levelOfLinks, grayCharactersInSelectedDeck } = useContext(UserContext)
 
   const [isInWeb, setIsInWeb] = useState();
