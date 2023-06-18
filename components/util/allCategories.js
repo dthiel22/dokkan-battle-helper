@@ -73,7 +73,7 @@ export const categories =[
     "Super Saiyan 3",
     "Super Saiyans",
     "Sworn Enemies",
-    "Target Goku",
+    "Target: Goku",
     "Team Bardock",
     "Terrifying Conquerors",
     "Time Limit",
