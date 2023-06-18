@@ -7,8 +7,8 @@ import CharacterCard from './CharacterCard'
 
 import { UserContext } from '../../pages/_app';
 
-function SuggestCard({ character, webOfTeam, selectedCharacter, handleNewDetails, addToWebOfTeam, removeFromWebOfTeam, statsSelectedOptions, allCharacterIDsInDeck }) {
-  const { levelOfLinks, grayCharactersInSelectedDeck } = useContext(UserContext)
+function SuggestCard({ character, webOfTeam, selectedCharacter, handleNewDetails, addToWebOfTeam, removeFromWebOfTeam, statsSelectedOptions }) {
+  const { levelOfLinks, grayCharactersInSelectedDeck, allCharacterIDsInDeck } = useContext(UserContext)
 
   const [isInWeb, setIsInWeb] = useState();
   // this useEffect sets the isInWeb (which is originally checking to see if a character is in the web). The map function makes a new array of all characters with just their ids. Then, if this is included, isInWeb is set to true, which will change the state of the ternary to make the background of the card change

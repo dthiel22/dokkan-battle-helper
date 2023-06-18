@@ -28,13 +28,12 @@ export default function DeckSelection({ characterDictionary, webOfTeam, userDeck
   const [openTeamAnalysis, setOpenTeamAnalysis] = useState(false)
   const [openMakeTeamForm, setOpenMakeTeamForm] = useState(false)
   const [openEditTeamForm, setOpenEditTeamForm] = useState(false)
-  const [showGridLayout, setShowGridLayout] = useState(true)
   
   const [teamUsedInMakeTeamForm, setTeamUsedInMakeTeamForm] = useState([])
   const [teamUsedInForm, setTeamUsedInForm] = useState([])
   const [teamUsedInAnalysis, setTeamUsedInAnalysis] = useState([])
 
-  const { grayCharactersInSelectedDeck, setGrayCharactersInSelectedDeck } = useContext(UserContext);
+  const { showGridLayout, setShowGridLayout } = useContext(UserContext);
   
   const [newDeckName, setNewDeckName] = useState("");
 

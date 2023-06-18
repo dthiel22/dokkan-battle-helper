@@ -93,8 +93,8 @@ mutation AddCharacter($character: CharacterInput) {
 `;
 
 export const ADD_EZA_TO_CHARACTER = gql`
-mutation AddEZAToCharacter($updatedCharacter: CharacterInput) {
-  addEZAToCharacter(updatedCharacter: $updatedCharacter) {
+mutation AddEZAToCharacter($updatedEZACharacter: CharacterEZAInput) {
+  addEZAToCharacter(updatedEZACharacter: $updatedEZACharacter) {
     id
     active_skill_condition_eza
     jp_date_eza
