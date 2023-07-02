@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ApolloProvider, ApolloClient, InMemoryCache, useQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 import { QUERY_CHARACTERS, GET_ITEMS_DATA, GET_SUPPORT_MEMORY_DATA } from "./api/queries"
 
@@ -34,6 +35,7 @@ function MyApp({ Component, pageProps }) {
   const [levelOfLinks, setLevelOfLinks] = useState(1);
   const [showSuggestedCardsByStats, setShowSuggestedCardsByStats] = useState(true);
   const [showGridLayout, setShowGridLayout] = useState(true)
+  const [showTransformedCharacters, setShowTransformedCharacters] = useState(true)
 
 return (
   <ApolloProvider client={client}>
@@ -65,9 +67,14 @@ return (
         showSuggestedCardsByStats,
         setShowSuggestedCardsByStats,
         showGridLayout,
-        setShowGridLayout
+        setShowGridLayout,
+        showTransformedCharacters,
+        setShowTransformedCharacters
       }}
     >
+      <Head>
+        <title>Dokkan Battle Helper</title>
+      </Head>
       <Component {...pageProps} />
     </UserContext.Provider>
   </ApolloProvider>

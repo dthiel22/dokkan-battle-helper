@@ -7,9 +7,10 @@ import { UserContext } from '../../pages/_app';
 import Image from 'next/image';
 
 const closeIcon = "/dokkanIcons/icons/circular-close-icon.png"
+const transformedIcon = '/dokkanIcons/icons/transformed-black-icon.png'
 
 const SearchForm = ({ onFormChange, selectedCategories, handleNewCategorySelected, handleSelectedCategoryRemoval }) => {
-  const { showMiddleDiv } = useContext(UserContext)
+  const { showMiddleDiv, showTransformedCharacters, setShowTransformedCharacters } = useContext(UserContext)
   
   const [windowWidth, setWindowWidth] = useState(0);
 
@@ -151,7 +152,7 @@ const SearchForm = ({ onFormChange, selectedCategories, handleNewCategorySelecte
             {/* rarity buttons */}
             <div className="flex w-full mt-2 card-sm:mt-2 justify-between items-center">
               <div
-                className="flex w-1/2 justify-around pr-2 mb-1 order-4 bg-orange-300 rounded-md border-2 border-slate-900 font-bold mr-1"
+                className="flex w-fit justify-around pr-2 mb-1 order-4 bg-orange-300 rounded-md border-2 border-slate-900 font-bold mr-1"
                 id="box-1"
               >
                 <CharacterSelectButton name="characterRarity" label="SSR" showMiddleDiv={showMiddleDiv}/>
@@ -165,9 +166,17 @@ const SearchForm = ({ onFormChange, selectedCategories, handleNewCategorySelecte
                   showMiddleDiv={showMiddleDiv}
                 />
             </div>
+
+            <div
+                className={`${showTransformedCharacters ? 'bg-orange-400 hover:bg-orange-500' : 'bg-orange-300 hover:bg-orange-400'} flex w-8 card-sm:w-10 h-8 card-sm:h-10 justify-around p-2 mb-1 order-4 rounded-full border-2 border-slate-900 font-bold cursor-pointer`}
+                onClick={() => setShowTransformedCharacters(!showTransformedCharacters)}
+              > 
+                <img src={transformedIcon}/>
+            </div>
+
             {/* super and extreme buttons */}
               <div
-                className="flex w-full justify-around mb-1 order-4 bg-orange-300 rounded-md border-2 border-slate-900 font-bold ml-1"
+                className="flex w-fit justify-around pr-1 mb-1 order-4 bg-orange-300 rounded-md border-2 border-slate-900 font-bold ml-1"
                 id="box-1"
               >
                 <CharacterSelectButton name="characterSuperOrExtreme" value="S" label="S" showMiddleDiv={showMiddleDiv}/>

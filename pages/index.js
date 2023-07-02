@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo, useContext } from "react";
 import Navbar from "../components/main-components/Navbar"
 import CharacterCard from "../components/cards/CharacterCard";
-import AllComponentsCard from "../components/cards/AllComponentsCard";
 import CharacterSelectionBox from "@/main-components/CharacterSelectionBox";
 import SearchForm from "../components/main-components/SearchForm";
 import SuggestToWeb from "../components/main-components/SuggestToWeb";
@@ -32,6 +31,7 @@ import Image from 'next/image';
 import dynamic from 'next/dynamic';
 
 import DeckSelect from "@/main-components/DeckSelectButton";
+import { filter } from "lodash";
 
 const arrow = "/dokkanIcons/icons/right-arrow-icon.png"
 
@@ -44,7 +44,7 @@ const MySaveAndGrayCharacterButton = dynamic(() => import('../components/main-co
 });
 
 function AllComponents({  }) {
-  const { profileData, showMiddleDiv, setShowMiddleDiv, hoverCharacterStats, setHoverCharacterStats, showCardDetails, setShowCardDetails, showCalculator, setShowCalculator, showDEFCalculator, setShowDEFCalculator, grayCharactersInSelectedDeck, setGrayCharactersInSelectedDeck, allCharacterIDsInDeck, setAllCharacterIDsInDeck } = useContext(UserContext);
+  const { profileData, showMiddleDiv, setShowMiddleDiv, hoverCharacterStats, setHoverCharacterStats, showCardDetails, setShowCardDetails, showCalculator, setShowCalculator, showDEFCalculator, setShowDEFCalculator, grayCharactersInSelectedDeck, setGrayCharactersInSelectedDeck, allCharacterIDsInDeck, setAllCharacterIDsInDeck, showTransformedCharacters } = useContext(UserContext);
   
   const { loading: allCharactersLoading, data: allCharactersData, error: allCharactersError } = useQuery(QUERY_CHARACTERS);
   const allCharacters = allCharactersData?.characters || [];
@@ -164,9 +164,9 @@ function AllComponents({  }) {
   const [filteredCharacters, setFilteredCharacters] = useState(null)
   
   // this function allows for filtered characters to be set to the reults of the getFilteredCharacters (which is extracted from the search form)
-  const filterAndSetCharacters = (filterData) => [setFilteredCharacters(getFilteredCharacters(allCharacters, userCharacters, filterData, selectedCategories)),setNewFilterData(filterData)]
+  const filterAndSetCharacters = (filterData) => [setFilteredCharacters(getFilteredCharacters(allCharacters, userCharacters, filterData, selectedCategories, showTransformedCharacters)),setNewFilterData(filterData)]
   
-  const [filterByGame, setFilterByGame] = useState(true);
+  const [filterByGame, setFilterByGame] = useState(false);
 
   let charactersToDisplay = useSortedCharacters(allCharacters, filteredCharacters, filterByGame)
 
@@ -192,9 +192,9 @@ function AllComponents({  }) {
   }
   
   useEffect(() => {
-    const filteredChars = getFilteredCharacters(allCharacters, userCharacters, newFilterData, selectedCategories);
+    const filteredChars = getFilteredCharacters(allCharacters, userCharacters, newFilterData, selectedCategories, showTransformedCharacters);
     setFilteredCharacters(filteredChars);
-  }, [selectedCategories]); 
+  }, [selectedCategories, showTransformedCharacters]); 
 
   // this allows the screen to change sizes and auto update revealing/hiding the middle column
   const [windowWidth, setWindowWidth] = useState(0);
@@ -492,6 +492,8 @@ function AllComponents({  }) {
             {allCharactersLoading ? (<div>Loading...</div>) 
             : charactersToDisplay
                 .slice(0, viewableCharacters)
+                // this allows it so that if people are saving characters into their account OR the hide transformed characters is on then transformed characters are filtered out
+                .filter(character => (multiCardSelection ? character.transformed === false : true))
                 .map((character) => (
                   <div
                   key={character.id}
@@ -574,7 +576,7 @@ function AllComponents({  }) {
 }
 
 // returns a new array of characters derived from either allCharacters or userCharacters based on the criteria in filterData
-const getFilteredCharacters = (allCharacters, userCharacters, filterData, selectedCategories) => {
+const getFilteredCharacters = (allCharacters, userCharacters, filterData, selectedCategories, showTransformedCharacters) => {
   const baseChars = filterData.isUserDeck ? userCharacters : allCharacters || [];
   return baseChars.filter((character) => {
     
@@ -585,20 +587,21 @@ const getFilteredCharacters = (allCharacters, userCharacters, filterData, select
     }
     
     return (
+      // (!showTransformedCharacters ? character.transformed === false : character.transformed === true || character.transformed === false) &&
       (!selectedCategories.length || (filterData.matchAllCategories
         ? selectedCategories.every(category => character.category && character.category.includes(category))
         : selectedCategories.some(category => character.category && character.category.includes(category))
       )) &&
       (!filterData.isCommonLeader || (selectedCategories.length > 0 ?
-        filterData.matchAllCategories
-        ? selectedCategories.every(category => characterLeadCategories?.includes(category))
-        : selectedCategories.some(category => characterLeadCategories?.includes(category))
+          filterData.matchAllCategories
+          ? selectedCategories.every(category => characterLeadCategories?.includes(category))
+          : selectedCategories.some(category => characterLeadCategories?.includes(category))
         :
         (leaderNumbers ? leaderNumbers.map(string => parseInt(string)).some(num => num >= 150 && num <= 200) : false))) &&      
       (!filterData.searchTerm || character.name.toLowerCase().includes(filterData.searchTerm.toLowerCase())) &&
       (!filterData.characterType || character.type.includes(filterData.characterType)) &&
       (!filterData.characterSuperOrExtreme || character.type.slice(0, 1).includes(filterData.characterSuperOrExtreme)) &&
-      (!filterData.characterRarity ||filterData.characterRarity === character.rarity)
+      (!filterData.characterRarity || filterData.characterRarity === character.rarity)
     );
   });
 };

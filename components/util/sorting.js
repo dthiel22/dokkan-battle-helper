@@ -1,6 +1,9 @@
-import { useMemo } from "react";
+import { useContext, useMemo } from "react";
+import { UserContext } from "../../pages/_app";
 
 export function useSortedCharacters(allCharacters, filteredCharacters, filterByGame) {
+  const { showTransformedCharacters } = useContext(UserContext) 
+
   const sortedCharacters = useMemo(() => {
     const typeOrder = ["EAGL", "SAGL", "ETEQ", "STEQ", "EINT", "SINT", "ESTR", "SSTR", "EPHY", "SPHY"];
     const rarityOrder = ["SSR", "UR", "LR"];
@@ -49,7 +52,10 @@ export function useSortedCharacters(allCharacters, filteredCharacters, filterByG
     return (filteredCharacters === null || filteredCharacters.length === 0)
     ? (filterByGame
       ? (allCharacters && allCharacters.length > 0
-        ? allCharacters.slice().sort((a, b) => {
+        ? allCharacters
+        .filter(character => (!showTransformedCharacters ? character.transformed === false : true))
+        .slice()
+        .sort((a, b) => {
           const rarityA = rarityOrder.indexOf(a.rarity);
           const rarityB = rarityOrder.indexOf(b.rarity);
           if (rarityA === rarityB) {
@@ -63,12 +69,14 @@ export function useSortedCharacters(allCharacters, filteredCharacters, filterByG
           return rarityB - rarityA;
           })
         : [])
-      : charactersSortedByDate
+      : charactersSortedByDate.filter(character => (!showTransformedCharacters ? character.transformed === false : true))
     )
     : 
     (filterByGame
       ? (filteredCharacters && filteredCharacters.length > 0
-        ? filteredCharacters.slice().sort((a, b) => {
+        ? filteredCharacters
+        .filter(character => (!showTransformedCharacters ? character.transformed === false : true))
+        .slice().sort((a, b) => {
           const rarityA = rarityOrder.indexOf(a.rarity);
           const rarityB = rarityOrder.indexOf(b.rarity);
           if (rarityA === rarityB) {
@@ -82,7 +90,7 @@ export function useSortedCharacters(allCharacters, filteredCharacters, filterByG
           return rarityB - rarityA;
           })
         : [])
-      : charactersSortedByDate
+      : charactersSortedByDate.filter(character => (!showTransformedCharacters ? character.transformed === false : true))
     );
   }, [allCharacters, filteredCharacters, filterByGame]);
 
