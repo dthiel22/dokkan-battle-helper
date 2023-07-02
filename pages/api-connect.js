@@ -80,7 +80,7 @@ function AllAPI() {
     setNewFilterData(filterData),
   ];
 
-  const [filterByGame, setFilterByGame] = useState(true);
+  const [filterByGame, setFilterByGame] = useState(false);
   const [showFilters, setShowFilters] = useState(true);
 
   let charactersToDisplay = useSortedCharacters(allCharacters,filteredCharacters,filterByGame);

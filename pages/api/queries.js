@@ -32,6 +32,18 @@ query Characters {
     transform_type
     transform_condition
     transform_condition_eza
+    standby_name
+    standby_description
+    standby_condition
+    finish_attack_1_name 
+    finish_attack_1_description 
+    finish_attack_1_condition
+    finish_attack_2_name
+    finish_attack_2_description
+    finish_attack_2_condition
+    transform_to
+    transformed_from
+    transformed
     Ki12
     Ki24
     link_skill

@@ -28,6 +28,7 @@ export default function DeckSelection({ characterDictionary, webOfTeam, userDeck
   const [openTeamAnalysis, setOpenTeamAnalysis] = useState(false)
   const [openMakeTeamForm, setOpenMakeTeamForm] = useState(false)
   const [openEditTeamForm, setOpenEditTeamForm] = useState(false)
+  const [showAddDeckToTeamToolTip, setShowAddDeckToTeamToolTip] = useState(false)
   
   const [teamUsedInMakeTeamForm, setTeamUsedInMakeTeamForm] = useState([])
   const [teamUsedInForm, setTeamUsedInForm] = useState([])
@@ -98,6 +99,9 @@ export default function DeckSelection({ characterDictionary, webOfTeam, userDeck
     })
   }
 
+  // console.log(webOfTeam)
+  // console.log(webOfTeam.some(character => character.transformed));
+  console.log(showAddDeckToTeamToolTip)
   
   return (
     <>
@@ -129,11 +133,14 @@ export default function DeckSelection({ characterDictionary, webOfTeam, userDeck
           </button>
         </form>
         <button 
-        title={(webOfTeam.length < 6 || webOfTeam.length >= 8) && "team must have 6 to 7 characters in it to add it to a deck"}
-        disabled={webOfTeam.length < 6 || webOfTeam.length >= 8} onClick={() => handleAddTeamToDeck()} className="disabled:bg-gray-500 flex justify-center items-center w-full card-sm:h-12 my-2 border-4 border-black text-md lg:text-base font-bold rounded-full bg-orange-200 hover:bg-orange-400 transition ease-in-out">
+        onMouseEnter={() => setShowAddDeckToTeamToolTip(true)}
+        onMouseLeave={() => setShowAddDeckToTeamToolTip(false)}
+        title={(webOfTeam.length < 6 || webOfTeam.length >= 8) && "team must have 6 to 7 characters in it to add it to a deck" || webOfTeam.some(character => character.transformed) && "team cannot have a transformed character"}
+        disabled={(webOfTeam.length < 6 || webOfTeam.length >= 8) || webOfTeam.some(character => character.transformed)} 
+        onClick={() => handleAddTeamToDeck()} className="disabled:bg-gray-500 flex justify-center items-center w-full card-sm:h-12 my-2 border-4 border-black text-md lg:text-base font-bold rounded-full bg-orange-200 hover:bg-orange-400 transition ease-in-out relative">
           <img src={addIcon} className="text-sm card-sm:text-base w-8 mr-2"/>ADD TEAM TO DECK
         </button>
-        {/* {webOfTeam.length < 6 && <p className="w-full border border-black text-sm lg:text-base text-center rounded-lg bg-orange-200/[.75]">*team must have 6 to 7 characters in it to add it to a deck</p>} */}
+
         <div className="flex px-8 py-1 text-md card-sm:text-base font-bold items-center border-2 border-black bg-orange-200 rounded-full">
           Layout:
           <button 

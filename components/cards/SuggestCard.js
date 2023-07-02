@@ -95,11 +95,7 @@ function SuggestCard({ character, webOfTeam, selectedCharacter, handleNewDetails
           {(selectedCharacter.id !== character.id && statsSelectedOptions === "ATK") &&
           <div
             className='flex w-[30px] card-sm:w-[40px] px-5 card-sm:px-6 justify-center items-center text-center border-2 border-black rounded-full bg-orange-200 text-sm card-sm:text-base text-black font-bold absolute bottom-[4%] right-[0%] z-50'>
-            {selectedCharacter.name !== character.name ?
-            linkSkillStatsBoosted.ATK.reduce((accumulator, currentValue) => accumulator + currentValue, 0)
-            :
-            0
-            }%
+            {linkSkillStatsBoosted.ATK.reduce((accumulator, currentValue) => accumulator + currentValue, 0)}%
           </div>
           }
           {(selectedCharacter.id !== character.id && statsSelectedOptions === "DEF") &&
