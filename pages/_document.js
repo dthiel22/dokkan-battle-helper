@@ -19,8 +19,7 @@ class MyDocument extends Document {
             gtag('config', 'G-XR832YLLT5');
             `}
           </Script>
-          <meta charset="utf-8" />
-          <title>Dokkan Battle Helper</title>
+          <meta charSet="utf-8" />
           <meta property="og:site_name" content="Dokkan Battle Helper"/>
           <meta name="description" content="Create the best Dokkan Battle teams with the most links"/>
           <meta name="keywords" content="dokkan, battle, team, buildiong, link tool, cards, links, categories, help, helper"/>

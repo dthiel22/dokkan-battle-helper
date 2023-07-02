@@ -72,25 +72,24 @@ export default function AddEZAtoCharacter({}) {
     e.preventDefault();
     // Convert the required values to integers
     const formattedCharacter = {
-      ...characterClean,
       id: parseInt(characterClean.id) || null,
+      ls_description_eza: characterClean.ls_description_eza,
+      ps_description_eza: characterClean.ps_description_eza,
+      sa_description_eza: characterClean.sa_description_eza,
+      ultra_sa_description_eza: characterClean.ultra_sa_description_eza,
+      transform_condition_eza: characterClean.transform_condition_eza,
+      active_skill_condition_eza: characterClean.active_skill_condition_eza,
+      jp_date_eza: characterClean.jp_date_eza,
+      glb_date_eza: characterClean.glb_date_eza
     };
 
-    console.log(formattedCharacter.id);
-    console.log(formattedCharacter.ls_description_eza);
-    console.log(formattedCharacter.ps_description_eza);
-    console.log(formattedCharacter.sa_description_eza);
-    console.log(formattedCharacter.ultra_sa_description_eza);
-    console.log(formattedCharacter.transform_condition_eza);
-    console.log(formattedCharacter.active_skill_condition_eza);
-    console.log(formattedCharacter.jp_date_eza);
-    console.log(formattedCharacter.glb_date_eza);
+    console.log(formattedCharacter);
     console.log("---------------");
 
     turnOnMutation
       ? await addEZAtoCharacter({
           variables: {
-            formattedCharacter
+            updatedEZACharacter: formattedCharacter
           },
         })
           .then((results) => {

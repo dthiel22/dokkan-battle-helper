@@ -25,7 +25,7 @@ function WebCard({ id, data: { midpoint, ...character }, xPos, yPos }) {
       <Handle type="source" position="top"/>
       <Handle type="target" position="bottom"/>
     </div>
-    <CharacterCard individualCharacter={character} mobilesize={'125px'} desktopsize={'125px'}/>
+      <CharacterCard individualCharacter={character} mobilesize={'125px'} desktopsize={'125px'}/>
   </div>
   );
 }

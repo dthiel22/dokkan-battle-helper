@@ -7,9 +7,9 @@ const leaderIcon = "/dokkanIcons/icons/leader-icon.png";
 const friendIcon = "/dokkanIcons/icons/friend-icon.png";
 const subIcon = "/dokkanIcons/icons/subleader-icon.png";
 const ezaIcon = "/dokkanIcons/icons/z.png";
+const transformedIcon = '/dokkanIcons/icons/transformed-icon.png'
 
 const CharacterCard = React.memo(({ individualCharacter, mobilesize, desktopsize, EZA, leaderOrSubLeader }) => {
-    console.log(desktopsize)
     // allows for initial render to have no selected character
     if(individualCharacter === null || typeof individualCharacter === 'undefined'){
         return
@@ -61,6 +61,14 @@ const CharacterCard = React.memo(({ individualCharacter, mobilesize, desktopsize
             {leaderOrSubLeader === 'subLeader' ? <img src={friendIcon} className='w-[80%] -top-[2%] right-[33%] absolute z-50'/> : null}
             {leaderOrSubLeader === 'sub' ? <img src={subIcon} className='w-[80%] -top-[2%] right-[33%] absolute z-50'/> : null}
             {EZA ? <img src={ezaIcon} className='w-[30%] bottom-[5%] right-[0%] absolute z-50'/> : null}
+            {individualCharacter.transformed && 
+            <div className={mobilesize === '125px' ? 
+                'w-9 h-9 p-1 bg-black rounded-full absolute top-[3px] left-[3px] z-50' 
+                : 
+                `w-7 h-7 p-1 bg-black rounded-full absolute top-[2px] left-[2px] z-50`}
+            >
+                <img src={transformedIcon}/>
+            </div>}
             {individualCharacter.rarity &&
                 <AdvancedImage
                     cldImg={characterRarity}

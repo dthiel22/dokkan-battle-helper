@@ -232,7 +232,7 @@ const OrderByStatsBuffed = ({ showSuggestedCards, webOfTeam, handleNewDetails, a
     <div className="flex flex-wrap min-h-[95px] max-h-fit card-sm:min-h-[95px] card-sm:max-h-fit justify-evenly bg-orange-100 p-2 shadow-[inset_0_-5px_6px_rgba(0,0,0,0.6)] border-2 border-slate-900 relative">
       {characterArrayWithStats
       .slice(0, viewableCharacters)
-      .filter((character) => character.name !== selectedCharacter.name && character.id !== selectedCharacter.id)
+      .filter((character) => !character.transformed || selectedCharacter.transformed ? character.name !== selectedCharacter.name : character.id !== selectedCharacter.id)
       .map(character => (
         <div 
         id='CharacterCard'
@@ -310,77 +310,4 @@ const CharacterLinkDisplay = ({matchCount, webOfTeam, selectedCharacter, charact
     </>
   );
 }
-
-
-// const SuggestTeam = ({ allCharacters, selectedCharacter, linkedCharacters, userCharacters }) => {
-  //   const characterLeadCategories = findCharacterLeaderCategories(selectedCharacter)
-  //   //TODO: find characters under those categories - ALL, then one and two
-  //   const linkedCharacterWithBothCategory = linkedCharacters.filter(character =>
-  //     characterLeadCategories.some(category =>
-  //       character.category.includes(category)
-  //     )
-  //   );
-  //   const linkedCharactersWithFirstCategory = linkedCharacters.filter(character =>
-  //     character.category.includes(characterLeadCategories[0])
-  //   );
-  //   const linkedCharactersWithSecondCategory = linkedCharacters.filter(character =>
-  //     character.category.includes(characterLeadCategories[1])
-  //   );
-  //   console.log(linkedCharacterWithBothCategory)
-  //   console.log(linkedCharactersWithFirstCategory)
-  //   console.log(linkedCharactersWithSecondCategory)
-  
-  //   //TODO: find user characters with those characters
-  //   const linkedCharacterWithCategoryAndUser = linkedCharacterWithBothCategory.filter(character =>
-  //     userCharacters.some(userCharacter =>
-  //       character.id === userCharacter.id
-  //     )
-  //   );  
-  //   //TODO: find the amount of links between the user characters that are in categories
-  //   const charactersMatchedLinks = groupCharactersByLinkCount(linkedCharacterWithCategoryAndUser, selectedCharacter.link_skill)
-    
-  //   //TODO: team with same categories and high links
-  //   const sameLeaderTeam = [];
-  //   for (let i = 7; i >= 1 && sameLeaderTeam.length < 5; i--) {
-  //     const characters = charactersMatchedLinks[i];
-  //     if (Array.isArray(characters)) {
-  //       for (const character of characters) {
-  //         if (character.id !== selectedCharacter.id && character.name !== selectedCharacter.name) {
-  //           sameLeaderTeam.push(character);
-  //           if (sameLeaderTeam.length >= 5) {
-  //             break;
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  
-  //   //TODO: teams with different leaders
-  //   const allOtherLeaders = allCharacters.filter(character => {
-  //     const characterLeaderSkill = character.ls_description.split(';');
-  //     return characterLeaderSkill.some(leaderSkill => {
-  //       return characterLeadCategories.some(category => {
-  //         return leaderSkill.includes(category)
-  //       });
-  //     }) && character.id !== selectedCharacter.id;
-  //   })
-  //   const usersOtherLeaders = userCharacters.filter(character => {
-  //     const characterLeaderSkill = character.ls_description.split(';');
-  //     return characterLeaderSkill.some(leaderSkill => {
-  //       return characterLeadCategories.some(category => {
-  //         return leaderSkill.includes(category)
-  //       });
-  //     }) && character.id !== selectedCharacter.id;
-  //   })
-  
-  //   return(
-  //     <div className="flex flex-row bg-red-500">
-  //       <CharacterCard individualCharacter={selectedCharacter} mobilesize={'60px'} desktopsize={'80px'}/>
-  //       {sameLeaderTeam && sameLeaderTeam.map(character =>
-  //         <CharacterCard key={'suggested-team'+character.id} individualCharacter={character} mobilesize={'60px'} desktopsize={'80px'}/>
-  //       )}
-  //     </div>
-  //   )
-  // }
-
 export default SuggestToWeb;

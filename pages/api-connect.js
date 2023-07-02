@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
-import Auth from "../util/auth";
-import { useSortedCharacters } from "../util/sorting";
+import Auth from "../components/util/auth";
+import { useSortedCharacters } from "../components/util/sorting";
 
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
-import { QUERY_CHARACTERS, GET_EVENT_DATA, GET_ITEMS_DATA, GET_SUPPORT_MEMORY_DATA, } from "../../pages/api/queries";
+import { QUERY_CHARACTERS, GET_EVENT_DATA, GET_ITEMS_DATA, GET_SUPPORT_MEMORY_DATA, } from "./api/queries";
 
-import Navbar from "../main-components/Navbar"
-import SearchForm from "../main-components/SearchForm";
-import CharacterCard from "../cards/CharacterCard";
-import EditCharacter from "./EditCharacter";
-import SingleCharacterSearch from "./SingleCharacterSearch";
-import MakeSingleCharacter from "./MakeSingleCharacter";
-import AddCharacterEZA from "./AddCharacterEZA";
+import Navbar from "../components/main-components/Navbar"
+import SearchForm from "../components/main-components/SearchForm";
+import CharacterCard from "../components/cards/CharacterCard";
+import EditCharacter from "../components/components-api/EditCharacter";
+import SingleCharacterSearch from "../components/components-api/SingleCharacterSearch";
+import MakeSingleCharacter from "../components/components-api/MakeSingleCharacter";
+import AddCharacterEZA from "../components/components-api/AddCharacterEZA";
 
 import Image from 'next/image';
 
@@ -80,7 +80,7 @@ function AllAPI() {
     setNewFilterData(filterData),
   ];
 
-  const [filterByGame, setFilterByGame] = useState(true);
+  const [filterByGame, setFilterByGame] = useState(false);
   const [showFilters, setShowFilters] = useState(true);
 
   let charactersToDisplay = useSortedCharacters(allCharacters,filteredCharacters,filterByGame);
@@ -95,17 +95,18 @@ function AllAPI() {
   }, [selectedCategories]); 
 
 
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [windowWidth, setWindowWidth] = useState(0);
+
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
     handleResize();
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
-  }, [window.innerWidth]);
+  }, []);
 
   const cardContainerRef = useRef(null);
   const handleNewCategorySelected = (e) => {

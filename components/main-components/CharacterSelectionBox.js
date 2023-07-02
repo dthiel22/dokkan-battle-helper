@@ -4,7 +4,7 @@ import { UserContext } from '../../pages/_app';
 import CharacterCard from '@/cards/CharacterCard';
 
 export default function CharacterSelectionBox({ cardContainerRef, webOfTeam, multiCardSelection, viewableCharacters, charactersToDisplay, setHoverCharacterStats, allCharactersLoading}) {
-    const { showCalculator, grayCharactersInSelectedDeck } = useContext(UserContext)
+    const { showCalculator, grayCharactersInSelectedDeck, allCharacterIDsInDeck } = useContext(UserContext)
   return (
         <div 
           ref={cardContainerRef}

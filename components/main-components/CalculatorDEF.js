@@ -159,18 +159,6 @@ export default function CalculatorDEF({ setShowCalculator, characterComparisonFo
         console.log('DEF stat after allies active/passive calculated: ' + raiseDefenseOnSuperCalc)
         console.log('')
 
-        // let kiMultiplierCalc = Math.round(noLinkAllyPassiveBoostCalc * (kiMultiplier/100))
-        // console.log('Ki multiple used: ' + (kiMultiplier/100))
-        // console.log('DEF stat after Ki multiplier calculated: ' + kiMultiplierCalc)
-        // console.log('')
-
-        // let saMultiplierCalc = Math.round(kiMultiplierCalc * ((superAttackMultiplier/100) + (superAttackHiddenPotentialBoostLevel * .05) + (raiseDefenseOnSuper/100)))
-        // console.log(superAttackMultiplier)
-        // console.log(superAttackHiddenPotentialBoostLevel)
-        // console.log(raiseDefenseOnSuper)
-        // console.log('super attack multiple used: ' + ((superAttackMultiplier/100) + (superAttackHiddenPotentialBoostLevel * .05) + (raiseDefenseOnSuper/100)))
-        // console.log('DEF stat after super attack calculated: ' + saMultiplierCalc)
-
         setResults(raiseDefenseOnSuperCalc)
     }
 

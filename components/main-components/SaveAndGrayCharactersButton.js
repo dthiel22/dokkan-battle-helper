@@ -2,8 +2,12 @@ import React, { useContext } from 'react'
 import { UserContext } from '../../pages/_app'
 
 export default function SaveAndGrayCharactersButton({ selectedDeck, multiCardSelection, setMultiCardSelection, handleUpdateSavedCharacters, allCharactersLoading}) {
-    const { profileData, grayCharactersInSelectedDeck, setGrayCharactersInSelectedDeck } = useContext(UserContext)
+    const { profileData, grayCharactersInSelectedDeck, setGrayCharactersInSelectedDeck, showTransformedCharacters, setShowTransformedCharacters } = useContext(UserContext)
     
+    function handleMultiCardSelection () {
+      setMultiCardSelection(!multiCardSelection)
+    }
+
     if (!profileData?.data) {
         return (
             <h2 className="p-2 text-sm lg:text-base font-bold">
@@ -27,7 +31,7 @@ export default function SaveAndGrayCharactersButton({ selectedDeck, multiCardSel
             readOnly
           />
           <div
-            onClick={() => {setMultiCardSelection(!multiCardSelection)}}
+            onClick={() => handleMultiCardSelection()}
             className="w-6 card-sm:w-11 h-3 card-sm:h-6 bg-orange-100 rounded-full peer peer-focus:ring-green-300  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[18%] card-sm:after:top-[8%] after:left-[1px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 card-sm:after:h-5 after:w-3 card-sm:after:w-5 after:transition-all peer-checked:bg-orange-500"
           ></div>
           <span className="ml-2 text-sm card-sm:text-base font-bold text-gray-900">
