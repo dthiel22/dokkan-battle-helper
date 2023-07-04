@@ -9,8 +9,9 @@ mutation AddUser($username: String!, $email: String!, $password: String!) {
 `;
 
 export const EDIT_CHARACTER = gql `
-mutation EditCharacter($updatedCharacter: CharacterInput) {
+mutation EditCharacter($updatedCharacter: WholeCharacterInput) {
   editCharacter(updatedCharacter: $updatedCharacter) {
+    wiki_link
     id
     thumb
     art
@@ -40,6 +41,26 @@ mutation EditCharacter($updatedCharacter: CharacterInput) {
     transform_type
     transform_condition
     transform_condition_eza
+    standby_name
+    standby_description
+    standby_description_eza
+    standby_condition
+    standby_condition_eza
+    finish_attack_1_name
+    finish_attack_1_description
+    finish_attack_1_description_eza
+    finish_attack_1_condition
+    finish_attack_1_condition_eza
+    finish_attack_2_name
+    finish_attack_2_description
+    finish_attack_2_description_eza
+    finish_attack_2_condition
+    finish_attack_2_condition_eza
+    transformed
+    transform_to
+    transformed_from
+    Ki12
+    Ki24
     link_skill
     category
     jp_date
@@ -51,8 +72,9 @@ mutation EditCharacter($updatedCharacter: CharacterInput) {
 `;
 
 export const ADD_CHARACTER = gql`
-mutation AddCharacter($character: CharacterInput) {
+mutation AddCharacter($character: WholeCharacterInput) {
   addCharacter(character: $character) {
+    wiki_link
     id
     thumb
     art
@@ -82,6 +104,26 @@ mutation AddCharacter($character: CharacterInput) {
     transform_type
     transform_condition
     transform_condition_eza
+    standby_name
+    standby_description
+    standby_description_eza
+    standby_condition
+    standby_condition_eza
+    finish_attack_1_name
+    finish_attack_1_description
+    finish_attack_1_description_eza
+    finish_attack_1_condition
+    finish_attack_1_condition_eza
+    finish_attack_2_name
+    finish_attack_2_description
+    finish_attack_2_description_eza
+    finish_attack_2_condition
+    finish_attack_2_condition_eza
+    transformed
+    transform_to
+    transformed_from
+    Ki12
+    Ki24
     link_skill
     category
     jp_date
