@@ -3,75 +3,21 @@ export default function getCharacterInfo (characterInfo) {
 
         // specified/prepping content ============
         let rQuote = textBoxEl.replace(/"/g, "")
-        let rSAName = rQuote.replace('|SA name', "\n|SA name").replace('| SA name','\n|SA name').replace('|UltraSA name', "\n|UltraSA name").replace('|UltraSA description','\n|UltraSA description').replace('|PS description','\n|PS description')
+        let rSAName = rQuote.replaceAll(/\|SA name/g, "\n|SA name").replaceAll(/\| SA name/g, "\n|SA name").replaceAll(/\|UltraSA name/g, "\n|UltraSA name").replaceAll(/\|UltraSA description/g, "\n|UltraSA description").replaceAll(/\|PS description/g, "\n|PS description").replaceAll(/\|24 ki/g, "\n|24 ki");
+
         let rPettan = rSAName.replace('|Pettan = yes', "")
         let rMoveASCond = rPettan.replace('|Active skill condition', '\n|Active skill condition').replace('|Active skill name', '\n|Active skill name')
         let rEqualSign = rMoveASCond.replace(/ =/g, ':')
         let rLineBreak = rEqualSign.replace('<br>', "").replace('</br>', "")
 
-        let rServerIcon = rLineBreak.replace('File:Japan server.png|20px', "").replace('File:Global server.png|20px', "").replace('File:Card','').replace('File: Card ','')
+        let rServerIcon = rLineBreak.replaceAll(/File:Japan server.png\|20px|File:Global server.png\|20px|File:Card|File: Card /g, "")
 
-        let rExtraCatInLink = rServerIcon.replace('Androids-Cell Saga|', "").replace('Kamehameha (Category)|', "").replace('Otherworld Warriors (Link Skill)|', "").replace('Turtle School (Link Skill)|', "").replace('Namekians (Link Skill)|', "").replace('Team Bardock (Link Skill)|', "").replace(':Category:Extreme Class|', "").replace(':Category:Super Class|', "").replace('Fusion (Link Skill)|', "")
+        let rExtraCatInLink = rServerIcon.replaceAll(/Androids-Cell Saga\||Kamehameha \(Category\)\||Otherworld Warriors \(Link Skill\)\||Turtle School \(Link Skill\)\||Namekians \(Link Skill\)\||Team Bardock \(Link Skill\)\||:Category:Extreme Class\||:Category:Super Class\||Fusion \(Link Skill\)\|/g, "");
 
-        let rExtraDisambig = rExtraCatInLink
-        .replace('Goku (disambiguation)|', "")
-        .replace('Goku (disambiguation)#Goku|', "")
-        .replace('Goku (disambiguation)#Goku (Angel)|', "")
-        .replace('Goku (disambiguation)#Super Saiyan Goku|', "")
-        .replace('Goku (disambiguation)#Goku (Youth)|', "")
-        .replace('Caulifla (disambiguation)|', "")
-        .replace('Cooler (disambiguation)|', "")
-        .replace('Trunks (disambiguation)|', "")
-        .replace('Bardock (disambiguation)|', "")
-        .replace('Android 18 (disambiguation)|', '')
-        .replace('Android 18 (disambiguation)#Android #18|', "")
-        .replace('(disambiguation)#Ribrianne|', "")
-        .replace('Rozie (disambiguation)|', "")
-        .replace('Kakunsa (disambiguation)|', "")
-        .replace('Kale (disambiguation)|', "")
-        .replace('Tapion (disambiguation)|', "")
-        .replace('Gohan (disambiguation)#Gohan (Kid)|', "")
-        .replace('Frieza (disambiguation)|', "")
-        .replace('Vegeta (disambiguation)|', "")
-        .replace('Cooler (disambiguation)#Metal Cooler|', "")
-        .replace('Giru (disambiguation)|', "")
-        .replace('Cell (disambiguation)|', "")
-        .replace('Boujack (disambiguation)|', "")
-        .replace('Gohan (disambiguation)#Gohan (Teen)|', "")
-        .replace('Gohan (disambiguation)#Ultimate Gohan|', "")
-        .replace('Gohan (disambiguation)#Great Saiyaman|', "")
-        .replace('Gohan (disambiguation)#Gohan (Future)|', "")
-        .replace('Trunks (disambiguation)#Trunks (Kid)|', "")
-        .replace('Trunks (disambiguation)#Trunks (Teen)|', "")
-        .replace('Goten (disambiguation)#Goten (Kid)|', "")
-        .replace('Goten (disambiguation)|,','')
-        .replace('(disambiguation)|Goten','')
-        .replace('Piccolo (disambiguation)|', '')
-        .replace('Piccolo (disambiguation)#Piccolo|', "")
-        .replace('Cell (disambiguation)#Cell (Perfect Form)|', "")
-        .replace('Cell (disambiguation)#Perfect Cell|', "")
-        .replace('Gohan (disambiguation)#Super Saiyan Gohan (Youth)|', "")
-        .replace('Gohan (disambiguation)#Super Saiyan 2 Gohan (Youth)|', "")
-        .replace('Android 14 (disambiguation)#Androids #14 & #15|', "")
-        .replace('Android 16 (disambiguation)|', "")
-        .replace('Android 17 (disambiguation)#Android #17|', "")
-        .replace('Android 17 (disambiguation)|#17', "")
-        .replace('Android 18 (disambiguation)#Android #18 (Future)|', "")
-        .replace('Android 17 (disambiguation)#Android #17 (Future)|', "")
-        .replace('Ginyu (disambiguation)|', "")
-        .replace('Android 13 (disambiguation)#Android #13|', "")
-        .replace('Android 13 (disambiguation)#Fusion Android #13|', "")
-        .replace('Zamasu (disambiguation)#Zamasu|', "")
-        .replace('Zamasu (disambiguation)#Goku Black|', "")
-        .replace('Trunks (disambiguation)#Trunks (Teen) (Future)|', "")
-        .replace('Mai (disambiguation)#Mai (Future)|', "")
-        .replace('Beerus (disambiguation)|', "")
-        .replace('Krillin (disambiguation)#Krillin|', "")
-        .replace('Krillin (disambiguation)|Krillin', "")
-        .replace('Bulma (disambiguation)|', "")
-        .replace('Bulma (disambiguation)#Bulma (Youth)|', "")
+        let rExtraDisambig = rExtraCatInLink.replaceAll(/Goku \(disambiguation\)\||Goku \(disambiguation\)#Goku\||Goku \(disambiguation\)#Goku \(Angel\)\||Goku \(disambiguation\)#Super Saiyan Goku\||Goku \(disambiguation\)#Goku \(Youth\)\||Caulifla \(disambiguation\)\||Cooler \(disambiguation\)\||Trunks \(disambiguation\)\||Bardock \(disambiguation\)\||Android 18 \(disambiguation\)\||Android 18 \(disambiguation\)#Android #18\||\(disambiguation\)#Ribrianne\||Rozie \(disambiguation\)\||Kakunsa \(disambiguation\)\||Kale \(disambiguation\)\||Tapion \(disambiguation\)\||Gohan \(disambiguation\)#Gohan \(Kid\)\||Frieza \(disambiguation\)\||Vegeta \(disambiguation\)\||Cooler \(disambiguation\)#Metal Cooler\||Giru \(disambiguation\)\||Cell \(disambiguation\)\||Boujack \(disambiguation\)\||Gohan \(disambiguation\)#Gohan \(Teen\)\||Gohan \(disambiguation\)#Ultimate Gohan\||Gohan \(disambiguation\)#Great Saiyaman\||Gohan \(disambiguation\)#Gohan \(Future\)\||Trunks \(disambiguation\)#Trunks \(Kid\)\||Trunks \(disambiguation\)#Trunks \(Teen\)\||Goten \(disambiguation\)#Goten \(Kid\)\||Goten \(disambiguation\)\,\||\(disambiguation\)\|Goten\||Piccolo \(disambiguation\)\||Piccolo \(disambiguation\)#Piccolo\||Cell \(disambiguation\)#Cell \(Perfect Form\)\||Cell \(disambiguation\)#Perfect Cell\||Gohan \(disambiguation\)#Super Saiyan Gohan \(Youth\)\||Gohan \(disambiguation\)#Super Saiyan 2 Gohan \(Youth\)\||Android 14 \(disambiguation\)#Androids #14 & #15\||Android 16 \(disambiguation\)\||Android 17 \(disambiguation\)#Android #17\||Android 17 \(disambiguation\)\|#17\||Android 18 \(disambiguation\)#Android #18 \(Future\)\||Android 17 \(disambiguation\)#Android #17 \(Future\)\||Ginyu \(disambiguation\)\||Android 13 \(disambiguation\)#Android #13\||Android 13 \(disambiguation\)#Fusion Android #13\||Zamasu \(disambiguation\)#Zamasu\||Zamasu \(disambiguation\)#Goku Black\||Trunks \(disambiguation\)#Trunks \(Teen\) \(Future\)\||Mai \(disambiguation\)#Mai \(Future\)\||Beerus \(disambiguation\)\||Krillin \(disambiguation\)#Krillin\||Krillin \(disambiguation\)\|Krillin\||Bulma \(disambiguation\)\||Bulma \(disambiguation\)#Bulma \(Youth\)\|/g, "");
 
-        let rSphereFile = rExtraDisambig.replace('File:Rainbow icon.png|30px|link=', "").replace('File:Rainbow icon.png|30px', 'Rainbow').replace('File:AGL icon.png|30px|link=Category:', "").replace('File:AGL  icon.png|30px|link=Category:', "").replace('File:TEQ icon.png|30px|link=Category:', "").replace('File:INT icon.png|30px|link=Category:', "").replace('File: INT icon.png|30px|link=Category:', "").replace('File:STR icon.png|30px|link=Category:', "").replace('File:PHY icon.png|30px|link=Category:', "").replace('File: PHY icon.png|30px|link=Category:PHY', '')
+        let rSphereFile = rExtraDisambig.replaceAll(/File:Rainbow icon.png\|30px\|link=|File:Rainbow icon.png\|30px|File:AGL icon.png\|30px\|link=Category:|File:AGL  icon.png\|30px\|link=Category:|File:TEQ icon.png\|30px\|link=Category:|File:INT icon.png\|30px\|link=Category:|File: INT icon.png\|30px\|link=Category:|File:STR icon.png\|30px\|link=Category:|File:PHY icon.png\|30px\|link=Category:|File: PHY icon.png\|30px\|link=Category:PHY/g, "")
+
 
         let rSSphereFile = rSphereFile.replace('File:SAGL icon.png|30px|link=Category:', "").replace('File:STEQ icon.png|30px|link=Category:', "").replace('File:SINT icon.png|30px|link=Category:', "").replace('File:SSTR icon.png|30px|link=Category:', "").replace('File:SPHY icon.png|30px|link=Category:', "").replace('([[:File:UR Giant Brianne Origin 1.png|origin]])','')
 
@@ -139,6 +85,26 @@ export default function getCharacterInfo (characterInfo) {
         let charTransformType = []
         let charTransformCond = []
         let charTransformCondEza = []
+        let charStandbyname = []
+        let charStandbydescription = []
+        let charStandbydescriptioneza = []
+        let charStandbycondition = []
+        let charStandbyconditioneza = []
+        let charFinishattack1name = []
+        let charFinishattack1description = []
+        let charFinishattack1descriptioneza = []
+        let charFinishattack1condition = []
+        let charFinishattack1conditioneza = []
+        let charFinishattack2name = []
+        let charFinishattack2description = []
+        let charFinishattack2descriptioneza = []
+        let charFinishattack2condition = []
+        let charFinishattack2conditioneza = []
+        let charTransformed = []
+        let charTransformto = []
+        let charTransformedfrom = []
+        let charKi12 = []
+        let charKi24 = []
         let charLinkSkills = []
         let charCategories = []
         let charJPDate = []
@@ -237,6 +203,57 @@ export default function getCharacterInfo (characterInfo) {
             if (myline.includes('|Transform condition Z:')){
                 charTransformCondEza.push(myline.replace('|Transform condition Z', '').replace('Transform condition Z', 'transform_condition_eza').replace(':', '"', 1).replace('" ','').replace('\n', '",\n'))
             }
+            if (myline.includes('|Standby name:')){
+                charStandbyname.push(myline.replace('|Standby name', '').replace('Standby name', 'standby_name').replace(':', '"', 1).replace('" ','').replace('\n', '",\n'))
+            }
+            if (myline.includes('|Standby description:')){
+                charStandbydescription.push(myline.replace('|Standby description', '').replace('Standby description', 'standby_description').replace(':', '"', 1).replace('" ','').replace('\n', '",\n'))
+            }
+            if (myline.includes('|Standby description Z:')){
+                charStandbydescriptioneza.push(myline.replace('|Standby description Z', '').replace('Standby description Z', 'standby_condition_eza').replace(':', '"', 1).replace('" ','').replace('\n', '",\n'))
+            }
+            if (myline.includes('|Standby condition:')){
+                charStandbycondition.push(myline.replace('|Standby condition', '').replace('Standby condition', 'standby_condition').replace(':', '"', 1).replace('" ','').replace('\n', '",\n'))
+            }
+            if (myline.includes('|Standby condition Z:')){
+                charStandbyconditioneza.push(myline.replace('|Standby condition Z', '').replace('Standby condition Z', 'standby_condition_eza').replace(':', '"', 1).replace('" ','').replace('\n', '",\n'))
+            }
+            if (myline.includes('|Finish attack 1 name:')){
+                charFinishattack1name.push(myline.replace('|Finish attack 1 name', '').replace('Finish attack 1 name', 'finish_attack_1_name').replace(':', '"', 1).replace('" ','').replace('\n', '",\n'))
+            }
+            if (myline.includes('|Finish attack 1 description:')){
+                charFinishattack1description.push(myline.replace('|Finish attack 1 description', '').replace('Finish attack 1 description', 'finish_attack_1_description').replace(':', '"', 1).replace('" ','').replace('\n', '",\n'))
+            }
+            if (myline.includes('|Finish attack 1 description Z:')){
+                charFinishattack1descriptioneza.push(myline.replace('|Finish attack 1 description Z', '').replace('Finish attack 1 description Z', 'finish_attack_1_description_eza').replace(':', '"', 1).replace('" ','').replace('\n', '",\n'))
+            }
+            if (myline.includes('|Finish attack 1 condition:')){
+                charFinishattack1condition.push(myline.replace('|Finish attack 1 condition', '').replace('Finish attack 1 condition', 'finish_attack_1_condition').replace(':', '"', 1).replace('" ','').replace('\n', '",\n'))
+            }
+            if (myline.includes('|Finish attack 1 condition Z:')){
+                charFinishattack1conditioneza.push(myline.replace('|Finish attack 1 condition Z', '').replace('Finish attack 1 condition Z', 'finish_attack_1_condition_eza').replace(':', '"', 1).replace('" ','').replace('\n', '",\n'))
+            }
+            if (myline.includes('|Finish attack 2 name:')){
+                charFinishattack2name.push(myline.replace('|Finish attack 2 name', '').replace('Finish attack 2 name', 'finish_attack_1_name').replace(':', '"', 1).replace('" ','').replace('\n', '",\n'))
+            }
+            if (myline.includes('|Finish attack 2 description:')){
+                charFinishattack2description.push(myline.replace('|Finish attack 2 description', '').replace('Finish attack 2 description', 'finish_attack_1_description').replace(':', '"', 1).replace('" ','').replace('\n', '",\n'))
+            }
+            if (myline.includes('|Finish attack 2 description Z:')){
+                charFinishattack2descriptioneza.push(myline.replace('|Finish attack 2 description Z', '').replace('Finish attack 2 description Z', 'finish_attack_1_description_eza').replace(':', '"', 1).replace('" ','').replace('\n', '",\n'))
+            }
+            if (myline.includes('|Finish attack 2 condition:')){
+                charFinishattack2condition.push(myline.replace('|Finish attack 2 condition', '').replace('Finish attack 2 condition', 'finish_attack_1_condition').replace(':', '"', 1).replace('" ','').replace('\n', '",\n'))
+            }
+            if (myline.includes('|Finish attack 2 condition Z:')){
+                charFinishattack2conditioneza.push(myline.replace('|Finish attack 2 condition Z', '').replace('Finish attack 2 condition Z', 'finish_attack_1_condition_eza').replace(':', '"', 1).replace('" ','').replace('\n', '",\n'))
+            }
+            if (myline.includes('|12 ki:')){
+                charKi12.push(myline.replace('|12 ki', '').replace('12 ki', 'Ki12').replace(':', '"', 1).replace('" ','').replace('\n', '",\n').replace('%',''))
+            }
+            if (myline.includes('|24 ki:')){
+                charKi24.push(myline.replace('|24 ki', '').replace('24 ki', 'Ki24').replace(':', '"', 1).replace('" ','').replace('\n', '",\n').replace('%',''))
+            }
             if (myline.includes('|Link skill:')){
                 charLinkSkills.push(myline.replace('|Link skill', '').replace('Link skill', 'link_skill').replace('" ', '').replace(': ', '', 1).replace('\n', ',\n'))
             }
@@ -257,7 +274,7 @@ export default function getCharacterInfo (characterInfo) {
             }
             }
             
-            if (charThumb === ['"thumb":  ,'] || charThumb.length === 0){
+            if (charThumb === ['"thumb": ,'] || charThumb.length === 0){
                 charThumb = [null]
             }
             if (charArt === [] || charArt.length === 0){
@@ -347,6 +364,57 @@ export default function getCharacterInfo (characterInfo) {
             if (charTransformCondEza.length === 0){
                 charTransformCondEza = [null]
             }
+            if (charStandbyname === [] || charStandbyname.length === 0){
+                charStandbyname = [null];
+            }
+            if (charStandbydescription === [] || charStandbydescription.length === 0){
+                charStandbydescription = [null];
+            }
+            if (charStandbydescriptioneza === [] || charStandbydescriptioneza.length === 0){
+                charStandbydescriptioneza = [null];
+            }
+            if (charStandbycondition === [] || charStandbycondition.length === 0){
+                charStandbycondition = [null];
+            }
+            if (charStandbyconditioneza === [] || charStandbyconditioneza.length === 0){
+                charStandbyconditioneza = [null];
+            }
+            if (charFinishattack1name === [] || charFinishattack1name.length === 0){
+                charFinishattack1name = [null];
+            }
+            if (charFinishattack1description === [] || charFinishattack1description.length === 0){
+                charFinishattack1description = [null];
+            }
+            if (charFinishattack1descriptioneza === [] || charFinishattack1descriptioneza.length === 0){
+                charFinishattack1descriptioneza = [null];
+            }
+            if (charFinishattack1condition === [] || charFinishattack1condition.length === 0){
+                charFinishattack1condition = [null];
+            }
+            if (charFinishattack1conditioneza === [] || charFinishattack1conditioneza.length === 0){
+                charFinishattack1conditioneza = [null];
+            }
+            if (charFinishattack2name === [] || charFinishattack2name.length === 0){
+                charFinishattack2name = [null];
+            }
+            if (charFinishattack2description === [] || charFinishattack2description.length === 0){
+                charFinishattack2description = [null];
+            }
+            if (charFinishattack2descriptioneza === [] || charFinishattack2descriptioneza.length === 0){
+                charFinishattack2descriptioneza = [null];
+            }
+            if (charFinishattack2condition === [] || charFinishattack2condition.length === 0){
+                charFinishattack2condition = [null];
+            }
+            if (charFinishattack2conditioneza === [] || charFinishattack2conditioneza.length === 0){
+                charFinishattack2conditioneza = [null];
+            }
+            if (charKi12 === [] || charKi12.length === 0){
+                charKi12 = [null];
+            }
+            if (charKi24 === [] || charKi24.length === 0){
+                charKi24 = [null];
+            }            
             if (charLinkSkills.length === 0){
                 charLinkSkills = [null]
             }
@@ -365,6 +433,7 @@ export default function getCharacterInfo (characterInfo) {
             if (charGLBDateEza.length === 0){
                 charGLBDateEza = [null]
             }
+
             const results = {
                 // charWikiLink: charWikiLink,
                 id: charID[0],
@@ -396,14 +465,32 @@ export default function getCharacterInfo (characterInfo) {
                 transform_type: charTransformType[0],
                 transform_condition: charTransformCond[0],
                 transform_condition_eza: charTransformCondEza[0],
+                standby_name: charStandbyname[0],
+                standby_description: charStandbydescription[0],
+                standby_description_eza: charStandbydescriptioneza[0],
+                standby_condition: charStandbycondition[0],
+                standby_condition_eza: charStandbyconditioneza[0],
+                finish_attack_1_name: charFinishattack1name[0],
+                finish_attack_1_description: charFinishattack1description[0],
+                finish_attack_1_description_eza: charFinishattack1descriptioneza[0],
+                finish_attack_1_condition: charFinishattack1condition[0],
+                finish_attack_1_condition_eza: charFinishattack1conditioneza[0],
+                finish_attack_2_name: charFinishattack2name[0],
+                finish_attack_2_description: charFinishattack2description[0],
+                finish_attack_2_description_eza: charFinishattack2descriptioneza[0],
+                finish_attack_2_condition: charFinishattack2condition[0],
+                finish_attack_2_condition_eza: charFinishattack2conditioneza[0],
+                transformed: false,
+                transform_to: null,
+                transformed_from: null,
+                Ki12: charKi12[0],
+                Ki24: charKi24[0],
                 link_skill: charLinkSkills[0],
                 category: charCategories[0],
                 jp_date: charJPDate[0],
                 glb_date: charGLBDate[0],
                 jp_date_eza: charJPDateEza[0],
                 glb_date_eza: charGLBDateEza[0]
-            };
-            
-            console.log(results)
+            }; 
             return results
         }

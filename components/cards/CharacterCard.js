@@ -65,7 +65,7 @@ const CharacterCard = React.memo(({ individualCharacter, mobilesize, desktopsize
             <div className={mobilesize === '125px' ? 
                 'w-9 h-9 p-1 bg-black rounded-full absolute top-[3px] left-[3px] z-50' 
                 : 
-                `w-7 h-7 p-1 bg-black rounded-full absolute top-[2px] left-[2px] z-50`}
+                `w-5 card-sm:w-7 h-5 card-sm:h-7 p-1 bg-black rounded-full absolute top-[2px] left-[2px] z-50`}
             >
                 <img src={transformedIcon}/>
             </div>}

@@ -26,6 +26,17 @@ export default function NewsAndUpdatesModal( {open, onClose} ) {
 
                 <div className="h-full">
                   <div className="flex flex-wrap justify-around">
+                    <NewsDiv date={'JULY/2/2023'} information={<>
+                      <p className="px-2 card-sm:px-4 py-2 text-md card-sm:text-base font-bold">TLDR:</p>
+                      <li className="px-2 card-sm:px-4 text-md card-sm:text-base font-bold">Added Transforming Characters</li>
+                      <li className="px-2 card-sm:px-4 text-md card-sm:text-base font-bold">Fixed some backend issues</li>
+                      <p className="px-2 card-sm:px-4 py-2 text-md card-sm:text-base font-bold indent-4">We added transforming characters!! You can now see who links best with a transformed character and also how a team's links shift when the transformation occurs. We are looking to update the Card Details section to show the correct information especially for standby skills but in the meantime, the characters will be available for comparing link skills with team. Going forward, I will be working on the back-end to make character data more complete and have the site even more helpful (probably will add a "Links Well With" section in the Card Details). After this is built up, I will start working on the backend and also start focsing more on the <a className='text-blue-500' href={`/strategy`}>strategy page</a>.</p>
+                      </>}
+                      key={'Update 11'}
+                    />
+                  </div> 
+
+                  <div className="flex flex-wrap justify-around">
                     <NewsDiv date={'JUNE/13/2023'} information={<>
                       <p className="px-2 card-sm:px-4 py-2 text-md card-sm:text-base font-bold">TLDR:</p>
                       <li className="px-2 card-sm:px-4 text-md card-sm:text-base font-bold">Moved frameworks</li>
@@ -35,7 +46,7 @@ export default function NewsAndUpdatesModal( {open, onClose} ) {
                       <p className="px-2 card-sm:px-4 py-2 text-md card-sm:text-base font-bold indent-4">Along with these changes, I fixed all the errors that happened with the framework migration. If there are any more error that you do run into, please let me know <a className='text-blue-500' href="https://docs.google.com/forms/d/e/1FAIpQLSdmglG-bsdZL1R41EYEsfrnN5tgJyK-CPfs1D4cNwNBpcxfxg/viewform?usp=sf_link" target={'_blank'}>here</a>. I also added the new characters and updated a lot of character EZA information, two people actually took the time to look over every character and make sure they matched up.....huuuuuuge shout out to who ever did that (I added a contact information question in the form so that I can reach out to those who take the time to do that in the future).</p> 
                       <p className="px-2 card-sm:px-4 py-2 text-md card-sm:text-base font-bold indent-4">All in all, I am pumped to be back on the saddle and SUPER stoked google can see the site now. Now is the fun part of seeing if we can climb up the organic search laddler. I am going to continue working on the calculators and also adding transformed characters. The transformed characters will take a little longer because I need to change a bit of the character structure just so I can get it to function properly. I hope you continue to enjoy using the app!</p> 
                       </>}
-                      key={'Update 5'}
+                      key={'Update 10'}
                     />
                   </div> 
 
@@ -46,7 +57,7 @@ export default function NewsAndUpdatesModal( {open, onClose} ) {
                       <p className="px-2 card-sm:px-4 py-2 text-md card-sm:text-base font-bold indent-4">After a long break I am here with a tiny update, the defense calculator! Sorry for those that came from reddit and didn't have access to it, only the attack calculator was up. Next will be calculating damage done/taken....if you know how to calculate an enemies attack, damage reduction, etc, please contact me on reddit or fill out the form below with your email or @. </p> 
                       <p className="px-2 card-sm:px-4 py-2 text-md card-sm:text-base font-bold indent-4">I have not played with the calculator on mobile a lot, so apologies if it is hard to use on a phone. As always, if you find any other errors, missing characters, or incorrect information please fill out this <a className='text-blue-500' href="https://docs.google.com/forms/d/e/1FAIpQLSdmglG-bsdZL1R41EYEsfrnN5tgJyK-CPfs1D4cNwNBpcxfxg/viewform?usp=sf_link" target={'_blank'}>Google Form</a>. We hope you continue to enjoy using this app!</p> 
                       </>}
-                      key={'Update 5'}
+                      key={'Update 9'}
                     />
                   </div> 
 
@@ -58,7 +69,7 @@ export default function NewsAndUpdatesModal( {open, onClose} ) {
                       <p className="px-2 card-sm:px-4 py-2 text-md card-sm:text-base font-bold indent-4">Back with another smaller update! After a couple of requiests, we are implimenting calculators now just as a fun little addition to the site. Currently we only have the ATK calculator, DEF will be coming next. The fun aspects of the calculator is the link ATK % gain, Ki multiplier, and SA multiplier are all automatically populated when two characters are selected. Also, if a LR character is selected you can vary the Ki collected which will automatically change the Ki multiplier and also the SA multiplier (depending on a super attack or ultra super attack). The left character (with the green dot) is the one being calculated for. We are still working on conditional statements for populating data, so all the information may not be 100% accurate yet. However, when I tested it, I found it to be on average 97-99% accurate. Also you mayhave noticed the styling changes of the search form. I condensed it because when the screen size was below 1000 pixels and the character card details were showing, it was causing everything to be pushed off the screen.</p> 
                       <p className="px-2 card-sm:px-4 py-2 text-md card-sm:text-base font-bold indent-4"> I have not played with the calculator on mobile a lot, so apologies if it is hard to use on a phone. As always, if you find any other errors, missing characters, or incorrect information please fill out this <a className='text-blue-500' href="https://docs.google.com/forms/d/e/1FAIpQLSdmglG-bsdZL1R41EYEsfrnN5tgJyK-CPfs1D4cNwNBpcxfxg/viewform?usp=sf_link" target={'_blank'}>Google Form</a>. We hope you continue to enjoy using this app!</p> 
                       </>}
-                      key={'Update 5'}
+                      key={'Update 8'}
                     />
                   </div> 
 
@@ -74,7 +85,7 @@ export default function NewsAndUpdatesModal( {open, onClose} ) {
                       <p className="px-2 card-sm:px-4 py-2 text-md card-sm:text-base font-bold indent-4">Currently, there is a styling issue on the team web page when character details are shown for screen sizes ranging from 851 to 940 pixels. I need to fine-tune the suggested section to ensure that it fits onto the screen for these sizes, but I wanted to get this update out in the meantime. If you find any other errors, missing characters, or incorrect information please fill out this <a className='text-blue-500' href="https://docs.google.com/forms/d/e/1FAIpQLSdmglG-bsdZL1R41EYEsfrnN5tgJyK-CPfs1D4cNwNBpcxfxg/viewform?usp=sf_link" target={'_blank'}>Google Form</a>.</p>
                       <p className="px-2 card-sm:px-4 py-2 text-md card-sm:text-base font-bold indent-4">Next on the list is transforming characters and adding the ability to edit teams posted on the strategy section. I'm also working on an auto-generate team option, although this will take some time as the algorithm is proving to be difficult. We hope you are still enjoying the app!</p> 
                       </>}
-                      key={'Update 5'}
+                      key={'Update 7'}
                     />
                   </div>
 
@@ -84,7 +95,7 @@ export default function NewsAndUpdatesModal( {open, onClose} ) {
                       <p className="px-2 card-sm:px-4 py-2 text-md card-sm:text-base font-bold indent-4">Also, we totally reconstructed the suggested characters. They can now be sorted by ATK, DEF, or Ki gained through links. Organizing the characters by amount of links to each character was nice, but it was unorganized/hard to find the best linker sense they weren't organized by stats gained. Not only that, but we also added the ability to have multiple categories searched in this too. This will make forming teams a breeze, especially when you're looking to build a team that has both categories in a 200% leader. For this weekend and next week I'll be taking it somewhat easy. I'll be working on backend and also PR stuff (trying to get the word out on this app so feel free to share with others!). After the little break, I'll be trying to incorporate transforming and SSRs characters and then working on a switch to show level 10 link stats.</p>
                       {/* <li className="py-2 px-2 card-sm:px-4"></li> */}
                       </>}
-                      key={'Update 5'}
+                      key={'Update 6'}
                     />
                   </div>
 

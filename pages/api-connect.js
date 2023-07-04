@@ -161,6 +161,26 @@ function AllAPI() {
     transform_type: '',
     transform_condition: '',
     transform_condition_eza: '',
+    standby_name: '',
+    standby_description: '',
+    standby_description_eza: '',
+    standby_condition: '',
+    standby_condition_eza: '',
+    finish_attack_1_name: '',
+    finish_attack_1_description: '',
+    finish_attack_1_description_eza: '',
+    finish_attack_1_condition: '',
+    finish_attack_1_condition_eza: '',
+    finish_attack_2_name: '',
+    finish_attack_2_description: '',
+    finish_attack_2_description_eza: '',
+    finish_attack_2_condition: '',
+    finish_attack_2_condition_eza: '',
+    transformed: '',
+    transform_to: '',
+    transformed_from: '',
+    Ki12: '',
+    Ki24: '',
     link_skill: '',
     category: '',
     jp_date: '',
@@ -202,6 +222,26 @@ function AllAPI() {
       transform_type:character.transform_type || '',
       transform_condition:character.transform_condition || '',
       transform_condition_eza:character.transform_condition_eza || '',
+      standby_name:character.standby_name || '',
+      standby_description:character.standby_description || '',
+      standby_description_eza:character.standby_description_eza || '',
+      standby_condition:character.standby_condition || '',
+      standby_condition_eza:character.standby_condition_eza || '',
+      finish_attack_1_name:character.finish_attack_1_name || '',
+      finish_attack_1_description:character.finish_attack_1_description || '',
+      finish_attack_1_description_eza:character.finish_attack_1_description_eza || '',
+      finish_attack_1_condition:character.finish_attack_1_condition || '',
+      finish_attack_1_condition_eza:character.finish_attack_1_condition_eza || '',
+      finish_attack_2_name:character.finish_attack_2_name || '',
+      finish_attack_2_description:character.finish_attack_2_description || '',
+      finish_attack_2_description_eza:character.finish_attack_2_description_eza || '',
+      finish_attack_2_condition:character.finish_attack_2_condition || '',
+      finish_attack_2_condition_eza:character.finish_attack_2_condition_eza || '',
+      transformed:character.transformed || '',
+      transform_to:character.transform_to || '',
+      transformed_from:character.transformed_from || '',
+      Ki12:character.Ki12 || '',
+      Ki24:character.Ki24 || '',
       link_skill:character.link_skill || '',
       category:character.category || '',
       jp_date:character.jp_date || '',
@@ -349,7 +389,7 @@ function AllAPI() {
         {(initialOption === "Edit Character") &&
         <>
           <div className="flex flex-1 bg-white overflow-y-auto">
-            <EditCharacter characterForm={characterForm} setCharacterForm={setCharacterForm} setSelectedCharacter={setSelectedCharacter}/>
+            <EditCharacter characterForm={characterForm} setCharacterForm={setCharacterForm}/>
           </div>
           <div className="flex flex-1 bg-green-500 overflow-y-auto">
             <SingleCharacterSearch selectedCharacterId={selectedCharacter?.id}/>
@@ -359,7 +399,7 @@ function AllAPI() {
 
         {(initialOption === "Add Character") &&
         <div className="flex flex-1 bg-white overflow-y-auto">
-          <MakeSingleCharacter />
+          <MakeSingleCharacter characterForm={characterForm} setCharacterForm={setCharacterForm}/>
         </div>
         }
 

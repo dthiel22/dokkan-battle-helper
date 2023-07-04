@@ -25,18 +25,38 @@ export default function EditCharacter({ characterForm, setCharacterForm }) {
         e.preventDefault();
         // Check if any values are empty strings and replace them with null
         const updatedCharacter = {};
+
         Object.entries(characterForm).forEach(([key, value]) => {
           updatedCharacter[key] = value === '' ? null : value;
         });
-        
-        const formattedCharacter = {
-          ...updatedCharacter,
-          link_skill:updatedCharacter.link_skill.split(','),
-          category: updatedCharacter.category.split(',')
+
+        let transformToArray = null;
+
+        if (updatedCharacter.transform_to) {
+          if (updatedCharacter.transform_to.includes(',')) {
+            transformToArray = updatedCharacter.transform_to.split(',').map(Number);
+          } else {
+            transformToArray = [parseInt(updatedCharacter.transform_to, 10)];
+          }
         }
 
+        const formattedCharacter = {
+          ...updatedCharacter,
+          transformed: updatedCharacter.transformed === "true" && true || updatedCharacter.transformed === "false" && false,
+          transform_to: transformToArray,
+          transformed_from: updatedCharacter.transformed_from ? parseInt(updatedCharacter.transformed_from) : null,
+          link_skill: Array.isArray(updatedCharacter.link_skill) ? updatedCharacter.link_skill : updatedCharacter.link_skill.split(','),
+          category: Array.isArray(updatedCharacter.category) ? updatedCharacter.category : updatedCharacter.category.split(',')
+        }
+        
+        console.log('------------------')
+        console.log('character objet:')
         console.log(formattedCharacter)
+        console.log('transformed:')
+        console.log(formattedCharacter.transformed)
+        console.log('link skills:')
         console.log(formattedCharacter.link_skill)
+        console.log('category:')
         console.log(formattedCharacter.category)
         console.log('------------------')
         
@@ -55,408 +75,24 @@ export default function EditCharacter({ characterForm, setCharacterForm }) {
         :
           console.log('mutation is turned off')
       }
-      
 
   return (
     <div className='flex flex-col w-full'>
       <form onSubmit={(e) => editCharacterSubmit(e)} className="w-full">
-        <label className="flex p-2">
-          id
-          <textarea
-            className="w-full p-1 border border-black"
-            rows={6}
-            placeholder="null"
-            name="id"
-            value={characterForm?.id}
-            onChange={(e) => handleCharacterEditInputChange(e)}
-          />
-        </label>
-        <label className="flex p-2">
-          wiki_link
-          <textarea
-            className="w-full p-1 border border-black"
-            rows={6}
-            placeholder="null"
-            name="wiki_link"
-            required
-            value={characterForm?.wiki_link}
-            onChange={(e) => handleCharacterEditInputChange(e)}
-          />
-        </label>
-        <label className="flex p-2">
-          thumb
-          <textarea
-            className="w-full p-1 border border-black"
-            rows={6}
-            placeholder="null"
-            name="thumb"
-            value={characterForm?.thumb}
-            onChange={(e) => handleCharacterEditInputChange(e)}
-          />
-        </label>
-        <label className="flex p-2">
-          art
-          <textarea
-            className="w-full p-1 border border-black"
-            rows={6}
-            placeholder="null"
-            name="art"
-            value={characterForm?.art}
-            onChange={(e) => handleCharacterEditInputChange(e)}
-          />
-        </label>
-        <label className="flex p-2">
-          title
-          <textarea
-            className="w-full p-1 border border-black"
-            rows={6}
-            placeholder="null"
-            name="title"
-            value={characterForm?.title}
-            onChange={(e) => handleCharacterEditInputChange(e)}
-          />
-        </label>
-        <label className="flex p-2">
-          name
-          <textarea
-            className="w-full p-1 border border-black"
-            rows={6}
-            placeholder="null"
-            name="name"
-            value={characterForm?.name}
-            onChange={(e) => handleCharacterEditInputChange(e)}
-          />
-        </label>
-        <label className="flex p-2">
-          rarity
-          <textarea
-            className="w-full p-1 border border-black"
-            rows={6}
-            placeholder="null"
-            name="rarity"
-            value={characterForm?.rarity}
-            onChange={(e) => handleCharacterEditInputChange(e)}
-          />
-        </label>
-        <label className="flex p-2">
-          type
-          <textarea
-            className="w-full p-1 border border-black"
-            rows={6}
-            placeholder="null"
-            name="type"
-            value={characterForm?.type}
-            onChange={(e) => handleCharacterEditInputChange(e)}
-          />
-        </label>
-        <label className="flex p-2">
-          cost
-          <textarea
-            className="w-full p-1 border border-black"
-            rows={6}
-            placeholder="null"
-            name="cost"
-            value={characterForm?.cost}
-            onChange={(e) => handleCharacterEditInputChange(e)}
-          />
-        </label>
-        <label className="flex p-2">
-          ls_description
-          <textarea
-            className="w-full p-1 border border-black"
-            rows={6}
-            placeholder="null"
-            name="ls_description"
-            value={characterForm?.ls_description}
-            onChange={(e) => handleCharacterEditInputChange(e)}
-          />
-        </label>
-        <label className="flex p-2">
-          ls_description_eza
-          <textarea
-            className="w-full p-1 border border-black"
-            rows={6}
-            placeholder="null"
-            name="ls_description_eza"
-            value={characterForm?.ls_description_eza}
-            onChange={(e) => handleCharacterEditInputChange(e)}
-          />
-        </label>
-        <label className="flex p-2">
-          sa_type
-          <textarea
-            className="w-full p-1 border border-black"
-            rows={6}
-            placeholder="null"
-            name="sa_type"
-            value={characterForm?.sa_type}
-            onChange={(e) => handleCharacterEditInputChange(e)}
-          />
-        </label>
-        <label className="flex p-2">
-          sa_name
-          <textarea
-            className="w-full p-1 border border-black"
-            rows={6}
-            placeholder="null"
-            name="sa_name"
-            value={characterForm?.sa_name}
-            onChange={(e) => handleCharacterEditInputChange(e)}
-          />
-        </label>
-        <label className="flex p-2">
-          sa_description
-          <textarea
-            className="w-full p-1 border border-black"
-            rows={6}
-            placeholder="null"
-            name="sa_description"
-            value={characterForm?.sa_description}
-            onChange={(e) => handleCharacterEditInputChange(e)}
-          />
-        </label>
-        <label className="flex p-2">
-          sa_description_eza
-          <textarea
-            className="w-full p-1 border border-black"
-            rows={6}
-            placeholder="null"
-            name="sa_description_eza"
-            value={characterForm?.sa_description_eza}
-            onChange={(e) => handleCharacterEditInputChange(e)}
-          />
-        </label>
-        <label className="flex p-2">
-          ultra_sa_name
-          <textarea
-            className="w-full p-1 border border-black"
-            rows={6}
-            placeholder="null"
-            name="ultra_sa_name"
-            value={characterForm?.ultra_sa_name}
-            onChange={(e) => handleCharacterEditInputChange(e)}
-          />
-        </label>
-        <label className="flex p-2">
-          ultra_sa_type
-          <textarea
-            className="w-full p-1 border border-black"
-            rows={6}
-            placeholder="null"
-            name="ultra_sa_type"
-            value={characterForm?.ultra_sa_type}
-            onChange={(e) => handleCharacterEditInputChange(e)}
-          />
-        </label>
-        <label className="flex p-2">
-          ultra_sa_description
-          <textarea
-            className="w-full p-1 border border-black"
-            rows={6}
-            placeholder="null"
-            name="ultra_sa_description"
-            value={characterForm?.ultra_sa_description}
-            onChange={(e) => handleCharacterEditInputChange(e)}
-          />
-        </label>
-        <label className="flex p-2">
-          ultra_sa_description_eza
-          <textarea
-            className="w-full p-1 border border-black"
-            rows={6}
-            placeholder="null"
-            name="ultra_sa_description_eza"
-            value={characterForm?.ultra_sa_description_eza}
-            onChange={(e) => handleCharacterEditInputChange(e)}
-          />
-        </label>
-        <label className="flex p-2">
-          ps_name
-          <textarea
-            className="w-full p-1 border border-black"
-            rows={6}
-            placeholder="null"
-            name="ps_name"
-            value={characterForm?.ps_name}
-            onChange={(e) => handleCharacterEditInputChange(e)}
-          />
-        </label>
-        <label className="flex p-2">
-          ps_description
-          <textarea
-            className="w-full p-1 border border-black"
-            rows={6}
-            placeholder="null"
-            name="ps_description"
-            value={characterForm?.ps_description}
-            onChange={(e) => handleCharacterEditInputChange(e)}
-          />
-        </label>
-        <label className="flex p-2">
-          ps_description_eza
-          <textarea
-            className="w-full p-1 border border-black"
-            rows={6}
-            placeholder="null"
-            name="ps_description_eza"
-            value={characterForm?.ps_description_eza}
-            onChange={(e) => handleCharacterEditInputChange(e)}
-          />
-        </label>
-        <label className="flex p-2">
-          sa_type_active
-          <textarea
-            className="w-full p-1 border border-black"
-            rows={6}
-            placeholder="null"
-            name="sa_type_active"
-            value={characterForm?.sa_type_active}
-            onChange={(e) => handleCharacterEditInputChange(e)}
-          />
-        </label>
-        <label className="flex p-2">
-          active_skill_name
-          <textarea
-            className="w-full p-1 border border-black"
-            rows={6}
-            placeholder="null"
-            name="active_skill_name"
-            value={characterForm?.active_skill_name}
-            onChange={(e) => handleCharacterEditInputChange(e)}
-          />
-        </label>
-        <label className="flex p-2">
-          active_skill
-          <textarea
-            className="w-full p-1 border border-black"
-            rows={6}
-            placeholder="null"
-            name="active_skill"
-            value={characterForm?.active_skill}
-            onChange={(e) => handleCharacterEditInputChange(e)}
-          />
-        </label>
-        <label className="flex p-2">
-          active_skill_condition
-          <textarea
-            className="w-full p-1 border border-black"
-            rows={6}
-            placeholder="null"
-            name="active_skill_condition"
-            value={characterForm?.active_skill_condition}
-            onChange={(e) => handleCharacterEditInputChange(e)}
-          />
-        </label>
-        <label className="flex p-2">
-          active_skill_condition_eza
-          <textarea
-            className="w-full p-1 border border-black"
-            rows={6}
-            placeholder="null"
-            name="active_skill_condition_eza"
-            value={characterForm?.active_skill_condition_eza}
-            onChange={(e) => handleCharacterEditInputChange(e)}
-          />
-        </label>
-        <label className="flex p-2">
-          transform_type
-          <textarea
-            className="w-full p-1 border border-black"
-            rows={6}
-            placeholder="null"
-            name="transform_type"
-            value={characterForm?.transform_type}
-            onChange={(e) => handleCharacterEditInputChange(e)}
-          />
-        </label>
-        <label className="flex p-2">
-          transform_condition
-          <textarea
-            className="w-full p-1 border border-black"
-            rows={6}
-            placeholder="null"
-            name="transform_condition"
-            value={characterForm?.transform_condition}
-            onChange={(e) => handleCharacterEditInputChange(e)}
-          />
-        </label>
-        <label className="flex p-2">
-          transform_condition_eza
-          <textarea
-            className="w-full p-1 border border-black"
-            rows={6}
-            placeholder="null"
-            name="transform_condition_eza"
-            value={characterForm?.transform_condition_eza}
-            onChange={(e) => handleCharacterEditInputChange(e)}
-          />
-        </label>
-        <label className="flex p-2">
-          link_skill
-          <textarea
-            className="w-full p-1 border border-black"
-            rows={6}
-            placeholder="null"
-            name="link_skill"
-            value={characterForm?.link_skill}
-            onChange={(e) => handleCharacterEditInputChange(e)}
-          />
-        </label>
-        <label className="flex p-2">
-          category
-          <textarea
-            className="w-full p-1 border border-black"
-            rows={6}
-            placeholder="null"
-            name="category"
-            value={characterForm?.category}
-            onChange={(e) => handleCharacterEditInputChange(e)}
-          />
-        </label>
-        <label className="flex p-2">
-          jp_date
-          <textarea
-            className="w-full p-1 border border-black"
-            rows={1}
-            placeholder="null"
-            name="jp_date"
-            value={characterForm?.jp_date}
-            onChange={(e) => handleCharacterEditInputChange(e)}
-          />
-        </label>
-        <label className="flex p-2">
-          glb_date
-          <textarea
-            className="w-full p-1 border border-black"
-            rows={1}
-            placeholder="null"
-            name="glb_date"
-            value={characterForm?.glb_date}
-            onChange={(e) => handleCharacterEditInputChange(e)}
-          />
-        </label>
-        <label className="flex p-2">
-          jp_date_eza
-          <textarea
-            className="w-full p-1 border border-black"
-            rows={1}
-            placeholder="null"
-            name="jp_date_eza"
-            value={characterForm?.jp_date_eza}
-            onChange={(e) => handleCharacterEditInputChange(e)}
-          />
-        </label>
-        <label className="flex p-2">
-          glb_date_eza
-          <textarea
-            className="w-full p-1 border border-black"
-            rows={1}
-            placeholder="null"
-            name="glb_date_eza"
-            value={characterForm?.glb_date_eza}
-            onChange={(e) => handleCharacterEditInputChange(e)}
-          />
-        </label>
+        {Object.entries(characterForm).map(([key, value]) => (
+          <label className="flex flex-col p-2 border-b-2 border-black" key={key}>
+            {key}
+            <textarea
+              className="w-full p-1 border border-gray-300"
+              rows={key === 'id' || key === 'thumb' || key === 'art' || key === 'title' || key === 'name' || key === 'rarity' || key === 'type' || key === 'cost' || key === 'sa_type' || key === 'sa_name' || key === 'ultra_sa_name' || key === 'ps_name' || key === 'active_skill_name' || key === 'transform_type' || key === 'standby_name' || key === 'finish_attack_1_name' || key === 'finish_attack_2_name' || key === 'transformed' || key === 'transform_to' || key === 'transformed_from' || key === 'Ki12' || key === 'Ki24' || key === 'glb_date' || key === 'jp_date' || key === 'glb_date_eza' || key === 'jp_date_eza' ? 1 : 6}
+              placeholder="null"
+              name={key}
+              value={characterForm[key]}
+              onChange={handleCharacterEditInputChange}
+            />
+          </label>
+        ))}
+
         <button
         className='w-full my-2 bg-orange-200 border-2 border-black'
         >SUBMIT</button>
