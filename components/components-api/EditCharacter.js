@@ -45,12 +45,14 @@ export default function EditCharacter({ characterForm, setCharacterForm }) {
           transformed: updatedCharacter.transformed === "true" && true || updatedCharacter.transformed === "false" && false,
           transform_to: transformToArray,
           transformed_from: updatedCharacter.transformed_from ? parseInt(updatedCharacter.transformed_from) : null,
+          Ki12: parseInt(updatedCharacter.Ki12),
+          Ki24: parseInt(updatedCharacter.Ki24),
           link_skill: Array.isArray(updatedCharacter.link_skill) ? updatedCharacter.link_skill : updatedCharacter.link_skill.split(','),
           category: Array.isArray(updatedCharacter.category) ? updatedCharacter.category : updatedCharacter.category.split(',')
         }
         
         console.log('------------------')
-        console.log('character objet:')
+        console.log('character object:')
         console.log(formattedCharacter)
         console.log('transformed:')
         console.log(formattedCharacter.transformed)
