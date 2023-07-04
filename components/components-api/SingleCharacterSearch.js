@@ -70,6 +70,7 @@ export default function SingleCharacterSearch({  }) {
     function handleNewCharacterSubmit (e) {
       e.preventDefault()
       console.log(newCharacterInput)
+      setCharacterClean('')
       setCharacterClean(getCharacterInfo(newCharacterInput))
     }
 

@@ -42,11 +42,12 @@ export default function EditCharacter({ characterForm, setCharacterForm }) {
 
         const formattedCharacter = {
           ...updatedCharacter,
-          transformed: updatedCharacter.transformed === "true" && true || updatedCharacter.transformed === "false" && false,
+          transformed: updatedCharacter.transformed ? true :
+            updatedCharacter.transformed === "true" && true || updatedCharacter.transformed === "false" && false || updatedCharacter.transformed === false && false,
           transform_to: transformToArray,
           transformed_from: updatedCharacter.transformed_from ? parseInt(updatedCharacter.transformed_from) : null,
-          Ki12: parseInt(updatedCharacter.Ki12),
-          Ki24: parseInt(updatedCharacter.Ki24),
+          Ki12: updatedCharacter.Ki12 ? parseInt(updatedCharacter.Ki12) : null,
+          Ki24: updatedCharacter.Ki24 ? parseInt(updatedCharacter.Ki24) : null,
           link_skill: Array.isArray(updatedCharacter.link_skill) ? updatedCharacter.link_skill : updatedCharacter.link_skill.split(','),
           category: Array.isArray(updatedCharacter.category) ? updatedCharacter.category : updatedCharacter.category.split(',')
         }
