@@ -401,6 +401,7 @@ function AllComponents({  }) {
             <CardDetails
               cardDetails={cardDetails}
               hoverCharacterStats={hoverCharacterStats}
+              characterDictionary={characterDictionary}
             />
             )
           ) : (
@@ -517,7 +518,7 @@ function AllComponents({  }) {
                   >
                     <div className={`
                     absolute h-[60px] card-sm:h-[85px] w-[60px] card-sm:w-[85px] bg-gray-900 z-[60] opacity-70
-                    ${(grayCharactersInSelectedDeck && allCharacterIDsInDeck.includes(character.id)) ? "" : "hidden"}
+                    ${(grayCharactersInSelectedDeck && allCharacterIDsInDeck.includes(character?.id)) ? "" : "hidden"}
                     `}></div>
                     <CharacterCard 
                     individualCharacter={character} 

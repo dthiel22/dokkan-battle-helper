@@ -183,7 +183,7 @@ const SinglePaneLayout = ({ allTeams, characterDictionary, handleEditTeamInfo, h
           null
         )}
       </div>
-    ))
+    )).reverse()
     :
     null
     }

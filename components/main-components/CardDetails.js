@@ -11,8 +11,9 @@ import CharacterCard from "../cards/CharacterCard";
 import { UserContext } from '../../pages/_app';
 
 import Image from 'next/image';
+import SuggestCard from "@/cards/SuggestCard";
 
-function CardDetails({ cardDetails, hoverCharacterStats }) {  
+function CardDetails({ cardDetails, hoverCharacterStats, characterDictionary }) {  
   const { turnOnEZAStats, setTurnOnEZAStats } = useContext(UserContext)
 
   const divRef1 = useRef(null);
@@ -41,15 +42,21 @@ function CardDetails({ cardDetails, hoverCharacterStats }) {
   },[cardDetails, turnOnEZAStats, hoverCharacterStats])
 
   return (
-    <div className="flex flex-col w-full">
-      <div className="flex flex-col w-full ">
+    <div className="flex flex-col w-full p-2">
+      <div className="flex flex-col w-full">
         {/* character name, thumb, EZA button*/}
         <div className="flex flex-col w-full justify-center items-center">
-          <ScrollingDiv divRef={divRef1} text={characterDetails?.title}/>
-          <ScrollingDiv divRef={divRef1} text={characterDetails?.name}/>
+          <div className="w-full bg-orange-100 p-2 shadow-[inset_0_-5px_6px_rgba(0,0,0,0.6)] border-2 border-slate-900 ">
+            <p className="flex px-4 w-full font-header text-lg card-sm:text-2xl items-center justify-center text-center">
+              {characterDetails?.name}
+            </p>
+            <p className="flex px-4 pb-2 w-full font-bold text-md card-sm:text-base items-center justify-center text-center">
+              {characterDetails?.title}
+            </p>
+          </div>
 
           <div>
-            <CharacterCard individualCharacter={characterDetails} mobilesize={'100px'} desktopsize={'100px'}/>
+            <CharacterCard individualCharacter={characterDetails} mobilesize={'80px'} desktopsize={'100px'}/>
           </div>
 
           <button
@@ -70,22 +77,24 @@ function CardDetails({ cardDetails, hoverCharacterStats }) {
         </div>
 
         {/* leader and super APPLY TO ALL CHARACTERS */}
-          <div className="w-full p-2">
-            <p className="w-full h-fit font-header text-center text-lg card-sm:text-2xl">
-              Leader Skill:
+          <div className="flex flex-wrap w-full bg-orange-100 p-2 mb-2 shadow-[inset_0_-5px_6px_rgba(0,0,0,0.6)] border-2 border-slate-900 justify-center">
+            <p className="w-full h-fit mb-2 font-header border-b-2 border-black text-center text-lg card-sm:text-2xl">
+              Leader Skill
             </p>
-            <div className="w-full h-fit px-2 font-bold bg-orange-100 p-2 shadow-[inset_0_-5px_6px_rgba(0,0,0,0.6)] border-2 border-slate-900 text-sm card-sm:text-md">
+            <div className="w-full h-fit font-bold text-sm card-sm:text-md">
               {!showEZAStats ? characterDetails?.ls_description: characterDetails?.ls_description_eza}
             </div>
           </div>
 
 
-          <div className="flex flex-wrap w-full p-1 justify-center">
+          <div className="flex flex-wrap w-full bg-orange-100 p-2 mb-2 shadow-[inset_0_-5px_6px_rgba(0,0,0,0.6)] border-2 border-slate-900 justify-center">
             <p className="w-full h-fit font-header text-center text-lg card-sm:text-2xl">
-              Passive Skill:
+              Passive Skill
             </p>
-            <ScrollingDiv divRef={divRef1} text={characterDetails?.ps_name} />
-            <div className="flex w-full font-bold bg-orange-100 m-2 p-2 shadow-[inset_0_-5px_6px_rgba(0,0,0,0.6)] border-2 border-slate-900 text-sm card-sm:text-md">
+            <p className="w-full mb-2 border-b-2 border-black font-bold text-md card-sm:text-base text-center">
+              {characterDetails?.ps_name}
+            </p>
+            <div className="flex w-full font-bold text-sm card-sm:text-md">
               {!showEZAStats ? 
                 <CardDescription text={characterDetails?.ps_description} />
                 : 
@@ -94,62 +103,151 @@ function CardDetails({ cardDetails, hoverCharacterStats }) {
             </div>
           </div>
 
-          <div className="w-full p-2">
+          <div className="flex flex-wrap w-full bg-orange-100 p-2 mb-2 shadow-[inset_0_-5px_6px_rgba(0,0,0,0.6)] border-2 border-slate-900 justify-center">
             <p className="w-full h-fit font-header text-center text-lg card-sm:text-2xl">
-              Super Attack:
+              Super Attack
             </p>
-            <ScrollingDiv divRef={divRef1} text={characterDetails?.sa_name} />
-            <div className="w-full h-fit px-2 font-bold bg-orange-100 p-2 shadow-[inset_0_-5px_6px_rgba(0,0,0,0.6)] border-2 border-slate-900 text-sm card-sm:text-md">
-              {!showEZAStats ? 
-                <CardDescription text={characterDetails?.sa_description} />
-                : 
-                <CardDescription text={characterDetails?.sa_description_eza} />}
-            </div>
+              <p className="w-full mb-2 border-b-2 border-black font-bold text-md card-sm:text-base text-center">
+                {characterDetails?.sa_name}
+              </p>
+            {characterDetails?.sa_name === 'None' ? null :
+              <div className="flex w-full font-bold text-sm card-sm:text-md">
+                {!showEZAStats ? 
+                  <CardDescription text={characterDetails?.sa_description} />
+                  : 
+                  <CardDescription text={characterDetails?.sa_description_eza} />
+                }
+              </div>
+            }
           </div>
       </div>
 
-      {characterDetails?.ultra_sa_description && (
-        <div className="flex flex-wrap w-full pt-1">
-          <div className="flex flex-wrap w-full justify-center">
-            <p className="w-full h-fit font-header text-center text-lg card-sm:text-2xl">
-              Ultra Super Attack:
-            </p>
-            <ScrollingDiv divRef={divRef1} text={characterDetails?.ultra_sa_name} />
-            <div className="flex font-bold bg-orange-100 m-2 p-2 shadow-[inset_0_-5px_6px_rgba(0,0,0,0.6)] border-2 border-slate-900 text-sm card-sm:text-md">
+      {characterDetails?.ultra_sa_description && 
+        <div className="flex flex-wrap w-full bg-orange-100 p-2 mb-2 shadow-[inset_0_-5px_6px_rgba(0,0,0,0.6)] border-2 border-slate-900 justify-center">
+          <p className="w-full h-fit font-header text-center text-lg card-sm:text-2xl">
+            Ultra Super Attack
+          </p>
+          <p className="w-full mb-2 border-b-2 border-black font-bold text-md card-sm:text-base text-center">
+            {characterDetails?.ultra_sa_name}
+          </p>
+          <div className="flex w-full font-bold text-sm card-sm:text-md">
             {!showEZAStats ? 
               <CardDescription text={characterDetails?.ultra_sa_description} />
               : 
-              <CardDescription text={characterDetails?.ultra_sa_description_eza} />}
-            </div>
+              <CardDescription text={characterDetails?.ultra_sa_description_eza} />
+            }
           </div>
         </div>
-      )}
+      }
 
       {characterDetails?.active_skill_name && (
-        <div className="flex flex-wrap w-full pt-1">
-            <p className="w-full h-fit font-header text-center text-lg card-sm:text-2xl">
-              Active Skill:
-            </p>
-            <ScrollingDiv divRef={divRef1} text={characterDetails?.active_skill_name} />
-            <div className="flex font-bold bg-orange-100 m-2 p-2 shadow-[inset_0_-5px_6px_rgba(0,0,0,0.6)] border-2 border-slate-900 text-sm card-sm:text-md">
-              {(characterDetails?.active_skill) && 
-                <CardDescription text={characterDetails?.active_skill} />
-              }
+        <div className="flex flex-wrap w-full bg-orange-100 p-2 mb-2 shadow-[inset_0_-5px_6px_rgba(0,0,0,0.6)] border-2 border-slate-900 justify-center">
+          <p className="w-full h-fit font-header text-center text-lg card-sm:text-2xl">
+            Active Skill
+          </p>
+          <p className="w-full mb-2 border-b-2 border-black font-bold text-md card-sm:text-base text-center">
+            {characterDetails?.active_skill_name}
+          </p>
+          <div className="flex w-full font-bold text-sm card-sm:text-md">
+            {!showEZAStats ? 
+              <CardDescription text={characterDetails?.active_skill + '; ' + characterDetails?.active_skill_condition} />
+              : 
+              <CardDescription text={
+                characterDetails?.active_skill_eza ? (characterDetails?.active_skill_eza + '; ' + characterDetails?.active_skill_condition_eza) 
+                : 
+                (characterDetails?.active_skill + '; ' + characterDetails?.active_skill_condition)} />
+            }
+          </div>
+          {/* this statement allows for not a double character card if transforms in the active skill */}
+          {!characterDetails?.transform_condition && characterDetails?.transform_to && characterDetails?.transform_to.map(singleCharacterId => 
+            <div>
+              <CharacterCard individualCharacter={characterDictionary[singleCharacterId]} mobilesize={'80px'} desktopsize={'100px'}/>
             </div>
-            <div className="flex font-bold bg-orange-100 m-2 p-2 shadow-[inset_0_-5px_6px_rgba(0,0,0,0.6)] border-2 border-slate-900 text-sm card-sm:text-md">
-              <CardDescription text={characterDetails?.active_skill_condition} />
-            </div>
+          )}
         </div>
       )}
 
       {characterDetails?.transform_condition && (
-        <div className="flex flex-wrap w-full pt-1">
-            <ScrollingDiv divRef={divRef1} text={characterDetails?.transform_type + ':'} />
-            <div className="flex font-bold bg-orange-100 m-2 p-2 shadow-[inset_0_-5px_6px_rgba(0,0,0,0.6)] border-2 border-slate-900 text-sm card-sm:text-md">
+        <div className="flex flex-wrap w-full bg-orange-100 p-2 mb-2 shadow-[inset_0_-5px_6px_rgba(0,0,0,0.6)] border-2 border-slate-900 justify-center">
+          <p className="w-full h-fit mb-2 font-header border-b-2 border-black text-center text-lg card-sm:text-2xl">
+            Transform: {characterDetails?.transform_type}
+          </p>
+          <div className="flex w-full font-bold text-sm card-sm:text-md">
+            {!showEZAStats ? 
               <CardDescription text={characterDetails?.transform_condition} />
+              : 
+              <CardDescription text={characterDetails?.transform_condition_eza ? characterDetails?.transform_condition_eza : characterDetails?.transform_condition} />
+            }
+          </div>
+          {characterDetails?.transform_to && characterDetails?.transform_to.map(singleCharacterId => 
+            <div>
+              <CharacterCard individualCharacter={characterDictionary[singleCharacterId]} mobilesize={'80px'} desktopsize={'100px'}/>
             </div>
+          )}
         </div>
       )}
+
+      {characterDetails?.standby_name && (
+        <div className="flex flex-wrap w-full bg-orange-100 p-2 mb-2 shadow-[inset_0_-5px_6px_rgba(0,0,0,0.6)] border-2 border-slate-900 justify-center">
+          <p className="w-full h-fit mb-2 font-header border-b-2 border-black text-center text-lg card-sm:text-2xl">
+            Stand By: {characterDetails?.transform_type}
+          </p>
+          <div className="flex w-full font-bold text-sm card-sm:text-md">
+            {!showEZAStats ? 
+              <CardDescription text={characterDetails?.standby_condition} />
+              : 
+              <CardDescription text={characterDetails?.standby_condition_eza ? characterDetails?.standby_condition_eza : characterDetails?.transform_condition} />
+            }
+          </div>
+          {characterDetails?.transform_to && characterDetails?.transform_to.map(singleCharacterId => 
+            <div>
+              <CharacterCard individualCharacter={characterDictionary[singleCharacterId]} mobilesize={'80px'} desktopsize={'100px'}/>
+            </div>
+          )}
+        </div>
+      )}
+
+      {characterDetails?.finish_attack_1_name && 
+        <div className="flex flex-wrap w-full bg-orange-100 p-2 mb-2 shadow-[inset_0_-5px_6px_rgba(0,0,0,0.6)] border-2 border-slate-900 justify-center">
+          <p className="w-full h-fit font-header text-center text-lg card-sm:text-2xl">
+            Finish Attack 1
+          </p>
+          <p className="w-full mb-2 border-b-2 border-black font-bold text-md card-sm:text-base text-center">
+            {characterDetails?.finish_attack_1_name}
+          </p>
+          <div className="flex w-full font-bold text-sm card-sm:text-md">
+            {!showEZAStats ? 
+              <CardDescription text={characterDetails?.finish_attack_1_condition + '; ' + characterDetails?.finish_attack_1_description} />
+              : 
+              <CardDescription text={characterDetails?.finish_attack_1_condition_eza} />
+            }
+          </div>
+        </div>
+      }
+
+      {characterDetails?.finish_attack_2_name && 
+        <div className="flex flex-wrap w-full bg-orange-100 p-2 mb-2 shadow-[inset_0_-5px_6px_rgba(0,0,0,0.6)] border-2 border-slate-900 justify-center">
+          <p className="w-full h-fit font-header text-center text-lg card-sm:text-2xl">
+            Finish Attack 2
+          </p>
+          <p className="w-full mb-2 border-b-2 border-black font-bold text-md card-sm:text-base text-center">
+            {characterDetails?.finish_attack_2_name}
+          </p>
+          <div className="flex w-full font-bold text-sm card-sm:text-md">
+            {!showEZAStats ? 
+              <CardDescription text={characterDetails?.finish_attack_2_condition + '; ' + characterDetails?.finish_attack_2_description} />
+              : 
+              <CardDescription text={characterDetails?.finish_attack_2_condition_eza} />
+            }
+          </div>
+
+          {characterDetails?.transform_to && characterDetails?.transform_to.map(singleCharacterId => 
+            <div>
+              <CharacterCard individualCharacter={characterDictionary[singleCharacterId]} mobilesize={'80px'} desktopsize={'100px'}/>
+            </div>
+          )}
+        </div>
+      }
 
       {/* links + categories */}
       <div className="flex flex-wrap w-full">
