@@ -160,8 +160,8 @@ function CardDetails({ cardDetails, hoverCharacterStats, characterDictionary }) 
           </div>
           {/* this statement allows for not a double character card if transforms in the active skill */}
           {!characterDetails?.transform_condition && characterDetails?.transform_to && characterDetails?.transform_to.map(singleCharacterId => 
-            <div>
-              <CharacterCard key={'Transition to' + singleCharacterId} individualCharacter={characterDictionary[singleCharacterId]} mobilesize={'80px'} desktopsize={'100px'}/>
+            <div key={'Transition to' + singleCharacterId}>
+              <CharacterCard individualCharacter={characterDictionary[singleCharacterId]} mobilesize={'80px'} desktopsize={'100px'}/>
             </div>
           )}
         </div>
