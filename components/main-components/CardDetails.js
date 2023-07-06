@@ -161,7 +161,7 @@ function CardDetails({ cardDetails, hoverCharacterStats, characterDictionary }) 
           {/* this statement allows for not a double character card if transforms in the active skill */}
           {!characterDetails?.transform_condition && characterDetails?.transform_to && characterDetails?.transform_to.map(singleCharacterId => 
             <div>
-              <CharacterCard individualCharacter={characterDictionary[singleCharacterId]} mobilesize={'80px'} desktopsize={'100px'}/>
+              <CharacterCard key={'Transition to' + singleCharacterId} individualCharacter={characterDictionary[singleCharacterId]} mobilesize={'80px'} desktopsize={'100px'}/>
             </div>
           )}
         </div>
@@ -180,7 +180,7 @@ function CardDetails({ cardDetails, hoverCharacterStats, characterDictionary }) 
             }
           </div>
           {characterDetails?.transform_to && characterDetails?.transform_to.map(singleCharacterId => 
-            <div>
+            <div key={'Transform to' + singleCharacterId}>
               <CharacterCard individualCharacter={characterDictionary[singleCharacterId]} mobilesize={'80px'} desktopsize={'100px'}/>
             </div>
           )}
@@ -200,7 +200,7 @@ function CardDetails({ cardDetails, hoverCharacterStats, characterDictionary }) 
             }
           </div>
           {characterDetails?.transform_to && characterDetails?.transform_to.map(singleCharacterId => 
-            <div>
+            <div key={'Transform to' + singleCharacterId}>
               <CharacterCard individualCharacter={characterDictionary[singleCharacterId]} mobilesize={'80px'} desktopsize={'100px'}/>
             </div>
           )}
@@ -242,7 +242,7 @@ function CardDetails({ cardDetails, hoverCharacterStats, characterDictionary }) 
           </div>
 
           {characterDetails?.transform_to && characterDetails?.transform_to.map(singleCharacterId => 
-            <div>
+            <div key={'Transform to' + singleCharacterId}>
               <CharacterCard individualCharacter={characterDictionary[singleCharacterId]} mobilesize={'80px'} desktopsize={'100px'}/>
             </div>
           )}
