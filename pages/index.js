@@ -342,6 +342,12 @@ function AllComponents({  }) {
           className="flex p-2 font-bold border-t-2 border-r-2 border-black bg-orange-200 hover:bg-orange-300">
             {showCalculator ? 'Show Team Web' : 'Show Calculator'}
           </button>
+
+          <button 
+          onClick={()=> setOpenNewsModal(!openNewsModal)}
+          className="flex p-2 font-bold border-t-2 border-r-2 border-black bg-orange-200 hover:bg-orange-300">
+            Update Log
+          </button>
           
         </div>
         }
