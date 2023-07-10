@@ -34,6 +34,7 @@ export function useSortedCharacters(allCharacters, filteredCharacters, filterByG
       return arr;
     }
 
+    //finding all 
     const transformedCharacters = (filteredCharacters && filteredCharacters.length > 0)
       ? filteredCharacters.filter(character => character.transformed)
       : (allCharacters && allCharacters.length > 0)
@@ -119,8 +120,8 @@ export function useSortedCharacters(allCharacters, filteredCharacters, filterByG
 
 
     // Separating characters based on rarity
-    const LRCharacters = sortedNonTransformed.filter(character => character.rarity === 'LR' || character.rarity === 'UR');
-    const SSRCharacters = sortedNonTransformed.filter(character => character.rarity === 'SSR');
+    const LRCharacters = sortedNonTransformed.filter(character => character?.rarity === 'LR' || character?.rarity === 'UR')
+    const SSRCharacters = sortedNonTransformed.filter(character => character?.rarity === 'SSR');
 
     // Concatenating the sorted arrays
     const sortedCharacters = LRCharacters.concat(SSRCharacters);

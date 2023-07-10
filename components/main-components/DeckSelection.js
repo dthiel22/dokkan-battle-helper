@@ -62,8 +62,8 @@ export default function DeckSelection({ characterDictionary, webOfTeam, userDeck
   
   async function handleAddTeamToDeck() {
     const cleanWebOfTeam = webOfTeam.map((character) => {
-      const { __typename, ...cleanCharacter } = character;
-      return cleanCharacter;
+      const { id, type, rarity } = character;
+      return { id, type, rarity };
     });
 
     setTeamUsedInMakeTeamForm(cleanWebOfTeam)
@@ -95,13 +95,9 @@ export default function DeckSelection({ characterDictionary, webOfTeam, userDeck
       removeFromWebOfTeam(webOfTeam[i])      
     }
     team.characters.map(character => {
-      addToWebOfTeam(character)
+      addToWebOfTeam(characterDictionary[character.id])
     })
   }
-
-  // console.log(webOfTeam)
-  // console.log(webOfTeam.some(character => character.transformed));
-  console.log(showAddDeckToTeamToolTip)
   
   return (
     <>
