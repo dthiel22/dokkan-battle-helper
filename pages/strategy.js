@@ -328,7 +328,12 @@ function AllStrategy( {  } ) {
 
               <div className="flex flex-row pl-2 lg:max-w-[50%] items-center">
                 <p className="font-header mr-4 text-lg card-sm:text-xl font-light">Stage</p>
-                {selectedStage ? <div className="flex w-full p-4 justify-center items-center"><StageTab key={selectedStage.name} stageName={selectedStage.name}/></div> : null} 
+                {selectedStage ? 
+                <div className="flex w-full p-4 justify-center items-center">
+                  <StageTab key={selectedStage.name} stageName={selectedStage.name}/>
+                  </div> 
+                  : null
+                } 
               </div>
               {selectedStage &&
               <div className="flex h-8 p-1 justify-center items-center absolute bottom-1 right-1 cursor-pointer hover:bg-gray-500/[.75] transition ease-in-out rounded-lg z-50">
@@ -341,7 +346,7 @@ function AllStrategy( {  } ) {
                   <div className="w-full min-h-[600px] max-h-[600px] border-b-4 border-black z-50 bg-orange-100 rounded-b-lg p-4 pb-14 shadow-md black-scrollbar overflow-y-auto">
                     <p className="flex w-full py-6 font-header justify-center items-center text-xl text-center underline decoration-2 underline-offset-8">Comments</p>
 
-                    <DynamicCommentForm commentFormRef={commentFormRef} commentInput={commentInput} setCommentInput={setCommentInput}/>
+                    <DynamicCommentForm commentFormRef={commentFormRef} commentInput={commentInput} setCommentInput={setCommentInput} handleCommentSubmit={handleCommentSubmit}/>
 
                   {allCommentsAndRepliesLoading ? <div className="flex w-full p-4 mt-4 text-lg font-bold border-2 border-black bg-orange-200 justify-center items-center rounded-lg">Comments are loading...</div> :
                     allCommentsAndReplies.length > 0 ? 
@@ -349,14 +354,16 @@ function AllStrategy( {  } ) {
                         .slice()
                         .sort((a, b) => b.createdAt - a.createdAt)  
                         .map(singleComment => 
-                          <Comment comment={singleComment} characterDictionary={characterDictionary} selectedStage={selectedStage} reloadCommentsReplies={reloadCommentsReplies} key={singleComment._id}/>)
+                          <Comment comment={singleComment} allCharacters={allCharacters} characterDictionary={characterDictionary} selectedStage={selectedStage} reloadCommentsReplies={reloadCommentsReplies} key={singleComment._id}/>)
                   :
                     <div className="flex w-full p-4 mt-4 text-lg font-bold border-2 border-black bg-orange-200 justify-center items-center rounded-lg">No comments yet</div>
                   }
                 </div>
               }
 
-              <DynamicAddTeamToStageButton selectedTeam={selectedTeam} handleOpenSelectTeamToStageModal={handleOpenSelectTeamToStageModal}/>
+              {selectedEvent && selectedStage &&
+                <DynamicAddTeamToStageButton selectedTeam={selectedTeam} handleOpenSelectTeamToStageModal={handleOpenSelectTeamToStageModal}/>
+              }
               
             {!selectedEvent &&
             <div className="flex w-[90%] p-4 mt-4 text-lg font-bold border-2 border-black bg-orange-200 justify-center items-center rounded-lg">Please select an event</div>

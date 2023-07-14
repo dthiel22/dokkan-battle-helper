@@ -138,58 +138,6 @@ const SearchForm = ({ onFormChange, selectedCategories, handleNewCategorySelecte
               defaultChecked
             />
           </div>
-
-          {/* rarity buttons */}
-          {/* <div className="flex w-full mt-2 card-sm:mt-2 justify-between items-center"> */}
-            {/* <div
-              className="flex w-1/2 justify-around pr-2 mb-1 order-4 bg-orange-300 rounded-md border-2 border-slate-900 font-bold mr-1"
-              id="box-1"
-            >
-              <CharacterSelectButton name="characterRarity" label="UR" />
-              <CharacterSelectButton name="characterRarity" label="LR" />
-              <CharacterSelectButton
-                name="characterRarity"
-                value=""
-                label="ALL"
-                defaultChecked
-              />
-            </div> */}
-          
-          {/* super and extreme buttons */}
-            {/* <div
-              className="flex w-full justify-around mb-1 order-4 bg-orange-300 rounded-md border-2 border-slate-900 font-bold ml-1"
-              id="box-1"
-            >
-              <CharacterSelectButton name="characterSuperOrExtreme" value="S" label="Super"/>
-              <CharacterSelectButton name="characterSuperOrExtreme" value="E" label="Extreme"/>
-              <CharacterSelectButton
-                name="characterSuperOrExtreme"
-                value=""
-                label="ALL"
-                defaultChecked
-              />
-            </div>
-          </div> */}
-
-          {/* <div className="flex w-fit justify-center order-5 bg-orange-300 rounded-md border-2 border-slate-900">
-            <label htmlFor="isUserDeck">
-              <input
-                type="checkbox"
-                name="isUserDeck"
-                id="isUserDeck"
-                className="hidden peer"
-                value={true}
-              />
-              <div
-                style={{ cursor: "pointer" }}
-                className="py-1 card-sm:py-2 px-2 card-sm:px-10 text-sm card-sm:text-md m-0.5 font-bold relative lg:hover:bg-orange-400 peer-checked:bg-orange-400"
-              >
-                Characters Saved
-              </div>
-            </label>
-          </div> */}
-
-
         </fieldset>
       </form>
     </div>

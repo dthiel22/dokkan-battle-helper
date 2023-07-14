@@ -9,9 +9,9 @@ import { useSortedCharacters } from "../util/sorting";
 
 import Image from 'next/image';
 
-function CharacterSelectionForReply( {characterDictionary, username, usersSavedCharacterIds, handleCommentCharacterSelection, characterSelection} ) {
+function CharacterSelectionForReply( {allCharacters, characterDictionary, username, usersSavedCharacterIds, handleCommentCharacterSelection, characterSelection} ) {
   
-  const allCharacters = usersSavedCharacterIds.map(id => {
+  const userCharacters = usersSavedCharacterIds.map(id => {
     const value = characterDictionary[id];
     return {
       ...value,
@@ -23,11 +23,11 @@ function CharacterSelectionForReply( {characterDictionary, username, usersSavedC
   const [viewableCharacters, setViewableCharacters] = useState(75);
   const [newFilterData, setNewFilterData] = useState({})
 
-  const filterAndSetCharacters = (filterData) => [setFilteredCharacters(getFilteredCharacters(allCharacters, filterData, selectedCategories)), setNewFilterData(filterData)]
+  const filterAndSetCharacters = (filterData) => [setFilteredCharacters(getFilteredCharacters(allCharacters, userCharacters, characterSelection, filterData, selectedCategories)), setNewFilterData(filterData)]
 
   const [filterByGame, setFilterByGame] = useState(true);
 
-  let charactersToDisplay = useSortedCharacters(allCharacters,filteredCharacters,filterByGame)
+  let charactersToDisplay = useSortedCharacters(allCharacters, filteredCharacters, filterByGame)
 
   if(newFilterData?.characterCategory?.length > 0 && filteredCharacters?.length === 0){
     charactersToDisplay = []
@@ -74,14 +74,14 @@ function CharacterSelectionForReply( {characterDictionary, username, usersSavedC
 
   //this useEffect allows the filtered characters to be "automatically" loaded when ever the selected categories change
   useEffect(() => {
-    const filteredChars = getFilteredCharacters(allCharacters, newFilterData, selectedCategories);
+    const filteredChars = getFilteredCharacters(allCharacters, userCharacters, characterSelection, newFilterData, selectedCategories);
     setFilteredCharacters(filteredChars)
-  }, [selectedCategories])
+  }, [selectedCategories, characterSelection])
 
   // this useEffect sets all the form data to null besides the selected category state (helps selecting people more)
   useEffect(() => {
     setNewFilterData({})
-    const filteredChars = getFilteredCharacters(allCharacters, newFilterData, selectedCategories);
+    const filteredChars = getFilteredCharacters(allCharacters, userCharacters, characterSelection, newFilterData, selectedCategories);
     setFilteredCharacters(filteredChars)
   }, [])
     
@@ -89,28 +89,19 @@ function CharacterSelectionForReply( {characterDictionary, username, usersSavedC
       <div 
         onClick={(e) => e.stopPropagation()}
         className="w-full py-2 border-4 border-black rounded-lg shadow-lg bg-orange-200 overflow-y-auto">
-        <p className="font-header w-full pb-2 text-lg lg:text-xl text-center justify-center items-center underline underline-offset-8">{username}'s Characters</p>
+        <p className="font-header w-full pb-2 text-lg lg:text-xl text-center justify-center items-center underline underline-offset-8">
+          {characterSelection.leader !== 0 &&
+          characterSelection.character1 !== 0 &&
+          characterSelection.character2 !== 0 &&
+          characterSelection.character3 !== 0 &&
+          characterSelection.character4 !== 0 &&
+          characterSelection.character5 !== 0 ?
+          <span>All Characters</span>
+          :
+          <span>{username}'s Characters</span>
+          }
+        </p>
 
-        {/* <div className="flex pt-2 pb-2 items-center justify-center">
-          <span className="flex h-fit mr-4 text-md card-sm:text-lg font-bold items-center justify-center text-center">
-            Game Filter
-          </span>
-          <label className="inline-flex relative items-center mr-5 cursor-pointer">
-            <input
-              type="checkbox"
-              className="sr-only peer"
-              checked={!filterByGame}
-              readOnly
-            />
-            <div
-              onClick={() => {setFilterByGame(!filterByGame)}}
-              className="w-6 card-sm:w-11 h-3 card-sm:h-6 bg-orange-100 rounded-full peer peer-focus:ring-green-300  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[24%] card-sm:after:top-[15%] after:left-[1px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 card-sm:after:h-5 after:w-3 card-sm:after:w-5 after:transition-all peer-checked:bg-orange-500"
-            ></div>
-            <div className="flex h-fit ml-4 text-md card-sm:text-lg font-bold items-center justify-center text-center">
-              Release Date
-            </div>
-          </label>
-        </div> */}
 
         {/* //contains filters/buttons/search field/etc. */}
 
@@ -132,10 +123,14 @@ function CharacterSelectionForReply( {characterDictionary, username, usersSavedC
               .map((character) => (
                 <div 
                 onClick={() => handleCommentCharacterSelection(character.id)}
-                className={`px-[.5%] ${characterSelection.includes(character.id) ? 'bg-amber-600 hover:bg-amber-700' : 'hover:bg-amber-600'}`}
+                className={`px-[.5%] ${
+                  Object.values(characterSelection).includes(character.id) ?
+                    'bg-amber-600 hover:bg-amber-700'
+                    : 'hover:bg-amber-500'
+                }`}                
                 key={'div'+character.id}
                 >
-                  <CharacterCard key={character.id} individualCharacter={character} mobilesize={'60px'} desktopsize={'75px'}/>
+                  <CharacterCard key={character.id} individualCharacter={character} mobilesize={'60px'} desktopsize={'85px'}/>
                 </div>
               ))
           }
@@ -144,19 +139,37 @@ function CharacterSelectionForReply( {characterDictionary, username, usersSavedC
   )
 }
 
-// returns a new array of characters derived from either allCharacters or userCharacters based on the criteria in filterData
-const getFilteredCharacters = (allCharacters, filterData, selectedCategories) => {
-  const baseChars = allCharacters || [];
-  return baseChars.filter((character) => {
+const getFilteredCharacters = (allCharacters, userCharacters, characterSelection, filterData, selectedCategories) => {
+
+  function isCharacterSelectionComplete(characterSelection) {
     return (
+      characterSelection.leader !== 0 &&
+      characterSelection.character1 !== 0 &&
+      characterSelection.character2 !== 0 &&
+      characterSelection.character3 !== 0 &&
+      characterSelection.character4 !== 0 &&
+      characterSelection.character5 !== 0
+    );
+  }  
+
+  const selectionIsComplete = isCharacterSelectionComplete(characterSelection);
+  let useAllCharacters = false; // Flag to determine which array to return
+
+  if (selectionIsComplete) {
+    useAllCharacters = true;
+  }
+
+  return (useAllCharacters ? allCharacters : userCharacters).filter((character) => {
+    return (
+      !character.transformed && // Exclude transformed characters
       (!selectedCategories.length || (filterData.matchAllCategories
-        ? selectedCategories.every(category => character.category.includes(category))
-        : selectedCategories.some(category => character.category.includes(category))
+        ? selectedCategories.every(category => character?.category?.includes(category))
+        : selectedCategories.some(category => character?.category?.includes(category))
       )) &&
       (!filterData.searchTerm || character.name.toLowerCase().includes(filterData.searchTerm.toLowerCase())) &&
       (!filterData.characterType || character.type.includes(filterData.characterType)) &&
       (!filterData.characterSuperOrExtreme || character.type.slice(0, 1).includes(filterData.characterSuperOrExtreme)) &&
-      (!filterData.characterRarity ||filterData.characterRarity === character.rarity)
+      (!filterData.characterRarity || filterData.characterRarity === character.rarity)
     );
   });
 };
