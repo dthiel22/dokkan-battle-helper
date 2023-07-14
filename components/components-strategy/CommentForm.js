@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { UserContext } from '../../pages/_app'
 
-export default function CommentForm({ commentFormRef, commentInput, setCommentInput }) {
+export default function CommentForm({ commentFormRef, commentInput, setCommentInput, handleCommentSubmit }) {
     const { profileData } = useContext(UserContext)
 
     if (!profileData?.data) {

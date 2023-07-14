@@ -619,7 +619,15 @@ query FindOneStageCommentsReplies($stageId: String) {
           username
         }
         content
-        selectedCharacters
+        selectedCharacters {
+          leader
+          subLeader
+          character1
+          character2
+          character3
+          character4
+          character5
+        }
         createdAt
       }
     }

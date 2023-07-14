@@ -162,6 +162,7 @@ const getFilteredCharacters = (allCharacters, userCharacters, filterData, select
     }
     
     return (
+      !character.transformed && 
       (!selectedCategories.length || (filterData.matchAllCategories
         ? selectedCategories.every(category => character.category && character.category.includes(category))
         : selectedCategories.some(category => character.category && character.category.includes(category))

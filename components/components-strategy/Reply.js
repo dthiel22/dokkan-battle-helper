@@ -32,14 +32,45 @@ export default function Reply({ characterDictionary, reply, comment, profileData
         }
       </span>
       <p className="my-2">{reply?.content}</p>
-      {reply?.selectedCharacters && reply?.selectedCharacters.length > 0 &&
+      {reply?.selectedCharacters &&
         <div className="flex flex-wrap w-fit p-2 border-2 border-black justify-center">
           <p className="w-full text-center text-lg font-bold underline decoration-2">Characters Suggested</p>
-          {reply.selectedCharacters.map(singleCharacter => 
-            <div key={singleCharacter}>
-              <CharacterCard individualCharacter={characterDictionary[singleCharacter]} mobilesize={'60x'} desktopsize={'75px'}/>
-            </div>
-          )}
+            {Object.entries(reply.selectedCharacters)
+              .filter(([key]) => key === 'leader')
+              .map(([key, value]) => (
+                <div key={key}>
+                  <CharacterCard
+                    individualCharacter={characterDictionary[value]}
+                    mobilesize={'60px'}
+                    desktopsize={'85px'}
+                    leaderOrSubLeader={key}
+                  />
+                </div>
+            ))}
+            {Object.entries(reply.selectedCharacters)
+              .filter(([key]) => key !== 'leader' && key !== 'subLeader')
+              .map(([key, value]) => (
+                <div key={key}>
+                  <CharacterCard
+                    individualCharacter={characterDictionary[value]}
+                    mobilesize={'60px'}
+                    desktopsize={'85px'}
+                    leaderOrSubLeader={key}
+                  />
+                </div>
+            ))}
+            {Object.entries(reply.selectedCharacters)
+              .filter(([key]) => key === 'subLeader')
+              .map(([key, value]) => (
+                <div key={key}>
+                  <CharacterCard
+                    individualCharacter={characterDictionary[value]}
+                    mobilesize={'60px'}
+                    desktopsize={'85px'}
+                    leaderOrSubLeader={key}
+                  />
+                </div>
+            ))}
         </div>
       }
   </div>  

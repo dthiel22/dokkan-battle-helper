@@ -29,6 +29,19 @@ const CharacterCard = React.memo(({ individualCharacter, mobilesize, desktopsize
     const characterThumb = cld.image(`Character Thumb/${individualCharacter.id}`);
     
     if (individualCharacter.id === 0){
+        if(mobilesize === 'blank reply card' && desktopsize === 'blank reply card'){
+            return(
+                <div className='relative'>
+                    {leaderOrSubLeader === 'leader' ? <img src={leaderIcon} className='w-[80%] -top-[2%] right-[33%] absolute z-50'/> : null}
+                    {leaderOrSubLeader === 'subLeader' ? <img src={friendIcon} className='w-[80%] -top-[2%] right-[33%] absolute z-50'/> : null}
+                    <AdvancedImage
+                    className={`w-[63px] card-sm:w-[90px] p-2 bg-no-repeat relative z-40`}
+                    cldImg={characterThumb}
+                    alt={individualCharacter.name}
+                    />
+                </div>
+            )
+        }
         return(
             <AdvancedImage
             className={`w-[70px] card-sm:w-[100px] p-2 bg-no-repeat relative z-40`}
@@ -39,7 +52,9 @@ const CharacterCard = React.memo(({ individualCharacter, mobilesize, desktopsize
     }
 
     const characterRarity = cld.image(`rarities-types/${individualCharacter.rarity}`)
+
     let characterTypeBadge = '';
+
     if (individualCharacter.jp_date && !individualCharacter.glb_date){
         characterTypeBadge = cld.image(`rarities-types/j${individualCharacter?.type?.toLowerCase()}`)
     } else {

@@ -25,15 +25,30 @@ export default function NewsAndUpdatesModal( {open, onClose} ) {
                 <p className="font-header pt-2 text-xl card-sm:text-2xl lg:text-4xl font-light text-center underline underline-offset-8 decoration-2">Updates</p>
 
                 <div className="h-full">
+                <div className="flex flex-wrap justify-around">
+                  <NewsDiv date={'JULY/14/2023'} information={
+                      <>
+                        <p className="px-2 card-sm:px-4 py-2 text-md card-sm:text-base font-bold">TLDR:</p>
+                        <li className="px-2 card-sm:px-4 text-md card-sm:text-base font-bold">New reply model</li>
+                        <p className="px-2 card-sm:px-4 py-2 text-md card-sm:text-base font-bold indent-4">Back with another update! This one was on the reply model for people who comment on stages seeking help with the characters that they have saved on their account. The reply model is a much more robust character selection than before. The characters are automatically filtered by the characters the user has saved. Then, once the user gets to the friend selection, all characters are then available for selection. My biggest reason for creating this section was seeing a lot of new players posting photos on the fandom page asking for help, then having people filter through their photos to build an appropriate team. Figured I would just expedite this process and allow people to post the characters they have and then have people just select them right off the bat. I'm trying to make this site as user-friendly for veteran and beginner players to meet and collaborate with each other. To make things easier, in the next couple of days, I will be working on a Help Board, which will be composed of all the comments that have teams posted with them, that way there is a place for people to see where others need help instead of having to click through every single event/stage.</p>
+                        <p className="px-2 card-sm:px-4 py-2 text-md card-sm:text-base font-bold indent-4">I have a couple of events and stages missing from the database because I've been busy adding transforming characters and then also getting the strategy prepped for more people. Once the Help Board is finished, I'll move to adding the events and stages (need to finish the backend to allow adding these stages/events on the fly) and also support memories/items if needed. After this is done, I'll be looking more into specific damage done and taken for specific events (Red Zones, Cell Max, and Ultimate Technique events). This last portion will, by far, take the longest to build.</p>
+                        <p className="px-2 card-sm:px-4 py-2 text-md card-sm:text-base font-bold indent-4">Hope you guys continue to enjoy using the app and that your summons during the anniversary have been killer!</p>
+                      </>
+                    }
+                    key={'Update 13'}
+                  />
+                </div>
+
+
                   <div className="flex flex-wrap justify-around">
-                    <NewsDiv date={'JULY/2/2023'} information={<>
+                    <NewsDiv date={'JULY/10/2023'} information={<>
                       <p className="px-2 card-sm:px-4 py-2 text-md card-sm:text-base font-bold">TLDR:</p>
                       <li className="px-2 card-sm:px-4 text-md card-sm:text-base font-bold">Cleaner release date organization</li>
                       <li className="px-2 card-sm:px-4 text-md card-sm:text-base font-bold">Fixed bugs created by transforming characters</li>
                       <li className="px-2 card-sm:px-4 text-md card-sm:text-base font-bold">Fixed some more backend issues</li>
                       <p className="px-2 card-sm:px-4 py-2 text-md card-sm:text-base font-bold indent-4">There were some errors that were created when the new trnasforming update went live. I cleaned up most of them. Some of them included errors when creating a deck with a transformed character (so now when a transformed character is selected the Add To Deck button is disabled) and also the new characters that had a finishing attack were causing the decks to throw an error as well (this was fixed with a backend solution), and lastly selecting certain characters caused the page to crash entirely. On top of fixing these, I made the release date organization much cleaner, transformed characters come right after the character they transformed from. I am back from a quick vacation over the weekend and my goal this week is to clean up some more data stuff and then really dive into the strategy page. My hope is to onboard a lot of users on the strategy section to make is really easy for people to ask for help (a help board that is just a bunch of posts of peoples characters they have saved and then the ability for people to reply with a formed team) and also possibly an entire team calculation against specific Red Zone enemies. The help board will take a bit, the damage calculations could possible take months...but the thought of it gets me pumped! I hope you continue to enjoy using this app, if there are any more errors that you do run into, please let me know <a className='text-blue-500' href="https://docs.google.com/forms/d/e/1FAIpQLSdmglG-bsdZL1R41EYEsfrnN5tgJyK-CPfs1D4cNwNBpcxfxg/viewform?usp=sf_link" target={'_blank'}>here</a>.</p>
                       </>}
-                      key={'Update 11'}
+                      key={'Update 12'}
                     />
                   </div> 
 

@@ -23,7 +23,7 @@ const cardIcon = "/dokkanIcons/icons/card-icon.png";
 
 import Image from 'next/image';
 
-export default function Comment({ comment, characterDictionary, selectedStage, reloadCommentsReplies }) {
+export default function Comment({ comment, allCharacters, characterDictionary, selectedStage, reloadCommentsReplies }) {
   const [addReplyToComment, { error: replyAddedError, data: replyAddedData }] = useMutation(ADD_REPLY_TO_COMMENT)
   
   const [openWarningRemoveComment, setOpenWarningRemoveComment] = useState(false)
@@ -68,7 +68,15 @@ export default function Comment({ comment, characterDictionary, selectedStage, r
         userId: profileData?.data?._id,
         commentId: comment?._id,
         reply: replyInput,
-        selectedCharacters: characterSelection,
+        selectedCharacters: {
+          leader: characterSelection.leader,
+          subLeader: characterSelection.subLeader,
+          character1: characterSelection.character1,
+          character2: characterSelection.character2,
+          character3: characterSelection.character3,
+          character4: characterSelection.character4,
+          character5: characterSelection.character5,
+        },
       }
     })
     .then((results) => {
@@ -77,38 +85,110 @@ export default function Comment({ comment, characterDictionary, selectedStage, r
       setReplyInput('')
       // setShowReplyForm(false)
       setShowUserCards(false)
-      setCharacterSelection([])
+      setCharacterSelection({
+        leader: 0,
+        character1: 0,
+        character2: 0,
+        character3: 0,
+        character4: 0,
+        character5: 0,
+        subLeader: 0,
+      })
     })
     .catch((error) => {
-      // console.log(error)
+      console.log(error)
     })
   }
 
-  const [characterSelection, setCharacterSelection] = useState([])
+  const [characterSelection, setCharacterSelection] = useState({
+    leader: 0,
+    character1: 0,
+    character2: 0,
+    character3: 0,
+    character4: 0,
+    character5: 0,
+    subLeader: 0,
+  })
+
   function handleCommentCharacterSelection(characterId) {
-    setCharacterSelection((prev) => {
-      if (prev.includes(characterId)) {
-        return prev.filter((id) => id !== characterId);
-      } else {
-        if (prev.length < 7) {
-          return [...prev, characterId];
+    setCharacterSelection(prevSelection => {
+      const updatedSelection = { ...prevSelection }; // Create a copy of the previous selection
+  
+      // Check if the character is already selected
+      const isSelected = 
+        updatedSelection.leader === characterId ||
+        updatedSelection.character1 === characterId ||
+        updatedSelection.character2 === characterId ||
+        updatedSelection.character3 === characterId ||
+        updatedSelection.character4 === characterId ||
+        updatedSelection.character5 === characterId;
+
+      // Check if every character is already selected
+      const noSubLeader = 
+        updatedSelection.leader !== 0 &&
+        updatedSelection.character1 !== 0 &&
+        updatedSelection.character2 !== 0 &&
+        updatedSelection.character3 !== 0 &&
+        updatedSelection.character4 !== 0 &&
+        updatedSelection.character5 !== 0;
+
+      // check if every single character is selected
+      const allSelected = 
+        updatedSelection.leader !== 0 &&
+        updatedSelection.character1 !== 0 &&
+        updatedSelection.character2 !== 0 &&
+        updatedSelection.character3 !== 0 &&
+        updatedSelection.character4 !== 0 &&
+        updatedSelection.character5 !== 0 &&
+        updatedSelection.subLeader !== 0
+      
+      if (allSelected) {
+        if (updatedSelection.subLeader === characterId){
+          updatedSelection.subLeader = 0;
         } else {
-          return [prev[1], prev[2], prev[3], prev[4], prev[5], prev[6], characterId];
+          for (const key in updatedSelection) {
+            if (updatedSelection[key] === characterId) {
+              updatedSelection[key] = 0;
+              break;
+            }
+          }
+        }
+      } else if (noSubLeader){
+        updatedSelection.subLeader = characterId; // Update the subLeader value
+      } else if (isSelected) {
+        // Deselect the character by setting its value to 0
+        for (const key in updatedSelection) {
+          if (updatedSelection[key] === characterId) {
+            updatedSelection[key] = 0;
+            break;
+          }
+        }
+      } else {
+        // Find the first available slot and assign the character
+        for (const key in updatedSelection) {
+          if (updatedSelection[key] === 0) {
+            updatedSelection[key] = characterId;
+            break;
+          }
         }
       }
+
+      return updatedSelection; // Return the updated selection object
     });
   }
 
-  // function handleShowReplyForm () {
-  //   if (showUsersCards){
-  //     return
-  //   }
-  //   setShowReplyForm(!showReplyForm)
-  // }
+  function handleCharacterSuggestClick (key, characterId) {
+    setCharacterSelection(prevSelection => {
+      const updatedSelection = { ...prevSelection }
+      
+      updatedSelection[key] = 0
+
+      return updatedSelection;
+      })
+  }
 
   function handleShowCharacterCards () {
     setShowUserCards(!showUsersCards)
-    // setShowReplyForm(true)
   }
 
   return (
@@ -175,22 +255,39 @@ export default function Comment({ comment, characterDictionary, selectedStage, r
 
             <div className="w-full border-2 my-6"></div>
             
+            {/* this is the box containing the cards selected */}
               {showUsersCards && 
               <div>
-                <CharacterSelectionForReply characterDictionary={characterDictionary} username={comment?.creator?.username && comment?.creator?.username.replace(/(.+)@.+\..+/, "$1")} usersSavedCharacterIds={comment?.userSavedCharacters} handleCommentCharacterSelection={handleCommentCharacterSelection} characterSelection={characterSelection}/>
+                <CharacterSelectionForReply characterDictionary={characterDictionary} username={comment?.creator?.username && comment?.creator?.username.replace(/(.+)@.+\..+/, "$1")} allCharacters={allCharacters} usersSavedCharacterIds={comment?.userSavedCharacters} handleCommentCharacterSelection={handleCommentCharacterSelection} characterSelection={characterSelection}/>
                 
                 <div className="flex w-full justify-center">
                   <div className="flex flex-wrap w-fit p-2 my-2 border-2 border-black justify-center">
 
                     {profileData?.data?._id ? <p className="w-full text-center text-lg font-bold underline decoration-2">Characters Suggesting</p> : <p className="w-full text-center text-lg font-bold">Log In To Suggest Characters</p>}
 
-                    {characterSelection && characterSelection.map(characterId => 
-                    <div key={characterId} className={`hover:bg-amber-600`}
-                    onClick={() => handleCommentCharacterSelection(characterId)}
-                    >
-                      <CharacterCard individualCharacter={characterDictionary[characterId]} mobilesize={'60px'} desktopsize={'75px'}/>
-                    </div>  
-                      )}
+                    {Object.entries(characterSelection).map(([key, characterId]) => (
+                      <div
+                        key={key}
+                        className={`hover:bg-amber-600`}
+                        onClick={() => handleCharacterSuggestClick(key, characterId)}
+                      >
+                        {characterId === 0 ? (
+                          <CharacterCard
+                            individualCharacter={{ id: 0, rarity: null, type: null }}
+                            mobilesize={'blank reply card'}
+                            desktopsize={'blank reply card'}
+                            leaderOrSubLeader={key === 'leader' && 'leader' || key === 'subLeader' && 'subLeader'}
+                          />
+                        ) : (
+                          <CharacterCard
+                            individualCharacter={characterDictionary[characterId]}
+                            mobilesize={'60px'}
+                            desktopsize={'85px'}
+                            leaderOrSubLeader={key === 'leader' && 'leader' || key === 'subLeader' && 'subLeader'}
+                          />
+                        )}
+                      </div>
+                    ))}
 
                   </div>
                 </div>

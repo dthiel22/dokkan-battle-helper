@@ -331,8 +331,8 @@ mutation removeCommentFromStage($userId: String, $stageId: String, $commentId: S
 `;
 
 export const ADD_REPLY_TO_COMMENT = gql `
-mutation AddReplyToComment($userId: String, $commentId: String, $reply: String, $selectedCharacters: [Int]) {
-  addReplyToComment(userId: $userId, commentId: $commentId, reply: $reply, selectedCharacters: $selectedCharacters) {
+mutation AddReplyToComment($userId: String, $commentId: String, $selectedCharacters: teamForReplyInput, $reply: String) {
+  addReplyToComment(userId: $userId, commentId: $commentId, selectedCharacters: $selectedCharacters, reply: $reply) {
     _id
     content
     replies {
