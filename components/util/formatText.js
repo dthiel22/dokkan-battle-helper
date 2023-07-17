@@ -123,7 +123,6 @@ export const filterForATKPerKiSphere = (passiveSkillDescription) => {
   for (const regex of regexPatterns) {
     // console.log(regex)
     for (const oneDescription of descriptionArray){
-      console.log(oneDescription)
       const matches = oneDescription?.match(regex);
       if (matches) {
         ATKpercentage = parseInt(matches[1]);
