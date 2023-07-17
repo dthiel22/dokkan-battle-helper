@@ -39,8 +39,12 @@ export default function CommentForHelpBoard( {comment, allCharacters, characterD
   return (
     <div className='my-4'>
         <div className='flex p-4 justify-between items-center border-t-2 border-x-2 border-gray-500 bg-gray-500/[.3]'>
-            <EventTab event={singleEventData}/>
-            <StageTab stageName={singleStage?.name} />
+          {(singleEventData?.name || singleEventData?.name !== '' || singleEventData?.name !== null) && (singleStage.name || singleStage.name !== '' || singleStage.name !== null) &&
+            <>
+              <EventTab event={singleEventData}/>
+              <StageTab stageName={singleStage?.name} />
+            </>
+          }
         </div>
         <Comment comment={comment} allCharacters={allCharacters} characterDictionary={characterDictionary} selectedStage={singleStage} reloadCommentsReplies={reloadCommentsReplies} key={comment._id}/>
     </div>
