@@ -197,7 +197,7 @@ export default function Comment({ comment, allCharacters, characterDictionary, s
     <WarningRemoveReplyModal profileId={profileData?.data?._id} selectedStageId={selectedStage?._id} replyId={replyToDelete} commentToRemoveReplyFrom={commentToRemoveReplyFrom} open={openWarningRemoveReply} onClose={() => setOpenWarningRemoveReply(!openWarningRemoveReply)} reloadCommentsReplies={reloadCommentsReplies}/>
     
       <div key={comment?._id}>
-          <div className='w-full p-2 mb-4 border-2 border-gray-500 bg-gray-500/[.3] rounded-lg'>
+          <div className='w-full p-2 mb-4 border-2 border-gray-500 bg-gray-500/[.3]'>
             <span className="flex justify-between">
               <div className="flex flex-wrap">
                 <p className="pr-4">{comment?.creator?.username ? comment.creator.username.replace(/(.+)@.+\..+/, "$1") : ''}</p>

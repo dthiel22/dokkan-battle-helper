@@ -45,14 +45,16 @@ class AuthService {
   login(idToken) {
     if (typeof window !== 'undefined') {
       localStorage.setItem('id_token', idToken);
-      window.location.assign('/');
+      const currentRoute = window.location.pathname;
+      window.location.assign(currentRoute); // Reloads the page with the current route
     }
   }
 
   logout() {
     if (typeof window !== 'undefined') {
       localStorage.removeItem('id_token');
-      window.location.assign('/');
+      const currentRoute = window.location.pathname;
+      window.location.assign(currentRoute); // Reloads the page with the current route
     }
   }
 }

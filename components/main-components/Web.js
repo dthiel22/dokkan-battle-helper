@@ -99,17 +99,14 @@ function Web({ webOfTeam, removeFromWebOfTeam, allCharactersLoading, selectedCha
 
   const onNodeDrag = (event, node, nodes) => {
     setSelectedNode(null)
-    // console.log('node drag')
   }
   
   const onNodeDragStart = (event, node, nodes) => {
     setSelectedNode(null)
-    // console.log('drag start')
   };
 
   const onNodeDragStop = (event, node, nodes) => {
     setSelectedNode(null)
-    // console.log('drag stop')
   }
   
   // this function launches the function removeFromWebOfTeam which was passed from AllComponents>SuggestToWeb>Web

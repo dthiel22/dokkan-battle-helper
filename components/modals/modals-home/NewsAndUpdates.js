@@ -26,6 +26,20 @@ export default function NewsAndUpdatesModal( {open, onClose} ) {
 
                 <div className="h-full">
                 <div className="flex flex-wrap justify-around">
+                  <NewsDiv date={'JULY/16/2023'} information={
+                      <>
+                        <p className="px-2 card-sm:px-4 py-2 text-md card-sm:text-base font-bold">TLDR:</p>
+                        <li className="px-2 card-sm:px-4 text-md card-sm:text-base font-bold">Help Board</li>
+                        <p className="px-2 card-sm:px-4 py-2 text-md card-sm:text-base font-bold indent-4">Thought I would pop in and just share another quick update with the <a className='text-blue-500' href={`/strategy`}>strategy page</a>! There is now a 'Help Board' event. This is a compilation of every comment on every single stage with characters posted in the comment (basically meaning those looking for help on specific stages). A person can be able to go to the Help Board and reply with a quick team and share who to rotate and who to float. Hope you guys enjoy this nice little addition! This week will be pretty busy, so I'm not sure I'll be able to push out any updates during this coming week, but I will be thinking about next steps for the site. First thing is first, I'll need to iron out any errors that occur due to this update. Once those are settled, I will probably begin working on the damage done and taken portion for the events/stages. I will keep you guys in the loop on how that goes once it is in production, but until then, thank you for using the app and I hope you continue to enjoy it!</p>
+                        <p className="px-2 card-sm:px-4 py-2 text-md card-sm:text-base font-bold indent-4">A couple of things about the comments and replies. These comment and replies are with characters that you have saved to your account at the very instance it is posted. For example, if you make a comment and select to place your saved characters with it, and then two days later you save more characters to your account....those characters will NOT be included into your previous comment. Comments posted with saved characters should be considered a snap-shot in time of characters that you have saved.</p>
+                        <p className="px-2 card-sm:px-4 py-2 text-md card-sm:text-base font-bold indent-4">PS: There is no notification system yet. It's still definitely a 'keep an eye out for it' type deal. I will be thinking about a possible notification system, however that will require a lot more model critiquing and extra data management. The notification system is very low on my list, as I still need to add more events and stages, work on more back-end pieces, and have other updates in mind until then. Therefore, I ask for your patience while I try to build a notification system out (never made one before so it should be fun when I get to it) so until then, you will have to find your team on the Help Board to see if anyone replied or select/scroll to it on the event and stage selection. Thanks for your understanding and pateince!</p>
+                      </>
+                    }
+                    key={'Update 14'}
+                  />
+                </div>
+
+                <div className="flex flex-wrap justify-around">
                   <NewsDiv date={'JULY/14/2023'} information={
                       <>
                         <p className="px-2 card-sm:px-4 py-2 text-md card-sm:text-base font-bold">TLDR:</p>

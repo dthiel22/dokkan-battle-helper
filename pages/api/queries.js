@@ -635,6 +635,61 @@ query FindOneStageCommentsReplies($stageId: String) {
 }
 `;
 
+export const GET_COMMENTS_WITH_USER_SAVED_CHARACTERS = gql`
+query FindCommentsWithUserSavedCharacters {
+  findCommentsWithUserSavedCharacters {
+    _id
+    stage
+    creator {
+      _id
+      username
+    }
+    content
+    userSavedCharacters
+    createdAt
+    replies {
+      _id
+      content
+      commentId
+      createdAt
+      creator {
+        _id
+        username
+      }
+      selectedCharacters {
+        leader
+        subLeader
+        character1
+        character2
+        character3
+        character4
+        character5
+      }
+    }
+  }
+}
+`;
+
+export const GET_ONE_STAGE_FOR_HELP_BOARD = gql`
+query FindStageForHelpBoard($stageId: String) {
+  findStageForHelpBoard(stageId: $stageId) {
+    _id
+    name
+    eventId
+    eventName
+  }
+}
+`;
+
+export const GET_ONE_EVENT_FOR_HELP_BOARD = gql`
+query FindEventForHelpBoard($eventId: String) {
+  findEventForHelpBoard(eventId: $eventId) {
+    _id
+    name
+  }
+}
+`;
+
 export const GET_ONE_TEAM_POST = gql`
 query FindOnePostTeam($teamId: String) {
   findOnePostTeam(teamId: $teamId) {

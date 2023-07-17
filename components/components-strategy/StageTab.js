@@ -5,6 +5,9 @@ import {AdvancedImage, lazyload} from '@cloudinary/react';
 
 
 function StageTab({ stageName }) {
+  if (!stageName || stageName === ''){
+    return
+  }
   // Set the Cloud configuration and URL configuration
   const cld = new Cloudinary({
       cloud: {
