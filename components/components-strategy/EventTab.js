@@ -4,9 +4,6 @@ import {Cloudinary} from "@cloudinary/url-gen";
 import {AdvancedImage, lazyload} from '@cloudinary/react';
 
 function EventTab({ event }) {
-  if (!event || event === ''){
-    return
-  }
     // Set the Cloud configuration and URL configuration
     const cld = new Cloudinary({
       cloud: {
@@ -22,6 +19,10 @@ function EventTab({ event }) {
   // Instantiate and configure a CloudinaryImage object.
   let eventPhoto = cld.image(`Events/${event?.name.replace(/ /g, '_').replace(/[^\w\s]|_/g, '')}`);
 
+  if (!event || event === ''){
+    return
+  }
+  
   return (
     <div>
       <AdvancedImage cldImg={eventPhoto}/>
