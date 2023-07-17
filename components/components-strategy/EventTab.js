@@ -16,13 +16,13 @@ function EventTab({ event }) {
       }
   });
 
-  // Instantiate and configure a CloudinaryImage object.
-  let eventPhoto = cld.image(`Events/${event?.name.replace(/ /g, '_').replace(/[^\w\s]|_/g, '')}`);
-
   if (!event || event === ''){
     return
   }
   
+  // Instantiate and configure a CloudinaryImage object.
+  let eventPhoto = cld.image(`Events/${event?.name.replace(/ /g, '_').replace(/[^\w\s]|_/g, '')}`);
+
   return (
     <div>
       <AdvancedImage cldImg={eventPhoto}/>

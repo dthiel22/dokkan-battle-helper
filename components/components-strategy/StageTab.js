@@ -17,6 +17,9 @@ function StageTab({ stageName }) {
       }
   });
   // Instantiate and configure a CloudinaryImage object.
+  if (!stageName || stageName === ''){
+    return
+  }
   let stagePhoto = cld.image(`Character Categories/${stageName.replace(/[^\w\s]/gi, '').replace(/\s+/g, '').toLowerCase()}`);
   let backgroundPhoto = cld.image(`Character Categories/StageBackground`);
 
@@ -26,10 +29,6 @@ function StageTab({ stageName }) {
     setShowStageName(true)
   };
 
-  if (!stageName || stageName === ''){
-    return
-  }
-  
   return (
     showStageName ? 
       <div className={`flex w-fit h-fit justify-center items-center relative z-[900]`}>
