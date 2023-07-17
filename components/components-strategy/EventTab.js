@@ -15,13 +15,8 @@ function EventTab({ event }) {
           secure: true // or false if you don't want to use HTTPS
       }
   });
-
-  if (!event || event === ''){
-    return
-  }
-  
   // Instantiate and configure a CloudinaryImage object.
-  let eventPhoto = cld.image(`Events/${event?.name.replace(/ /g, '_').replace(/[^\w\s]|_/g, '')}`);
+  let eventPhoto = cld.image(`Events/${event.name && event?.name?.replace(/ /g, '_')?.replace(/[^\w\s]|_/g, '')}`);
 
   return (
     <div>
