@@ -315,12 +315,13 @@ function AllStrategy( {  } ) {
                   </div>
 
                   {allEvents && sortedEvents.map(event => 
-                    <div 
-                    key={event._id} 
-                    onClick={() => handleSetSelectedEvent(event)} 
-                    className={`p-3 m-1 hover:bg-slate-900/[.4] ${selectedEvent?._id === event._id ? 'bg-slate-900/[.75] hover:bg-slate-900/[.9]' : ''} cursor-pointer`}>
-                      <EventTab event={event}/>
-                    </div>
+                    (event.name || event.name !== '' || event.name !== null) &&
+                      <div 
+                      key={event._id} 
+                      onClick={() => handleSetSelectedEvent(event)} 
+                      className={`p-3 m-1 hover:bg-slate-900/[.4] ${selectedEvent?._id === event._id ? 'bg-slate-900/[.75] hover:bg-slate-900/[.9]' : ''} cursor-pointer`}>
+                        <EventTab event={event}/>
+                      </div>
                   ).reverse()}
                 </div>
                 }
@@ -334,6 +335,7 @@ function AllStrategy( {  } ) {
                 <p className="font-header flex w-full h-fit justify-center items-center text-3xl sticky top-0 border-x-4 border-b-4 border-black bg-orange-200 z-[998]">Stages</p>
                 {selectedEvent ?
                   (selectedEvent.stages.map((stage) =>
+                    (stage?.name || stage?.name !== '' || stage?.name !== null) &&
                       <div key={stage._id} 
                       onClick={() => handleSetSelectedStage(stage)} 
                       className={`my-2 mx-4 hover:bg-slate-900/[.4] ${selectedStage?._id === stage._id ? 'bg-slate-900/[.75] hover:bg-slate-900/[.9]' : ''} cursor-pointer`}>
@@ -343,7 +345,7 @@ function AllStrategy( {  } ) {
                     )
                     :
                     (
-                      <div className="w-[90%] h-fit p-4 mt-4 text-lg font-bold border-2 border-black bg-orange-200 text-center rounded-lg">{allCharactersLoading ? 'events loading...' : 'Please select an event'}</div>
+                      <div className="w-[90%] h-fit p-4 mt-4 text-lg font-bold border-2 border-black bg-orange-200 text-center rounded-lg">{allCharactersLoading ? 'stages loading...' : 'Please select an event'}</div>
                     )
                 }
               </div>

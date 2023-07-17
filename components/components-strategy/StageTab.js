@@ -17,7 +17,7 @@ function StageTab({ stageName }) {
       }
   });
   // Instantiate and configure a CloudinaryImage object.
-  let stagePhoto = cld.image(`Character Categories/${stageName || stageName !== '' && stageName?.replace(/[^\w\s]/gi, '')?.replace(/\s+/g, '')?.toLowerCase()}`);
+  let stagePhoto = cld.image(`Character Categories/${stageName?.replace(/[^\w\s]/gi, '')?.replace(/\s+/g, '')?.toLowerCase()}`);
   let backgroundPhoto = cld.image(`Character Categories/StageBackground`);
 
   const [showStageName, setShowStageName] = useState(false)

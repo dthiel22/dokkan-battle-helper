@@ -16,7 +16,7 @@ function EventTab({ event }) {
       }
   });
   // Instantiate and configure a CloudinaryImage object.
-  let eventPhoto = cld.image(`Events/${event.name !=='' || event.name !== null && event?.name?.replace(/ /g, '_')?.replace(/[^\w\s]|_/g, '')}`);
+  let eventPhoto = cld.image(`Events/${event?.name?.replace(/ /g, '_')?.replace(/[^\w\s]|_/g, '')}`);
 
   return (
     <div>
