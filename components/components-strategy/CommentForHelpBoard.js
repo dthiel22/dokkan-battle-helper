@@ -34,16 +34,34 @@ export default function CommentForHelpBoard( {comment, allCharacters, characterD
         getEventData()
     },[singleStageData])
 
-    console.log(comment)
+    const [windowWidth, setWindowWidth] = useState(0);
+    useEffect(() => {
+      const handleResize = () => {
+        setWindowWidth(window.innerWidth);
+      };
+  
+      handleResize();
+      
+      if (typeof window !== 'undefined') {
+        setWindowWidth(window.innerWidth);
+        window.addEventListener('resize', handleResize);
+      }
+  
+      return () => {
+        if (typeof window !== 'undefined') {
+          window.removeEventListener('resize', handleResize);
+        }
+      };
+    }, []);
 
   return (
     <div className='my-4'>
         <div className='flex p-4 justify-between items-center border-t-2 border-x-2 border-gray-500 bg-gray-500/[.3]'>
           {(singleEventData?.name || singleEventData?.name !== '' || singleEventData?.name !== null) && (singleStage.name || singleStage.name !== '' || singleStage.name !== null) &&
-            <>
+            <div className={windowWidth < 900 ? 'flex flex-col' : 'flex items-center justify-center'}>
               <EventTab event={singleEventData}/>
               <StageTab stageName={singleStage?.name} />
-            </>
+            </div>
           }
         </div>
         <Comment comment={comment} allCharacters={allCharacters} characterDictionary={characterDictionary} selectedStage={singleStage} reloadCommentsReplies={reloadCommentsReplies} key={comment._id}/>
