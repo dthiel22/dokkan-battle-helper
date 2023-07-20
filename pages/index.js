@@ -503,18 +503,18 @@ function AllComponents({  }) {
                 .filter(character => (multiCardSelection ? character.transformed === false : true))
                 .map((character) => (
                   <div
-                  key={character.id}
+                  key={character?.id}
                   className={`
                     cursor-pointer relative
-                    ${(!multiCardSelection && !showCalculator) ? webOfTeam.map((char) => char.id).includes(character.id) ? "bg-slate-900/[.7] hover:bg-slate-900/[.9]" : "hover:bg-slate-900/[.3]" : ''}
-                    ${(!multiCardSelection && showCalculator) ? characterComparisonForCalculator.map((char) => char?.id).includes(character.id) ? "bg-cyan-600/[.7] hover:bg-cyan-700/[.9]" : "hover:bg-cyan-800/[.3]" : ''}
-                    ${multiCardSelection ? savedToMyCharacterDeck.includes(character.id) ? 'bg-amber-900/[.75] hover:bg-amber-900/[.9]' : 'hover:bg-amber-900/[.4]' : ''} b 
+                    ${(!multiCardSelection && !showCalculator) ? webOfTeam.map((char) => char.id).includes(character?.id) ? "bg-slate-900/[.7] hover:bg-slate-900/[.9]" : "hover:bg-slate-900/[.3]" : ''}
+                    ${(!multiCardSelection && showCalculator) ? characterComparisonForCalculator.map((char) => char?.id).includes(character?.id) ? "bg-cyan-600/[.7] hover:bg-cyan-700/[.9]" : "hover:bg-cyan-800/[.3]" : ''}
+                    ${multiCardSelection ? savedToMyCharacterDeck.includes(character?.id) ? 'bg-amber-900/[.75] hover:bg-amber-900/[.9]' : 'hover:bg-amber-900/[.4]' : ''} b 
                     `}
                   onMouseEnter={() => setHoverCharacterStats(character)}
                   onMouseLeave={() => setHoverCharacterStats(null)}
                   onClick={() => {
                     if (multiCardSelection) {
-                      changeDeck(character.id);
+                      changeDeck(character?.id);
                     } else if (!multiCardSelection && showCalculator){
                       handleCharacterComparisonSelection(character)
                     } else {
