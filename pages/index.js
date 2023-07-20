@@ -584,7 +584,9 @@ function AllComponents({  }) {
 
 // returns a new array of characters derived from either allCharacters or userCharacters based on the criteria in filterData
 const getFilteredCharacters = (allCharacters, userCharacters, filterData, selectedCategories) => {
-  const baseChars = filterData.isUserDeck ? userCharacters : allCharacters || [];
+  const baseChars = filterData.isUserDeck ? 
+  userCharacters 
+  : allCharacters || [];
   return baseChars.filter((character) => {
     
     const leaderNumbers = character.ls_description.match(/\d+/g) || []
