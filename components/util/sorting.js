@@ -24,6 +24,11 @@ export function useSortedCharacters(allCharacters, filteredCharacters, filterByG
             if (!date1.getTime()) {
               swap(newArray, j, j + 1);
             }
+          } else if (date1.getTime() === date2.getTime()) {
+            // Dates are equal, compare IDs
+            if (newArray[j].id > newArray[j + 1].id) {
+              swap(newArray, j, j + 1);
+            }
           } else if (date1 > date2) {
             swap(newArray, j, j + 1);
           }
@@ -44,8 +49,6 @@ export function useSortedCharacters(allCharacters, filteredCharacters, filterByG
       : (allCharacters && allCharacters.length > 0)
       ? allCharacters.filter(character => !character.transformed)
       : [];
-
-    console.log(nonTransformedCharacters)
 
     function addTransformedCharacters(charactersToUse) {
       if (typeof charactersToUse === 'undefined'){
@@ -155,25 +158,12 @@ export function useSortedCharacters(allCharacters, filteredCharacters, filterByG
     
     const charactersByGameFilter = addTransformedCharacters(sortedByGameFilter);
 
-    // initially start with a non-filtered character base (allCharacters)
-    return (filteredCharacters === null || filteredCharacters.length === 0)
-      // checks to see if we are filtering by the game or release date (first is game)
-      ? (filterByGame
-        //ensuring that all characters is present, if not then empty array
+    return filterByGame
         ? (allCharacters && allCharacters.length > 0
           ? charactersByGameFilter
             .filter(character => (!showTransformedCharacters ? character.transformed === false : true))
           : [])
         : sortedCharactersByDate.filter(character => (!showTransformedCharacters ? character.transformed === false : true))
-      )
-      //this is for when a filter is applied to the character search form
-      : (filterByGame
-        ? (filteredCharacters && filteredCharacters.length > 0
-          ? charactersByGameFilter
-          .filter(character => (!showTransformedCharacters ? character.transformed === false : true))
-        : [])
-        : sortedCharactersByDate.filter(character => (!showTransformedCharacters ? character.transformed === false : true))
-      );
   }, [allCharacters, filteredCharacters, filterByGame, showTransformedCharacters]);
 
   return sortedCharacters;

@@ -37,6 +37,8 @@ function MyApp({ Component, pageProps }) {
   const [showGridLayout, setShowGridLayout] = useState(true)
   const [showTransformedCharacters, setShowTransformedCharacters] = useState(true)
 
+  Auth.loggedIn()
+
 return (
   <ApolloProvider client={client}>
     <UserContext.Provider
