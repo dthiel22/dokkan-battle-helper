@@ -288,21 +288,47 @@ const CardDescription = ({ text }) => {
   
   const [hover, setHover] = useState(false);
   const [hoverIndex, setHoverIndex] = useState(-1);
-  const [hoverX, setHoverX] = useState(0);
-  const [hoverY, setHoverY] = useState(0);
+
+  // this allows the screen to change sizes and auto update revealing/hiding the middle column
+  const [windowWidth, setWindowWidth] = useState(0);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    handleResize();
+
+    if (typeof window !== 'undefined') {
+      setWindowWidth(window.innerWidth);
+      window.addEventListener('resize', handleResize);
+    }
+
+    return () => {
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('resize', handleResize);
+      }
+    };
+  }, []);
   
   const handleHover = (index, event) => {
     setHover(!hover);
     setHoverIndex(index);
-    setHoverX(event.clientX);
-    setHoverY(event.clientY);
   };
-
+  
   const handleLeaveHover = (index,event) => {
     setHover(false)
     setHoverIndex(index)
   }
   
+  const handleClickAsterisk = (index, event) => {
+    if (windowWidth > 900){
+      return
+    }
+    setHover(!hover);
+    setHoverIndex(index);
+  }
+
   useEffect(() => {
     const handleClickOutside = event => {
       if (hover && !event.target.closest('.hover-box')) {
@@ -330,7 +356,6 @@ const CardDescription = ({ text }) => {
   if (textBetweenBrackets) {
     hoverTextArray = textBetweenBrackets.map(t => t.slice(1, -1));
   }
-
   
   return (
     <div>
@@ -341,10 +366,7 @@ const CardDescription = ({ text }) => {
             <b className="text-md text-orange-600 cursor-pointer relative" 
             onMouseEnter={(event) => (handleHover(i + 1, event))}
             onMouseLeave={(event) => (handleLeaveHover(i + 1, event))}
-            onClick={(event) => (handleHover(i + 1, event))}>
-            {/* onMouseEnter={(event) => ((window.innerWidth > 900) && handleHover(i + 1, event))}
-            onMouseLeave={(event) => ((window.innerWidth > 900) && handleLeaveHover(i + 1, event))}
-            onClick={(event) => (window.innerWidth < 900) && (handleHover(i + 1, event))}> */}
+            onClick={(event) => (handleClickAsterisk(i + 1, event))}>
               *
               {hover && hoverIndex === i + 1 ? (
                 <div 
@@ -379,76 +401,6 @@ const CharacterLinkDisplay = ({ linkText }) => {
         </div>
       </div>
     </>
-  );
-};
-
-// ability for divs to become auto-scroll horizonally
-const ScrollingDiv = ({ text }) => {
-  const ScrollRate = 50;
-  let DivElmnt = null;
-  let ReachedMaxScroll = false;
-  let PreviousScrollLeft = 0;
-  let ScrollInterval = null;
-  
-  const divRef = useRef(null)
-  const [divClass, setDivClass] = useState("flex px-4 w-full font-header text-lg card-sm:text-2xl whitespace-nowrap justify-center");
-    
-  useEffect(() => {
-    function handleResize() {
-      if (divRef.current) {
-        if (divRef.current.scrollWidth <= divRef.current.clientWidth) {
-          setDivClass(
-            "flex px-4 w-full font-header text-lg card-sm:text-2xl whitespace-nowrap justify-center"
-          );
-        } else {
-          setDivClass(
-            "flex w-[90%] px-6 overflow-x-auto font-header text-lg card-sm:text-2xl whitespace-nowrap"
-          );
-        }
-      }
-    }
-
-    handleResize();
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [text, divRef]);
-  
-  useEffect(() => {
-    DivElmnt = divRef.current;
-    ReachedMaxScroll = false;
-
-    DivElmnt.scrollLeft = 0;
-    PreviousScrollLeft = 0;
-    
-    ScrollInterval = setInterval(scrollDiv, ScrollRate);
-    
-    return () => {
-      clearInterval(ScrollInterval);
-    };
-  }, [text]);
-  
-  function scrollDiv() {
-    if (!ReachedMaxScroll) {
-      DivElmnt.scrollLeft = PreviousScrollLeft;
-      PreviousScrollLeft++;
-      
-      if (DivElmnt.scrollLeft >= DivElmnt.scrollWidth - DivElmnt.offsetWidth) {
-        ReachedMaxScroll = true;
-      }
-    } else {
-      if (DivElmnt.scrollLeft === 0) {
-        ReachedMaxScroll = false;
-      }
-      PreviousScrollLeft--;
-      DivElmnt.scrollLeft = PreviousScrollLeft;
-    }
-  }
-  
-  return (
-    <div className={divClass} ref={divRef} key={text}>
-      {text}
-    </div>
   );
 };
 
