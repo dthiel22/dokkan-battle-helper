@@ -118,19 +118,19 @@ function CharacterSelectionForReply( {allCharacters, characterDictionary, userna
         ref={characterSelectContainerRef}
         className="characterContainer flex flex-wrap h-[25vh] justify-around items-center p-1 mx-1 lg:mx-2 mt-2 lg:mt-3 lg:mb-4 border-2 border-slate-900 min-h-0 relative overflow-y-auto bg-orange-100">
            
-          {charactersToDisplay
+          {charactersToDisplay && charactersToDisplay
               .slice(0, viewableCharacters)
               .map((character) => (
                 <div 
-                onClick={() => handleCommentCharacterSelection(character.id)}
+                onClick={() => handleCommentCharacterSelection(character?.id)}
                 className={`px-[.5%] ${
-                  Object.values(characterSelection).includes(character.id) ?
+                  Object.values(characterSelection).includes(character?.id) ?
                     'bg-amber-600 hover:bg-amber-700'
                     : 'hover:bg-amber-500'
                 }`}                
-                key={'div'+character.id}
+                key={'div'+character?.id}
                 >
-                  <CharacterCard key={character.id} individualCharacter={character} mobilesize={'60px'} desktopsize={'85px'}/>
+                  <CharacterCard key={character?.id} individualCharacter={character} mobilesize={'60px'} desktopsize={'85px'}/>
                 </div>
               ))
           }
