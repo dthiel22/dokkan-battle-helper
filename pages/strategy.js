@@ -85,8 +85,6 @@ function AllStrategy( {  } ) {
 
   const [allCommentsWithUserSavedCharacters, setAllCommentsWithUserSavedCharacters] = useState([])
 
-  console.log(allCommentsWithUserSavedCharacters)
-
   const [getAllCommentsWithUserSavedCharacters, { loading: allCommentsWithUserCharactersLoading, data:allCommentsWithUserCharactersData, error: allCommentsWithUserCharactersError}] = useLazyQuery(GET_COMMENTS_WITH_USER_SAVED_CHARACTERS, {
     onCompleted: (data) => {
       setAllCommentsWithUserSavedCharacters(data?.findCommentsWithUserSavedCharacters)
