@@ -36,6 +36,7 @@ function MyApp({ Component, pageProps }) {
   const [showSuggestedCardsByStats, setShowSuggestedCardsByStats] = useState(true);
   const [showGridLayout, setShowGridLayout] = useState(true)
   const [showTransformedCharacters, setShowTransformedCharacters] = useState(true)
+  const [statsSelectedOptions, setStatsSelectedOptions] = useState("None");
 
   Auth.loggedIn()
 
@@ -71,7 +72,9 @@ return (
         showGridLayout,
         setShowGridLayout,
         showTransformedCharacters,
-        setShowTransformedCharacters
+        setShowTransformedCharacters,
+        statsSelectedOptions,
+        setStatsSelectedOptions
       }}
     >
       <Head>

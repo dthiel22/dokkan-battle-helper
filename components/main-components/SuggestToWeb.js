@@ -13,10 +13,7 @@ import * as linkSkillInfo from "../util/linkSkillInfo"
 import { UserContext } from '../../pages/_app.js';
 
 function SuggestToWeb({ allCharacters, selectedCharacter, userCharacters, handleNewDetails, webOfTeam, addToWebOfTeam, removeFromWebOfTeam, allCharactersLoading }) {
-  const { levelOfLinks, showMiddleDiv, showSuggestedCardsByStats } = useContext(UserContext)
-
-  // these allow the selected options in the SuggestForm to be passed into the SuggestCards
-  const [statsSelectedOptions, setStatsSelectedOptions] = useState("None");
+  const { levelOfLinks, showMiddleDiv, showSuggestedCardsByStats, statsSelectedOptions, setStatsSelectedOptions } = useContext(UserContext)
 
   const handleStatsSelectedOptions = (event) => {
     suggestedCardContainer.current.scrollTo({ top: 0, behavior: "smooth" })
