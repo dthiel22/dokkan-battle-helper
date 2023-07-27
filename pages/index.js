@@ -57,7 +57,8 @@ function AllComponents({  }) {
 
   const [cardDetails, setCardDetails] = useState({
     id:0,
-    link_skill:['Super Saiyan']
+    link_skill:['Super Saiyan'],
+    category: ['Pure Saiyans']
   });
 
   //setting a state of webOfTeam for characeters in graph
@@ -72,10 +73,6 @@ function AllComponents({  }) {
   function removeFromWebOfTeam(character) {
     setWebOfTeam((prev) => prev.filter((c) => c.id !== character.id))
   }
-  
-  // useEffect(() => {
-    // // setWebOfTeam();
-  // }, [addToWebOfTeam, removeFromWebOfTeam]);
 
   // call initial query to find savedCharacters (array of IDs from user) the onComplete allows the saved characters to be set to the deck (important for adding and removing characters)
   const [getUserData, { loading: isUserDataLoading, data: userData }] = useLazyQuery(
@@ -408,6 +405,10 @@ function AllComponents({  }) {
               cardDetails={cardDetails}
               hoverCharacterStats={hoverCharacterStats}
               characterDictionary={characterDictionary}
+              webOfTeam={webOfTeam}
+              handleNewDetails={newCardDetails}
+              removeFromWebOfTeam={removeFromWebOfTeam}
+              addToWebOfTeam={addToWebOfTeam}
             />
             )
           ) : (

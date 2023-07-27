@@ -291,8 +291,6 @@ export default function NewTeamForTeamPostModal( {reloadTeams, team, userData, s
     return idA - idB
   })
 
-  console.log(characterDictionary[team?.info.leader])
-
   if (!open) return null;
   
   return ReactDom.createPortal(

@@ -7,13 +7,15 @@ import {CloudinaryImage} from "@cloudinary/url-gen";
 import {URLConfig} from "@cloudinary/url-gen";
 import {CloudConfig} from "@cloudinary/url-gen";
 import CharacterCard from "../cards/CharacterCard";
+import SuggestCard from "@/cards/SuggestCard";
 
 import { UserContext } from '../../pages/_app';
 
-import Image from 'next/image';
-import SuggestCard from "@/cards/SuggestCard";
+import { find200Leaders } from '../util/allCategories'
 
-function CardDetails({ cardDetails, hoverCharacterStats, characterDictionary }) {  
+import Image from 'next/image';
+
+function CardDetails({ cardDetails, hoverCharacterStats, characterDictionary, webOfTeam, handleNewDetails, removeFromWebOfTeam, addToWebOfTeam }) {  
   const { turnOnEZAStats, setTurnOnEZAStats } = useContext(UserContext)
 
   const divRef1 = useRef(null);
@@ -40,6 +42,8 @@ function CardDetails({ cardDetails, hoverCharacterStats, characterDictionary }) 
       setShowEZAStats(false)
     }
   },[cardDetails, turnOnEZAStats, hoverCharacterStats])
+
+  const leadersWith200 = find200Leaders(hoverCharacterStats ? hoverCharacterStats : cardDetails, characterDictionary);
 
   return (
     <div className="flex flex-col w-full p-2">
@@ -277,6 +281,33 @@ function CardDetails({ cardDetails, hoverCharacterStats, characterDictionary }) 
                 );
               })}
           </div>
+        </div>
+      </div>
+
+      <div className="flex flex-wrap w-full bg-orange-100 p-2 mb-2 shadow-[inset_0_-5px_6px_rgba(0,0,0,0.6)] border-2 border-slate-900 justify-center">
+        <p className="font-header w-full h-fit border-b-2 border-black text-center text-lg card-sm:text-2xl">
+          200% Leaders
+        </p>
+        <div className="flex flex-wrap w-full p-2 justify-center items-center">
+          {leadersWith200?.length >= 1 ? leadersWith200.map((leader) => {
+            return(
+              <div>
+                <SuggestCard
+                character={leader}
+                webOfTeam={webOfTeam}
+                selectedCharacter={cardDetails}
+                handleNewDetails={handleNewDetails}
+                removeFromWebOfTeam={removeFromWebOfTeam}
+                addToWebOfTeam={addToWebOfTeam}
+                />
+              </div>
+            )
+          })
+        :
+        <p className="w-full mb-2 font-bold text-md card-sm:text-base text-center">
+          None
+        </p>
+        }
         </div>
       </div>
     </div>
