@@ -291,7 +291,7 @@ function CardDetails({ cardDetails, hoverCharacterStats, characterDictionary, we
         <div className="flex flex-wrap w-full p-2 justify-center items-center">
           {leadersWith200?.length >= 1 ? leadersWith200.map((leader) => {
             return(
-              <div>
+              <div key={leader?.id}>
                 <SuggestCard
                 character={leader}
                 webOfTeam={webOfTeam}
