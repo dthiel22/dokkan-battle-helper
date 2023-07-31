@@ -118,7 +118,7 @@ export default function MakeSingleCharacter({characterForm, setCharacterForm}) {
               transformed_from: formattedCharacter?.transformed_from,
               Ki12: formattedCharacter?.Ki12,
               Ki24: formattedCharacter?.Ki24,
-              link_skill: formattedCharacter?.formattedCharacter?.link_skill,
+              link_skill: formattedCharacter?.link_skill,
               category: formattedCharacter?.category,
               jp_date: formattedCharacter?.jp_date,
               glb_date: formattedCharacter?.glb_date,
