@@ -114,6 +114,36 @@ export const findCharacterLeaderCategories = (selectedCharacter) => {
   return characterLeadCategories;
 };
 
+export const findMainAndSubLeaderCategories = (selectedCharacter) => {
+  const characterLeaderSkill = selectedCharacter.ls_description.split(';');
+  const characterMainCategories = [];
+  const characterSubCategories = [];
+
+  for (let i = 0; i < categories.length; i++) {
+    for (let j = 0; j < characterLeaderSkill.length; j++) {
+      if (characterLeaderSkill[j].includes(categories[i])) {
+        const matchedNumbers = characterLeaderSkill[j].match(/\d+/g).map(string => parseInt(string));
+        
+        // Check for main category bonus (170%)
+        if (matchedNumbers.some(num => num >= 150 && num <= 200)) {
+          if (!characterMainCategories.includes(categories[i])) {
+            characterMainCategories.push(categories[i]);
+          }
+        }
+        
+        // Check for sub category bonus (+30%)
+        if (matchedNumbers.includes(30)) {
+          characterSubCategories.push(categories[i]);
+        }
+      }
+    }
+  }
+
+  return { characterMainCategories, characterSubCategories };
+};
+
+
+
 export const findCharacterLeaderCategoriesForCardDetails = (characterLeaderSnipit) => {
   let characterLeadCategories = [];
   for (let i = 0; i < categories.length; i++) {

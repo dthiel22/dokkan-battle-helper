@@ -44,7 +44,7 @@ const MySaveAndGrayCharacterButton = dynamic(() => import('../components/main-co
 });
 
 function AllComponents({  }) {
-  const { profileData, showMiddleDiv, setShowMiddleDiv, hoverCharacterStats, setHoverCharacterStats, showCardDetails, setShowCardDetails, showCalculator, setShowCalculator, showDEFCalculator, setShowDEFCalculator, grayCharactersInSelectedDeck, setGrayCharactersInSelectedDeck, allCharacterIDsInDeck, setAllCharacterIDsInDeck, showTransformedCharacters } = useContext(UserContext);
+  const { profileData, showMiddleDiv, setShowMiddleDiv, hoverCharacterStats, setHoverCharacterStats, showCardDetails, filterByGame, setFilterByGame, setShowCardDetails, showCalculator, setShowCalculator, showDEFCalculator, setShowDEFCalculator, grayCharactersInSelectedDeck, setGrayCharactersInSelectedDeck, allCharacterIDsInDeck, setAllCharacterIDsInDeck, showTransformedCharacters } = useContext(UserContext);
   
   const { loading: allCharactersLoading, data: allCharactersData, error: allCharactersError } = useQuery(QUERY_CHARACTERS);
   const allCharacters = allCharactersData?.characters || [];
@@ -162,8 +162,6 @@ function AllComponents({  }) {
   
   // this function allows for filtered characters to be set to the reults of the getFilteredCharacters (which is extracted from the search form)
   const filterAndSetCharacters = (filterData) => [setFilteredCharacters(getFilteredCharacters(allCharacters, userCharacters, filterData, selectedCategories, showTransformedCharacters)),setNewFilterData(filterData)]
-  
-  const [filterByGame, setFilterByGame] = useState(false);
 
   let charactersToDisplay = useSortedCharacters(allCharacters, filteredCharacters, filterByGame)
 
@@ -501,7 +499,7 @@ function AllComponents({  }) {
             : charactersToDisplay
                 .slice(0, viewableCharacters)
                 // this allows it so that if people are saving characters into their account OR the hide transformed characters is on then transformed characters are filtered out
-                .filter(character => (multiCardSelection ? character.transformed === false : true))
+                .filter(character => ((multiCardSelection) ? character.transformed === false : true))
                 .map((character) => (
                   <div
                   key={character?.id}

@@ -24,8 +24,10 @@ function MyApp({ Component, pageProps }) {
 
   const [showMiddleDiv, setShowMiddleDiv] = useState(true);
   const [showCardDetails, setShowCardDetails] = useState(true);
+  const [filterByGame, setFilterByGame] = useState(false)
   const [hoverCharacterStats, setHoverCharacterStats] = useState(null);
   const [turnOnEZAStats, setTurnOnEZAStats] = useState(false);
+  const [selectedLeaderCategories, setSelectedLeaderCategories] = useState(null)
   const [showCalculator, setShowCalculator] = useState(false);
   const [showDEFCalculator, setShowDEFCalculator] = useState(false);
   const [showSummationLinks, setShowSummationLinks] = useState(true);
@@ -49,10 +51,14 @@ return (
         setShowMiddleDiv,
         showCardDetails,
         setShowCardDetails,
+        filterByGame, 
+        setFilterByGame,
         hoverCharacterStats,
         setHoverCharacterStats,
         turnOnEZAStats,
         setTurnOnEZAStats,
+        selectedLeaderCategories, 
+        setSelectedLeaderCategories,
         showCalculator,
         setShowCalculator,
         showDEFCalculator,

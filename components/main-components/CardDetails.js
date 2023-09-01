@@ -2,21 +2,21 @@ import React, { useState, useRef, useEffect, useMemo, useContext } from "react";
 import * as characterStyling from "../util/characterCardStyling";
 import * as linkSkillInfo from "../util/linkSkillInfo";
 
+import {Cloudinary} from "@cloudinary/url-gen";
 import {AdvancedImage, lazyload} from '@cloudinary/react';
-import {CloudinaryImage} from "@cloudinary/url-gen";
-import {URLConfig} from "@cloudinary/url-gen";
-import {CloudConfig} from "@cloudinary/url-gen";
+
 import CharacterCard from "../cards/CharacterCard";
 import SuggestCard from "@/cards/SuggestCard";
 
 import { UserContext } from '../../pages/_app';
 
-import { find200Leaders } from '../util/allCategories'
+import { useSortedCharacters } from "../util/sorting";
+import { find200Leaders, findCharacterLeaderCategories, findMainAndSubLeaderCategories } from '../util/allCategories'
 
 import Image from 'next/image';
 
 function CardDetails({ cardDetails, hoverCharacterStats, characterDictionary, webOfTeam, handleNewDetails, removeFromWebOfTeam, addToWebOfTeam }) {  
-  const { turnOnEZAStats, setTurnOnEZAStats } = useContext(UserContext)
+  const { turnOnEZAStats, setTurnOnEZAStats, filterByGame, selectedLeaderCategories, setSelectedLeaderCategories } = useContext(UserContext)
 
   const divRef1 = useRef(null);
   
@@ -43,6 +43,52 @@ function CardDetails({ cardDetails, hoverCharacterStats, characterDictionary, we
     }
   },[cardDetails, turnOnEZAStats, hoverCharacterStats])
 
+  const leaderCategories = findMainAndSubLeaderCategories(characterDetails)
+
+  useEffect(() => {
+    setSelectedLeaderCategories(leaderCategories)
+  },[cardDetails])
+
+  const handleMainLeaderSelection = (category) => {
+    const updatedCategories = selectedLeaderCategories.characterMainCategories.includes(category)
+      ? selectedLeaderCategories.characterMainCategories.filter(cat => cat !== category)
+      : [...selectedLeaderCategories.characterMainCategories, category];
+  
+    setSelectedLeaderCategories({
+      ...selectedLeaderCategories,
+      characterMainCategories: updatedCategories
+    });
+  };
+  
+  const handleSubLeaderSelection = (category) => {
+    const updatedCategories = selectedLeaderCategories.characterSubCategories.includes(category)
+    ? selectedLeaderCategories.characterSubCategories.filter(cat => cat !== category)
+    : [...selectedLeaderCategories.characterSubCategories, category];
+
+  setSelectedLeaderCategories({
+    ...selectedLeaderCategories,
+    characterSubCategories: updatedCategories
+  });
+  }
+
+  const charactersWith200WithSelectedCategories = Object.values(characterDictionary).filter(character => {
+    if (selectedLeaderCategories?.characterMainCategories && selectedLeaderCategories?.characterSubCategories) {
+      const hasMainCategory = selectedLeaderCategories.characterMainCategories.some(mainCategory =>
+        character?.category?.includes(mainCategory)
+      );
+  
+      const hasSubCategory = selectedLeaderCategories.characterSubCategories.some(subCategory =>
+        character?.category?.includes(subCategory)
+      );
+  
+      return hasMainCategory && hasSubCategory;
+    }
+  });  
+
+  const isCharacterLeader = findCharacterLeaderCategories(characterDetails)
+
+  const charactersWith200WithSelectedCategoriesToDisplay = useSortedCharacters(charactersWith200WithSelectedCategories)
+  
   const leadersWith200 = find200Leaders(hoverCharacterStats ? hoverCharacterStats : cardDetails, characterDictionary);
 
   return (
@@ -262,7 +308,12 @@ function CardDetails({ cardDetails, hoverCharacterStats, characterDictionary, we
           <div className="flex flex-wrap w-full text-sm card-sm:text-md justify-center items-center">
             {characterDetails?.link_skill &&
               characterDetails?.link_skill.map((linkText) => {
-                return <CharacterLinkDisplay key={linkText} linkText={linkText} />;
+                return (
+                  <p className="w-fit mx-2 font-bold bg-orange-100 border-2 border-black mt-1 p-2 shadow-[inset_0_-5px_6px_rgba(0,0,0,0.6)] text-sm card-sm:text-md"
+                  >
+                    {linkText}
+                  </p>
+                )
               })}
           </div>
         </div>
@@ -310,8 +361,69 @@ function CardDetails({ cardDetails, hoverCharacterStats, characterDictionary, we
         }
         </div>
       </div>
-    </div>
+      
+      {(leaderCategories?.characterMainCategories?.length > 1 && leaderCategories?.characterSubCategories?.length > 1) &&
+            <p className="font-header w-full h-fit text-center text-lg card-sm:text-2xl">
+              Characters With 200% Bonus
+            </p>
+          }
+        </div>
   );
+}
+
+const CharactersWith200Div = ({ character,webOfTeam,cardDetails,handleNewDetails,removeFromWebOfTeam,addToWebOfTeam}) => {
+
+return(
+
+  <div className="flex flex-wrap w-full bg-orange-100 p-2 mb-2 shadow-[inset_0_-5px_6px_rgba(0,0,0,0.6)] border-2 border-slate-900 justify-center">
+    <p className="font-bold border-b-2 border-black">170% Categories</p>
+    <div className="flex flex-wrap w-full p-2 justify-center items-center">
+      {leaderCategories?.characterMainCategories.map(singleCategory =>
+        <div
+        key={singleCategory}
+        onClick={() => handleMainLeaderSelection(singleCategory)}
+        className={`flex w-1/2 p-1 cursor-pointer items-center justify-center ${!selectedLeaderCategories?.characterMainCategories?.includes(singleCategory) && 'grayscale'}`}
+        >
+          <CharacterCategory category={singleCategory}/>
+        </div>
+      )}
+    </div>
+    <p className="font-bold border-b-2 border-black">130% Categories</p>
+    <div className="flex flex-wrap w-full p-2 justify-center items-center">
+      {leaderCategories?.characterSubCategories.map(singleCategory =>
+        <div
+        key={singleCategory}
+        onClick={() => handleSubLeaderSelection(singleCategory)}
+        className={`flex w-1/2 p-1 cursor-pointer items-center justify-center ${!selectedLeaderCategories?.characterSubCategories?.includes(singleCategory) && 'grayscale'}`}
+        >
+          <CharacterCategory category={singleCategory}/>
+        </div>
+      )}
+    </div>
+    
+    <div className="flex flex-wrap justify-around max-h-[375px] overflow-y-auto">
+    {charactersWith200WithSelectedCategoriesToDisplay?.length >= 1 ? charactersWith200WithSelectedCategoriesToDisplay.map((character) => {
+        return(
+          <div key={character?.id}>
+            <SuggestCard
+            character={character}
+            webOfTeam={webOfTeam}
+            selectedCharacter={cardDetails}
+            handleNewDetails={handleNewDetails}
+            removeFromWebOfTeam={removeFromWebOfTeam}
+            addToWebOfTeam={addToWebOfTeam}
+            />
+          </div>
+        )
+      })
+    :
+    <p className="w-full mb-2 font-bold text-md card-sm:text-base text-center">
+      None
+    </p>
+    }
+    </div>
+  </div>
+)
 }
 
 //ChatGPT helped with basically all of this. Allows for * to be clickable / off click, hovers text on click
@@ -343,11 +455,17 @@ const CardDescription = ({ text }) => {
   }, []);
   
   const handleHover = (index, event) => {
+    if (windowWidth < 900){
+      return
+    }
     setHover(!hover);
     setHoverIndex(index);
   };
   
   const handleLeaveHover = (index,event) => {
+    if (windowWidth < 900){
+      return
+    }
     setHover(false)
     setHoverIndex(index)
   }
@@ -413,26 +531,26 @@ const CardDescription = ({ text }) => {
   );
 };
 
-const CharacterLinkDisplay = ({ linkText }) => {
-  const [showPopUp, setShowPopUp] = useState(false);
-  return (
-    <>
-      <div className="relative">
-        {showPopUp && (
-          <div className="absolute top-[-110%] p-2 bg-gray-200 text-gray-700 z-50">
-            {linkSkillInfo.getLinkSkillInfo(linkText)[2]}
-          </div>
-        )}
-        <div
-          className="w-fit mx-2 font-bold bg-orange-100 border-2 border-black mt-1 p-2 shadow-[inset_0_-5px_6px_rgba(0,0,0,0.6)] text-sm card-sm:text-md"
-          // onMouseEnter={() => setShowPopUp(true)}
-          // onMouseLeave={() => setShowPopUp(false)}
-        >
-          {linkText}
-        </div>
-      </div>
-    </>
-  );
-};
+const CharacterCategory = ({ category }) => {
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
+    },
+    url: {
+        // TODO: upgrade cloudinary to unlock secureDistribution
+        // secureDistribution: 'www.dokkanbattlehelper.com', 
+        secure: true // or false if you don't want to use HTTPS
+    }
+  });
+  // Instantiate and configure a CloudinaryImage object.
+  let stagePhoto = cld.image(`Character Categories/${category?.replace(/[^\w\s]/gi, '')?.replace(/\s+/g, '')?.toLowerCase()}`);
+  
+  return(
+    <div>
+      <AdvancedImage cldImg={stagePhoto} className=''/>
+    </div>
+  )
+  }
+
 
 export default CardDetails;
