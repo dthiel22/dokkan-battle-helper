@@ -5,8 +5,6 @@ import Head from 'next/head';
 
 import { QUERY_CHARACTERS, GET_ITEMS_DATA, GET_SUPPORT_MEMORY_DATA } from "./api/queries"
 
-import Auth from '../components/util/auth'
-
 import '../styles/index.css'
 
 export const UserContext = React.createContext(null);
@@ -84,7 +82,7 @@ return (
       }}
     >
       <Head>
-        <title>Dokkan Battle Helper</title>
+        <title>Bytes Analytics</title>
       </Head>
       <Component {...pageProps} />
     </UserContext.Provider>
