@@ -5,8 +5,6 @@ import Head from 'next/head';
 
 import { QUERY_CHARACTERS, GET_ITEMS_DATA, GET_SUPPORT_MEMORY_DATA } from "./api/queries"
 
-import Auth from '../components/util/auth'
-
 import '../styles/index.css'
 
 export const UserContext = React.createContext(null);
@@ -20,12 +18,14 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const { pathname } = router;
 
-  const profileData = Auth.getProfile() || [];
+  // const profileData = Auth.getProfile() || [];
 
   const [showMiddleDiv, setShowMiddleDiv] = useState(true);
   const [showCardDetails, setShowCardDetails] = useState(true);
+  const [filterByGame, setFilterByGame] = useState(false)
   const [hoverCharacterStats, setHoverCharacterStats] = useState(null);
   const [turnOnEZAStats, setTurnOnEZAStats] = useState(false);
+  const [selectedLeaderCategories, setSelectedLeaderCategories] = useState(null)
   const [showCalculator, setShowCalculator] = useState(false);
   const [showDEFCalculator, setShowDEFCalculator] = useState(false);
   const [showSummationLinks, setShowSummationLinks] = useState(true);
@@ -36,20 +36,27 @@ function MyApp({ Component, pageProps }) {
   const [showSuggestedCardsByStats, setShowSuggestedCardsByStats] = useState(true);
   const [showGridLayout, setShowGridLayout] = useState(true)
   const [showTransformedCharacters, setShowTransformedCharacters] = useState(true)
+  const [statsSelectedOptions, setStatsSelectedOptions] = useState("None");
+
+  // Auth.loggedIn()
 
 return (
   <ApolloProvider client={client}>
     <UserContext.Provider
       value={{
-        profileData,
+        // profileData,
         showMiddleDiv,
         setShowMiddleDiv,
         showCardDetails,
         setShowCardDetails,
+        filterByGame, 
+        setFilterByGame,
         hoverCharacterStats,
         setHoverCharacterStats,
         turnOnEZAStats,
         setTurnOnEZAStats,
+        selectedLeaderCategories, 
+        setSelectedLeaderCategories,
         showCalculator,
         setShowCalculator,
         showDEFCalculator,
@@ -69,11 +76,13 @@ return (
         showGridLayout,
         setShowGridLayout,
         showTransformedCharacters,
-        setShowTransformedCharacters
+        setShowTransformedCharacters,
+        statsSelectedOptions,
+        setStatsSelectedOptions
       }}
     >
       <Head>
-        <title>Dokkan Battle Helper</title>
+        <title>Bytes Analytics</title>
       </Head>
       <Component {...pageProps} />
     </UserContext.Provider>

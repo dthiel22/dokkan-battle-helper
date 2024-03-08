@@ -91,6 +91,13 @@ export const categories =[
     "Youth",    
 ]
 
+export const allCategoryOptions = () => {
+  return categories.map((category) => {
+    const key = category.toLowerCase().replace(' ','-');
+    return <option value={category} key={key}>{category}</option>
+  });
+}  
+
 export const findCharacterLeaderCategories = (selectedCharacter) => {
   const characterLeaderSkill = selectedCharacter.ls_description.split(';');
   let characterLeadCategories = [];
@@ -107,10 +114,95 @@ export const findCharacterLeaderCategories = (selectedCharacter) => {
   return characterLeadCategories;
 };
 
+export const findMainAndSubLeaderCategories = (selectedCharacter) => {
+  const characterLeaderSkill = selectedCharacter.ls_description.split(';');
+  const characterMainCategories = [];
+  const characterSubCategories = [];
 
-export const allCategoryOptions = () => {
-    return categories.map((category) => {
-      const key = category.toLowerCase().replace(' ','-');
-      return <option value={category} key={key}>{category}</option>
-    });
-  }  
+  for (let i = 0; i < categories.length; i++) {
+    for (let j = 0; j < characterLeaderSkill.length; j++) {
+      if (characterLeaderSkill[j].includes(categories[i])) {
+        const matchedNumbers = characterLeaderSkill[j].match(/\d+/g).map(string => parseInt(string));
+        
+        // Check for main category bonus (170%)
+        if (matchedNumbers.some(num => num >= 150 && num <= 200)) {
+          if (!characterMainCategories.includes(categories[i])) {
+            characterMainCategories.push(categories[i]);
+          }
+        }
+        
+        // Check for sub category bonus (+30%)
+        if (matchedNumbers.includes(30)) {
+          characterSubCategories.push(categories[i]);
+        }
+      }
+    }
+  }
+
+  return { characterMainCategories, characterSubCategories };
+};
+
+
+
+export const findCharacterLeaderCategoriesForCardDetails = (characterLeaderSnipit) => {
+  let characterLeadCategories = [];
+  for (let i = 0; i < categories.length; i++) {
+    for (let j = 0; j < characterLeaderSnipit.length; j++) {
+      if (characterLeaderSnipit[j].includes(categories[i])) {
+        characterLeadCategories.push(categories[i]);
+      }
+    }
+  }
+  return characterLeadCategories;
+};
+
+export const find200Leaders = (selectedCharacter, characterDictionary) => {
+  const characterObjects = Object.values(characterDictionary);
+  const leadersWith200 = [];
+
+  characterObjects.forEach((character) => {
+    const leaderNumbers = character.ls_description.match(/\d+(?=%)/g) || [];
+
+    // Check if there are two numbers (170% + 30%) or a single number (200%)
+    if (
+      (leaderNumbers.length === 2 &&
+        parseInt(leaderNumbers[0]) + parseInt(leaderNumbers[1]) === 200) ||
+      (leaderNumbers.length === 1 && parseInt(leaderNumbers[0]) === 200)
+    ) {
+      const leaderSkillSplit = character.ls_description.split(';');
+
+      let firstCategoryMatch = false;
+      let secondCategoryMatch = false;
+
+      // Check if there is a category match from selectedCharacter in the first part of the leader skill
+      if (
+        leaderSkillSplit[0] &&
+        selectedCharacter.category.some((singleCategory) =>
+          leaderSkillSplit[0].includes(singleCategory.trim())
+        )
+      ) {
+        firstCategoryMatch = true;
+      }
+
+      // Check if there is a category match from selectedCharacter in the second part of the leader skill (if exists)
+      if (
+        leaderSkillSplit.length > 1 &&
+        selectedCharacter.category.some((singleCategory) =>
+          leaderSkillSplit[1].includes(singleCategory.trim())
+        )
+      ) {
+        secondCategoryMatch = true;
+      }
+
+      // Check if both parts have matching categories with the selectedCharacter
+      if (firstCategoryMatch && (!leaderSkillSplit[1] || secondCategoryMatch)) {
+        // Check if the leader ID is not equal to the selectedCharacter's ID and .transformed is not true
+        if (character.id !== selectedCharacter.id && !character.transformed) {
+          leadersWith200.push(character);
+        }
+      }
+    }
+  });
+
+  return leadersWith200;
+};

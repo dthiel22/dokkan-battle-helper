@@ -1,5 +1,5 @@
 import React from 'react'
-import Navbar from '../components/main-components/Navbar'
+import Navbar from '../components/home-page-components/Navbar'
 
 import Image from 'next/image';
 
@@ -11,7 +11,6 @@ export default function NoPage() {
     <>
     <Navbar />
     <div className='flex justify-center items-center'>
-      <img src={confusedGoku}/>
       <div>
         <p className='text-4xl font-bold'>404</p>
         <p className='text-lg font-bold'>This page does not exist</p>
