@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const { pathname } = router;
 
-  const profileData = Auth.getProfile() || [];
+  // const profileData = Auth.getProfile() || [];
 
   const [showMiddleDiv, setShowMiddleDiv] = useState(true);
   const [showCardDetails, setShowCardDetails] = useState(true);
@@ -38,13 +38,13 @@ function MyApp({ Component, pageProps }) {
   const [showTransformedCharacters, setShowTransformedCharacters] = useState(true)
   const [statsSelectedOptions, setStatsSelectedOptions] = useState("None");
 
-  Auth.loggedIn()
+  // Auth.loggedIn()
 
 return (
   <ApolloProvider client={client}>
     <UserContext.Provider
       value={{
-        profileData,
+        // profileData,
         showMiddleDiv,
         setShowMiddleDiv,
         showCardDetails,
