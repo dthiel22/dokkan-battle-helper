@@ -3,7 +3,7 @@ import Auth from "../components/util/auth";
 import { useSortedCharacters } from "../components/util/sorting";
 
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
-import { QUERY_CHARACTERS, GET_EVENT_DATA, GET_ITEMS_DATA, GET_SUPPORT_MEMORY_DATA, } from "./api/queries";
+import { QUERY_CHARACTERS, GET_EVENT_DATA, GET_ITEMS_DATA, GET_SUPPORT_MEMORY_DATA, } from "../pages/api/queries";
 
 import Navbar from "../components/main-components/Navbar"
 import SearchForm from "../components/main-components/SearchForm";

@@ -4,7 +4,7 @@ import Auth from "../components/util/auth";
 import Navbar from "../components/main-components/Navbar"
 
 import {  } from "@apollo/client";
-import {  } from "./api/queries";
+import {  } from "../pages/api/queries";
 import {  } from "../components/util/mutations";
 
 import {AdvancedImage, lazyload} from '@cloudinary/react';

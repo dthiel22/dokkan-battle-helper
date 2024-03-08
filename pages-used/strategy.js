@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import Auth from "../components/util/auth";
 
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
-import { GET_ITEMS_DATA, GET_SUPPORT_MEMORY_DATA, QUERY_CHARACTERS, GET_ALL_EVENTS_WITH_STAGES, GET_ALL_TEAMS_IN_STAGE, GET_ONE_STAGE_COMMENTS_REPLIES, GET_USERDATA, GET_COMMENTS_WITH_USER_SAVED_CHARACTERS } from "./api/queries";
+import { GET_ITEMS_DATA, GET_SUPPORT_MEMORY_DATA, QUERY_CHARACTERS, GET_ALL_EVENTS_WITH_STAGES, GET_ALL_TEAMS_IN_STAGE, GET_ONE_STAGE_COMMENTS_REPLIES, GET_USERDATA, GET_COMMENTS_WITH_USER_SAVED_CHARACTERS } from "../pages/api/queries";
 import { ADD_COMMENT_TO_STAGE, ADD_REPLY_TO_COMMENT, REMOVE_REPLY_FROM_COMMENT } from "../components/util/mutations";
 
 import EventTab from "../components/components-strategy/EventTab";
@@ -19,7 +19,7 @@ import CommentForm from "@/components-strategy/CommentForm";
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 
-import { UserContext } from "./_app";
+import { UserContext } from "../pages/_app";
 import Help from "./help";
 import CommentForHelpBoard from "@/components-strategy/CommentForHelpBoard";
 
